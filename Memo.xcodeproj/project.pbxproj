@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6A809C3927FB794A0065A427 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A809C3827FB794A0065A427 /* DataController.swift */; };
 		6A8D220427FAEA22002AC898 /* MemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8D220327FAEA22002AC898 /* MemoApp.swift */; };
 		6A8D220627FAEA22002AC898 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8D220527FAEA22002AC898 /* ContentView.swift */; };
 		6A8D220827FAEA29002AC898 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A8D220727FAEA29002AC898 /* Assets.xcassets */; };
 		6A8D220B27FAEA29002AC898 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A8D220A27FAEA29002AC898 /* Preview Assets.xcassets */; };
-		6A8D220D27FAEA29002AC898 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8D220C27FAEA29002AC898 /* Persistence.swift */; };
 		6A8D221027FAEA29002AC898 /* Memo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6A8D220E27FAEA29002AC898 /* Memo.xcdatamodeld */; };
 		6A8D221A27FAEA29002AC898 /* MemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8D221927FAEA29002AC898 /* MemoTests.swift */; };
 		6A8D222427FAEA29002AC898 /* MemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8D222327FAEA29002AC898 /* MemoUITests.swift */; };
@@ -36,12 +36,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6A809C3827FB794A0065A427 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		6A8D220027FAEA22002AC898 /* Memo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Memo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A8D220327FAEA22002AC898 /* MemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoApp.swift; sourceTree = "<group>"; };
 		6A8D220527FAEA22002AC898 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		6A8D220727FAEA29002AC898 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6A8D220A27FAEA29002AC898 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		6A8D220C27FAEA29002AC898 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		6A8D220F27FAEA29002AC898 /* Memo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Memo.xcdatamodel; sourceTree = "<group>"; };
 		6A8D221527FAEA29002AC898 /* MemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A8D221927FAEA29002AC898 /* MemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoTests.swift; sourceTree = "<group>"; };
@@ -101,8 +101,8 @@
 				6A8D220327FAEA22002AC898 /* MemoApp.swift */,
 				6A8D220527FAEA22002AC898 /* ContentView.swift */,
 				6A8D220727FAEA29002AC898 /* Assets.xcassets */,
-				6A8D220C27FAEA29002AC898 /* Persistence.swift */,
 				6A8D220E27FAEA29002AC898 /* Memo.xcdatamodeld */,
+				6A809C3827FB794A0065A427 /* DataController.swift */,
 				6A8D220927FAEA29002AC898 /* Preview Content */,
 			);
 			path = Memo;
@@ -263,7 +263,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6A8D220D27FAEA29002AC898 /* Persistence.swift in Sources */,
+				6A809C3927FB794A0065A427 /* DataController.swift in Sources */,
 				6A8D220627FAEA22002AC898 /* ContentView.swift in Sources */,
 				6A8D220427FAEA22002AC898 /* MemoApp.swift in Sources */,
 				6A8D221027FAEA29002AC898 /* Memo.xcdatamodeld in Sources */,

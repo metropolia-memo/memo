@@ -9,12 +9,17 @@ import SwiftUI
 
 @main
 struct MemoApp: App {
-    let persistenceController = PersistenceController.shared
-
+    
+    // @StateObject: keeps the referenced object live for the entire time.
+    @StateObject private var dataController = DataController()
+    
     var body: some Scene {
         WindowGroup {
+            
+            // Adding the DataController into the SwiftUI environment.
+            // viewContext: contains the newest modified data, as well enables loading and saving data to memory.
             ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environment(\.managedObjectContext, dataController.container.viewContext)
         }
     }
 }
