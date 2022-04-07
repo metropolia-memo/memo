@@ -9,8 +9,10 @@ import SwiftUI
 
 @main
 struct MemoApp: App {
-    let persistenceController = PersistenceController.shared
-
+    
+    // @StateObject: keeps the referenced object live for the entire time.
+    @StateObject private var dataController = DataController()
+    
     var body: some Scene {
         WindowGroup {
             Home()

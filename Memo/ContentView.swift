@@ -9,80 +9,63 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
-    @Environment(\.managedObjectContext) private var viewContext
 
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
-        animation: .default)
-    private var items: FetchedResults<Item>
-
+    // @Environment: Accessing the current context set to the SwiftUI environment
+    @Environment(\.managedObjectContext) var moc
+    
+    
+    // Making a FetchRequest without any sorting
+    // @FetchRequest: fetches data from Core Data.
+    @FetchRequest(sortDescriptors: []) var tasks: FetchedResults<Task>
+    
     var body: some View {
         NavigationView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
-                    } label: {
-                        Text(item.timestamp!, formatter: itemFormatter)
+            VStack {
+                List{
+                    ForEach(tasks, id: \.self) { task in
+                        Section(task.wrappedName) {
+                            ForEach(task.stepsArray, id: \.self) { step in
+                                Text(step.wrappedDesc)
+                            }
+                        }
                     }
                 }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
+                
+                
+       
+                // Used for testing CoreData. Creates random tasks and saves them to Core Data. The UI list gets updated according to the current Core Data.
+                
+                // Remove this button when starting development.
+                Button("Add") {
+                    let name = ["Do dishes", "Plan meals", "Homework", "Go for a run"]
+                    
+                    let rndName = name.randomElement()
+                    let newTask = Task(context: moc)
+                    newTask.id = UUID()
+                    newTask.name = rndName
+                    newTask.deadline = Date()
+
+                    let step1 = Step(context: moc)
+                    step1.desc = "Step 1"
+                    step1.origin = newTask
+                    step1.id = UUID()
+
+                    let step2 = Step(context: moc)
+                    step2.desc = "Step 2"
+                    step2.origin = newTask
+                    step2.id = UUID()
+
+                    try? moc.save()
+    
                 }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-            Text("Select an item")
-        }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
         }
     }
 
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
 }
-
-private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        ContentView()
     }
 }
