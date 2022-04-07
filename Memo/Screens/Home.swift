@@ -19,16 +19,7 @@ struct Home: View {
             
             .navigationBarTitle("", displayMode: .inline)
         }
-        .toolbar {
-            ToolbarItem(placement: .cancellationAction) {
-                Button(action: {} ) {
-                    Image(systemName: "line.horizontal.3")
-                        .scaleEffect(2)
-                        .foregroundColor(Color.black)
-                }
-                .accessibilityLabel("Drawer Menu")
-            }
-        }
+        
     }
 }
 

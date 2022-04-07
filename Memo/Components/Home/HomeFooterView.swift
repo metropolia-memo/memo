@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HomeFooterView: View {
+    @State private var searchInput: String = ""
     
     // Boolean for showing either tasks or notes
     // Tasks == true, Notes == false
@@ -15,6 +16,13 @@ struct HomeFooterView: View {
     var body: some View {
         ZStack {
             VStack (alignment: .leading){
+                HStack {
+                    TextField(!taskOrNote ? "Search tasks..." : "Search notes...", text: $searchInput)
+                        .textFieldStyle(.roundedBorder)
+                    Image(systemName: "magnifyingglass")
+                        .foregroundColor(Color.accentColor)
+                }
+                .padding()
                 HStack {
                     Spacer()
                     Button(action: { taskOrNote = false }, label: {

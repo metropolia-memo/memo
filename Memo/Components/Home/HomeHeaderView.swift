@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct HomeHeaderView: View {
-    @State private var searchInput: String = ""
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
@@ -25,14 +24,19 @@ struct HomeHeaderView: View {
                 }
             }
             .fixedSize()
-            HStack {
-                TextField("Search tasks...", text: $searchInput)
-                    .textFieldStyle(.roundedBorder)
-                Image(systemName: "magnifyingglass")
-                    .foregroundColor(Color.accentColor)
-            }
+            
         }
         .padding()
+        .toolbar {
+            ToolbarItem(placement: .cancellationAction) {
+                Button(action: {} ) {
+                    Image(systemName: "line.horizontal.3")
+                        .scaleEffect(2)
+                        .foregroundColor(Color.black)
+                }
+                .accessibilityLabel("Drawer Menu")
+            }
+        }
     }
 }
 
