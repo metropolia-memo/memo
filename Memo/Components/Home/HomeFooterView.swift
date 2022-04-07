@@ -43,7 +43,7 @@ struct HomeFooterView: View {
                 if !taskOrNote {
                     ScrollView (.horizontal, showsIndicators: false) {
                         LazyHStack {
-                            ForEach(Task.sampleTasks) { task in
+                            ForEach(TempTask.sampleTasks) { task in
                                 VStack(alignment: .leading) {
                                     Image(systemName: "list.bullet.indent")
                                         .frame(width: 50, height: 100)
@@ -58,7 +58,7 @@ struct HomeFooterView: View {
                                 }
                                 .frame(width: 100)
                                 .padding()
-                                .background((task.id == Task.sampleTasks[0].id ? Color.accentColor : Color.cyan))
+                                .background((task.id == TempTask.sampleTasks[0].id ? Color.accentColor : Color.cyan))
                                 .foregroundColor(Color.white)
                                 .cornerRadius(20)
                                 .shadow(radius: 5)
@@ -73,7 +73,7 @@ struct HomeFooterView: View {
                             .font(.system(size: 28))
                         ScrollView {
                             LazyVStack {
-                                ForEach(Task.tasksWithinTwoDays) { task in
+                                ForEach(TempTask.tasksWithinTwoDays) { task in
                                     VStack(alignment: .leading) {
                                         Text("\(task.name)")
                                             .font(.title)
@@ -102,7 +102,7 @@ struct HomeFooterView: View {
                     VStack {
                         ScrollView {
                             LazyVStack {
-                                ForEach(Note.sampleNotes) { note in
+                                ForEach(TempNote.sampleNotes) { note in
                                     VStack(alignment: .leading) {
                                         Text("\(note.name)")
                                             .font(.title)

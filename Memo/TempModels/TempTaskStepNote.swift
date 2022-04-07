@@ -1,5 +1,5 @@
 //
-//  TempTaskStepNote.swift
+//  TempTempTaskTempStepTempNote.swift
 //  Memo
 //
 //  Created by Markus Nivasalo on 7.4.2022.
@@ -9,16 +9,16 @@
 
 import Foundation
 
-struct Task: Identifiable {
+struct TempTask: Identifiable {
     let id: UUID
     var date: Date
     var name: String
     var location: String
     var note: String
-    var steps: [Step]
+    var steps: [TempStep]
     var completed: Bool
     
-    init(id: UUID = UUID(), date: Date = Date(), name: String, location: String, note: String, steps: [Step], completed: Bool = false) {
+    init(id: UUID = UUID(), date: Date = Date(), name: String, location: String, note: String, steps: [TempStep], completed: Bool = false) {
         self.id = id
         self.date = date
         self.name = name
@@ -30,7 +30,7 @@ struct Task: Identifiable {
     
 }
 
-struct Step: Identifiable {
+struct TempStep: Identifiable {
     let id: UUID
     var name: String
     var completed: Bool = false
@@ -42,7 +42,7 @@ struct Step: Identifiable {
     }
 }
 
-struct Note: Identifiable {
+struct TempNote: Identifiable {
     let id: UUID
     var sensitive: Bool = false
     var name: String
@@ -57,39 +57,39 @@ struct Note: Identifiable {
     }
 }
 
-extension Task {
-    static let sampleTasks: [Task] =
+extension TempTask {
+    static let sampleTasks: [TempTask] =
     [
-        Task(id: UUID(), date: Date(), name: "Clean the house", location: "Home", note: "Get it done!", steps: [
-            Step(id: UUID(), name: "Toilet", completed: false),
-            Step(id: UUID(), name: "Kitchen", completed: false),
-            Step(id: UUID(), name: "Living room", completed: false)
+        TempTask(id: UUID(), date: Date(), name: "Clean the house", location: "Home", note: "Get it done!", steps: [
+            TempStep(id: UUID(), name: "Toilet", completed: false),
+            TempStep(id: UUID(), name: "Kitchen", completed: false),
+            TempStep(id: UUID(), name: "Living room", completed: false)
         ], completed: false),
-        Task(id: UUID(), date: Date(), name: "Grocery list", location: "Prisma Iso-Omena", note: "", steps: [
-            Step(id: UUID(), name: "Milk", completed: false),
-            Step(id: UUID(), name: "Porridge", completed: false),
-            Step(id: UUID(), name: "Ham", completed: false),
-            Step(id: UUID(), name: "Minced meat", completed: false)
+        TempTask(id: UUID(), date: Date(), name: "Grocery list", location: "Prisma Iso-Omena", note: "", steps: [
+            TempStep(id: UUID(), name: "Milk", completed: false),
+            TempStep(id: UUID(), name: "Porridge", completed: false),
+            TempStep(id: UUID(), name: "Ham", completed: false),
+            TempStep(id: UUID(), name: "Minced meat", completed: false)
         ], completed: false),
-        Task(id: UUID(), date: Date(), name: "Project checklist", location: "Karaportti 2", note: "Remember to check with team mates regulary", steps: [
-            Step(id: UUID(), name: "Prototype", completed: true),
-            Step(id: UUID(), name: "Week 1 Sprint", completed: false),
-            Step(id: UUID(), name: "Week 2 Sprint", completed: false),
-            Step(id: UUID(), name: "Week 3 Sprint", completed: false),
-            Step(id: UUID(), name: "Week 4 Sprint", completed: false),
+        TempTask(id: UUID(), date: Date(), name: "Project checklist", location: "Karaportti 2", note: "Remember to check with team mates regulary", steps: [
+            TempStep(id: UUID(), name: "Prototype", completed: true),
+            TempStep(id: UUID(), name: "Week 1 Sprint", completed: false),
+            TempStep(id: UUID(), name: "Week 2 Sprint", completed: false),
+            TempStep(id: UUID(), name: "Week 3 Sprint", completed: false),
+            TempStep(id: UUID(), name: "Week 4 Sprint", completed: false),
         ], completed: false),
     ]
     
-    // Filter tasks within two days
-    static let tasksWithinTwoDays: [Task] = Task.sampleTasks.filter { $0.date < Date().addingTimeInterval(172800)}
+    // Filter TempTasks within two days
+    static let tasksWithinTwoDays: [TempTask] = TempTask.sampleTasks.filter { $0.date < Date().addingTimeInterval(172800)}
 }
 
-extension Note {
-    static let sampleNotes: [Note] =
+extension TempNote {
+    static let sampleNotes: [TempNote] =
     [
-        Note(id: UUID(), sensitive: false, name: "Lecture notes, Swift", note: "Lorem ipsum", date: Date()),
-        Note(id: UUID(), sensitive: true, name: "Bank info", note: "Lorem ipsum", date: Date()),
-        Note(id: UUID(), sensitive: false, name: "Lecture notes, iOS", note: "Lorem ipsum", date: Date()),
-        Note(id: UUID(), sensitive: false, name: "Remember this, IMPORTANT!!", note: "Lorem ipsum", date: Date())
+        TempNote(id: UUID(), sensitive: false, name: "Lecture notes, Swift", note: "Lorem ipsum", date: Date()),
+        TempNote(id: UUID(), sensitive: true, name: "Bank info", note: "Lorem ipsum", date: Date()),
+        TempNote(id: UUID(), sensitive: false, name: "Lecture notes, iOS", note: "Lorem ipsum", date: Date()),
+        TempNote(id: UUID(), sensitive: false, name: "Remember this, IMPORTANT!!", note: "Lorem ipsum", date: Date())
     ]
 }
