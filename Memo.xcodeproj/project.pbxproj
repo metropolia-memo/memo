@@ -108,7 +108,7 @@
 		6A8D220227FAEA22002AC898 /* Memo */ = {
 			isa = PBXGroup;
 			children = (
-				6AD7D39327FE277600B657B4 /* Models */,
+				6AD7D39427FE278E00B657B4 /* AddTaskView.swift */,
 				6AD7D38A27FDB5C600B657B4 /* Data */,
 				6A8D220327FAEA22002AC898 /* MemoApp.swift */,
 				6A8D220527FAEA22002AC898 /* ContentView.swift */,
@@ -154,14 +154,6 @@
 				6AD7D38E27FDB5E100B657B4 /* Step+CoreDataProperties.swift */,
 			);
 			path = Data;
-			sourceTree = "<group>";
-		};
-		6AD7D39327FE277600B657B4 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				6AD7D39427FE278E00B657B4 /* AddTaskView.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

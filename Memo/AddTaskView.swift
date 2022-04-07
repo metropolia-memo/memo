@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// Displays components for creating a new task.
 struct AddTaskView: View {
     
     @State private var taskTitle = ""
