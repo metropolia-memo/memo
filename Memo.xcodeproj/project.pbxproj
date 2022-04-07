@@ -16,6 +16,10 @@
 		6A8D221A27FAEA29002AC898 /* MemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8D221927FAEA29002AC898 /* MemoTests.swift */; };
 		6A8D222427FAEA29002AC898 /* MemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8D222327FAEA29002AC898 /* MemoUITests.swift */; };
 		6A8D222627FAEA29002AC898 /* MemoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8D222527FAEA29002AC898 /* MemoUITestsLaunchTests.swift */; };
+		6ADBDD2027FF02D400EFF647 /* TempTaskStepNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADBDD1F27FF02D400EFF647 /* TempTaskStepNote.swift */; };
+		6ADBDD2227FF082000EFF647 /* HomeFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADBDD2127FF082000EFF647 /* HomeFooterView.swift */; };
+		6AF9D7ED27FEF49B00CEB68A /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF9D7EC27FEF49B00CEB68A /* Home.swift */; };
+		6AF9D7F127FEF4F300CEB68A /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF9D7F027FEF4F300CEB68A /* HomeHeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +52,10 @@
 		6A8D221F27FAEA29002AC898 /* MemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A8D222327FAEA29002AC898 /* MemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoUITests.swift; sourceTree = "<group>"; };
 		6A8D222527FAEA29002AC898 /* MemoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		6ADBDD1F27FF02D400EFF647 /* TempTaskStepNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempTaskStepNote.swift; sourceTree = "<group>"; };
+		6ADBDD2127FF082000EFF647 /* HomeFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFooterView.swift; sourceTree = "<group>"; };
+		6AF9D7EC27FEF49B00CEB68A /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		6AF9D7F027FEF4F300CEB68A /* HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +106,9 @@
 		6A8D220227FAEA22002AC898 /* Memo */ = {
 			isa = PBXGroup;
 			children = (
+				6ADBDD1E27FF02BE00EFF647 /* Models */,
+				6AF9D7EE27FEF4B100CEB68A /* Components */,
+				6AF9D7EB27FEF48D00CEB68A /* Screens */,
 				6A8D220327FAEA22002AC898 /* MemoApp.swift */,
 				6A8D220527FAEA22002AC898 /* ContentView.swift */,
 				6A8D220727FAEA29002AC898 /* Assets.xcassets */,
@@ -131,6 +142,39 @@
 				6A8D222527FAEA29002AC898 /* MemoUITestsLaunchTests.swift */,
 			);
 			path = MemoUITests;
+			sourceTree = "<group>";
+		};
+		6ADBDD1E27FF02BE00EFF647 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6ADBDD1F27FF02D400EFF647 /* TempTaskStepNote.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		6AF9D7EB27FEF48D00CEB68A /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				6AF9D7EC27FEF49B00CEB68A /* Home.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		6AF9D7EE27FEF4B100CEB68A /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				6AF9D7EF27FEF4BC00CEB68A /* Home */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		6AF9D7EF27FEF4BC00CEB68A /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				6AF9D7F027FEF4F300CEB68A /* HomeHeaderView.swift */,
+				6ADBDD2127FF082000EFF647 /* HomeFooterView.swift */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,8 +307,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6ADBDD2027FF02D400EFF647 /* TempTaskStepNote.swift in Sources */,
+				6AF9D7F127FEF4F300CEB68A /* HomeHeaderView.swift in Sources */,
+				6ADBDD2227FF082000EFF647 /* HomeFooterView.swift in Sources */,
 				6A8D220D27FAEA29002AC898 /* Persistence.swift in Sources */,
 				6A8D220627FAEA22002AC898 /* ContentView.swift in Sources */,
+				6AF9D7ED27FEF49B00CEB68A /* Home.swift in Sources */,
 				6A8D220427FAEA22002AC898 /* MemoApp.swift in Sources */,
 				6A8D221027FAEA29002AC898 /* Memo.xcdatamodeld in Sources */,
 			);
