@@ -16,6 +16,11 @@
 		6A8D221A27FAEA29002AC898 /* MemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8D221927FAEA29002AC898 /* MemoTests.swift */; };
 		6A8D222427FAEA29002AC898 /* MemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8D222327FAEA29002AC898 /* MemoUITests.swift */; };
 		6A8D222627FAEA29002AC898 /* MemoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8D222527FAEA29002AC898 /* MemoUITestsLaunchTests.swift */; };
+		6AD7D39127FDB5E100B657B4 /* Step+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD7D38D27FDB5E100B657B4 /* Step+CoreDataClass.swift */; };
+		6AD7D39227FDB5E100B657B4 /* Step+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD7D38E27FDB5E100B657B4 /* Step+CoreDataProperties.swift */; };
+		6AD7D39527FE278E00B657B4 /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD7D39427FE278E00B657B4 /* AddTaskView.swift */; };
+		6AD7D39E27FF053B00B657B4 /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD7D39C27FF053B00B657B4 /* Task+CoreDataClass.swift */; };
+		6AD7D39F27FF053B00B657B4 /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD7D39D27FF053B00B657B4 /* Task+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +53,11 @@
 		6A8D221F27FAEA29002AC898 /* MemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A8D222327FAEA29002AC898 /* MemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoUITests.swift; sourceTree = "<group>"; };
 		6A8D222527FAEA29002AC898 /* MemoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		6AD7D38D27FDB5E100B657B4 /* Step+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Step+CoreDataClass.swift"; sourceTree = "<group>"; };
+		6AD7D38E27FDB5E100B657B4 /* Step+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Step+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		6AD7D39427FE278E00B657B4 /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
+		6AD7D39C27FF053B00B657B4 /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataClass.swift"; sourceTree = "<group>"; };
+		6AD7D39D27FF053B00B657B4 /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +108,8 @@
 		6A8D220227FAEA22002AC898 /* Memo */ = {
 			isa = PBXGroup;
 			children = (
+				6AD7D39327FE277600B657B4 /* Models */,
+				6AD7D38A27FDB5C600B657B4 /* Data */,
 				6A8D220327FAEA22002AC898 /* MemoApp.swift */,
 				6A8D220527FAEA22002AC898 /* ContentView.swift */,
 				6A8D220727FAEA29002AC898 /* Assets.xcassets */,
@@ -131,6 +143,25 @@
 				6A8D222527FAEA29002AC898 /* MemoUITestsLaunchTests.swift */,
 			);
 			path = MemoUITests;
+			sourceTree = "<group>";
+		};
+		6AD7D38A27FDB5C600B657B4 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				6AD7D39C27FF053B00B657B4 /* Task+CoreDataClass.swift */,
+				6AD7D39D27FF053B00B657B4 /* Task+CoreDataProperties.swift */,
+				6AD7D38D27FDB5E100B657B4 /* Step+CoreDataClass.swift */,
+				6AD7D38E27FDB5E100B657B4 /* Step+CoreDataProperties.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		6AD7D39327FE277600B657B4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6AD7D39427FE278E00B657B4 /* AddTaskView.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -265,8 +296,13 @@
 			files = (
 				6A809C3927FB794A0065A427 /* DataController.swift in Sources */,
 				6A8D220627FAEA22002AC898 /* ContentView.swift in Sources */,
+				6AD7D39E27FF053B00B657B4 /* Task+CoreDataClass.swift in Sources */,
+				6AD7D39527FE278E00B657B4 /* AddTaskView.swift in Sources */,
+				6AD7D39F27FF053B00B657B4 /* Task+CoreDataProperties.swift in Sources */,
 				6A8D220427FAEA22002AC898 /* MemoApp.swift in Sources */,
+				6AD7D39127FDB5E100B657B4 /* Step+CoreDataClass.swift in Sources */,
 				6A8D221027FAEA29002AC898 /* Memo.xcdatamodeld in Sources */,
+				6AD7D39227FDB5E100B657B4 /* Step+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
