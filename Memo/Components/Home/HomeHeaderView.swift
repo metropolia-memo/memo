@@ -31,12 +31,8 @@ struct HomeHeaderView: View {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(Color.accentColor)
             }
-            
-                
         }
         .padding()
-        
-        
     }
 }
 

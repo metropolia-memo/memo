@@ -79,6 +79,9 @@ extension Task {
             Step(id: UUID(), name: "Week 4 Sprint", completed: false),
         ], completed: false),
     ]
+    
+    // Filter tasks within two days
+    static let tasksWithinTwoDays: [Task] = Task.sampleTasks.filter { $0.date < Date().addingTimeInterval(172800)}
 }
 
 extension Note {
