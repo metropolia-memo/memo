@@ -2,12 +2,14 @@
 //  TempTaskStepNote.swift
 //  Memo
 //
-//  Created by iosdev on 7.4.2022.
+//  Created by Markus Nivasalo on 7.4.2022.
+//
+//  Temporary structs to use when developing UI while still Core Data still not functional
 //
 
 import Foundation
 
-struct Task {
+struct Task: Identifiable {
     let id: UUID
     var date: Date
     var name: String
@@ -28,7 +30,7 @@ struct Task {
     
 }
 
-struct Step {
+struct Step: Identifiable {
     let id: UUID
     var name: String
     var completed: Bool = false
@@ -40,16 +42,18 @@ struct Step {
     }
 }
 
-struct Note {
+struct Note: Identifiable {
     let id: UUID
     var sensitive: Bool = false
     var name: String
     var note: String
+    var date: Date
     
-    init(id: UUID = UUID(), sensitive: Bool, name: String, note: String) {
+    init(id: UUID = UUID(), sensitive: Bool, name: String, note: String, date: Date = Date()) {
         self.id = id
         self.name = name
         self.note = note
+        self.date = date
     }
 }
 
@@ -74,5 +78,15 @@ extension Task {
             Step(id: UUID(), name: "Week 3 Sprint", completed: false),
             Step(id: UUID(), name: "Week 4 Sprint", completed: false),
         ], completed: false),
+    ]
+}
+
+extension Note {
+    static let sampleNotes: [Note] =
+    [
+        Note(id: UUID(), sensitive: false, name: "Lecture notes, Swift", note: "Lorem ipsum", date: Date()),
+        Note(id: UUID(), sensitive: true, name: "Bank info", note: "Lorem ipsum", date: Date()),
+        Note(id: UUID(), sensitive: false, name: "Lecture notes, iOS", note: "Lorem ipsum", date: Date()),
+        Note(id: UUID(), sensitive: false, name: "Remember this, IMPORTANT!!", note: "Lorem ipsum", date: Date())
     ]
 }

@@ -2,7 +2,7 @@
 //  MemoApp.swift
 //  Memo
 //
-//  Created by iosdev on 4.4.2022.
+//  Created by Markus Nivasalo on 4.4.2022.
 //
 
 import SwiftUI
@@ -13,9 +13,7 @@ struct MemoApp: App {
 
     var body: some Scene {
         WindowGroup {
-            NavigationView {
-                Home()
-            }
+            Home()
         }
     }
 }

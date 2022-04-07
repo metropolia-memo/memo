@@ -2,7 +2,7 @@
 //  Home.swift
 //  Memo
 //
-//  Created by iosdev on 7.4.2022.
+//  Created by Markus Nivasalo on 7.4.2022.
 //
 
 import SwiftUI
@@ -11,11 +11,24 @@ struct Home: View {
     var body: some View {
         NavigationView {
             VStack {
-                HomeHeaderView()
+                VStack {
+                    HomeHeaderView()
+                    HomeFooterView()
+                }
             }
-            .padding(10)
+            
+            .navigationBarTitle("", displayMode: .inline)
         }
-        
+        .toolbar {
+            ToolbarItem(placement: .cancellationAction) {
+                Button(action: {} ) {
+                    Image(systemName: "line.horizontal.3")
+                        .scaleEffect(2)
+                        .foregroundColor(Color.black)
+                }
+                .accessibilityLabel("Drawer Menu")
+            }
+        }
     }
 }
 

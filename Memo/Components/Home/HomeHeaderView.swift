@@ -10,7 +10,7 @@ import SwiftUI
 struct HomeHeaderView: View {
     @State private var searchInput: String = ""
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 0) {
             HStack {
                 VStack(alignment: .leading) {
                     Text("Welcome back, John")
@@ -25,20 +25,17 @@ struct HomeHeaderView: View {
                 }
             }
             .fixedSize()
-            TextField("Search tasks...", text: $searchInput)
-                .textFieldStyle(.roundedBorder)
-        }
-        .toolbar {
-            ToolbarItem(placement: .cancellationAction) {
-                Button(action: {} ) {
-                    Image(systemName: "line.horizontal.3")
-                        .frame(width: 50, height: 50)
-                        .scaleEffect(2)
-                        .foregroundColor(Color.black)
-                }
-                .accessibilityLabel("Drawer Menu")
+            HStack {
+                TextField("Search tasks...", text: $searchInput)
+                    .textFieldStyle(.roundedBorder)
+                Image(systemName: "magnifyingglass")
+                    .foregroundColor(Color.accentColor)
             }
+            
+                
         }
+        .padding()
+        
         
     }
 }
