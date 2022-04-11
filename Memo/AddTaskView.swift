@@ -19,6 +19,7 @@ struct AddTaskView: View {
     @State private var addedSteps : [Step] = []
     
     @Environment(\.managedObjectContext) var moc
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         ZStack {
@@ -108,28 +109,30 @@ struct AddTaskView: View {
                         .padding(.horizontal, 5)
                         
                         
-                        ScrollView {
-                            HStack {
-                                Text("Steps")
-                        
-                                    .font( .system(size: 30, weight: .medium))
-                                Spacer()
-                                Button(action: {}) {
+                        HStack {
+                            Text("Steps")
+                    
+                                .font( .system(size: 30, weight: .medium))
+                            Spacer()
+                            Button(action: {}) {
 
-                                    Image(systemName: "plus.circle")
-                                        .font(.system(size: 50))
-                                      
-                                }
-                                .padding(5)
-                                .frame(maxHeight: .infinity)
-                           
+                                Image(systemName: "plus.circle")
+                                    .font(.system(size: 50))
+                                  
                             }
-                            .padding(5)
+                            .padding(.vertical, 5)
+                            .frame(maxHeight: .infinity)
                        
-                            
+                        }
+                        .frame(maxHeight: 80)
+                        .padding(.horizontal, 10)
+                        
+                        ScrollView {
+                           
                             LazyVStack {
                                 ForEach(TempStep.sampleSteps) {step in
                                     HStack {
+                                        Image(systemName: "checkmark.circle")
                                         Text(step.name)
                                             .padding(5)
                                         Spacer()
@@ -150,8 +153,8 @@ struct AddTaskView: View {
                                     .cornerRadius(10)
                                     .shadow(radius: 5)
                                  
-
                                 }
+                             
                 
                             }
                         }
@@ -181,21 +184,42 @@ struct AddTaskView: View {
                         .frame(maxHeight: .infinity)
            
                         
-                        Button("Save task") {
-                            let task = Task(context: moc)
-                            task.name = taskTitle
-                            task.desc = taskDescription
-                            task.id = UUID()
-                 
-                        }
-                        .frame(maxHeight: 50)
-                        .padding(.horizontal, 20)
-                        .background(Color(red: 45/255, green: 91/255, blue: 255/255))
-                        .foregroundColor(Color.white)
+                        // Creates a new Task object with the given State variables and saves it to Core Data.
+                            Button("Save task") {
+                                
+                                // WORK IN PROGRESS
+//                                do {
+//
+//                                    let newTask = Task(context: moc)
+//                                    newTask.name = taskTitle
+//                                    newTask.desc = taskDescription
+//                                    newTask.id = UUID()
+//
+//                                    for step in addedSteps {
+//                                        step.origin = newTask
+//                                    }
+//
+//
+//                                   try moc.save()
+//                                    print("Task \(String(describing: newTask.name)) saved succesfully to Core Data.")
+//                                } catch {
+//                                    print("Saving to Core Data failed.")
+//                                }
+                                
+                                
+                                self.presentationMode.wrappedValue.dismiss()
+                            }
+                            .frame(maxHeight: 50)
+                            .padding(.horizontal, 20)
+                            .background(Color(red: 45/255, green: 91/255, blue: 255/255))
+                            .foregroundColor(Color.white)
                         .cornerRadius(10)
+                        
                     }
-                
+                   
+                    .navigationBarTitle("", displayMode: .inline)
                 }
+                
            
                 
             DatePickerPopup(display: $showDateSheet, taskDeadline: $taskDeadline, displayToFalse: {showDateSheet = false})
@@ -205,6 +229,8 @@ struct AddTaskView: View {
     }
     
 }
+
+
 
 struct AddTaskView_Previews: PreviewProvider {
     static var previews: some View {
