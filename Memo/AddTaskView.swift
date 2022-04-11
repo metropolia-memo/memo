@@ -198,9 +198,6 @@ struct AddTaskView: View {
                 }
            
                 
-     
-            
-       
             DatePickerPopup(display: $showDateSheet, taskDeadline: $taskDeadline, displayToFalse: {showDateSheet = false})
         }
         
