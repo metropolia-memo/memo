@@ -31,7 +31,7 @@ struct HomeHeaderView: View {
             ToolbarItem(placement: .cancellationAction) {
                 Button(action: {} ) {
                     Image(systemName: "line.horizontal.3")
-                        .scaleEffect(2)
+                        .scaleEffect(1.5)
                         .foregroundColor(Color.black)
                 }
                 .accessibilityLabel("Drawer Menu")

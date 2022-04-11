@@ -9,17 +9,13 @@ import SwiftUI
 
 struct Home: View {
     var body: some View {
-        NavigationView {
+        VStack {
             VStack {
-                VStack {
-                    HomeHeaderView()
-                    HomeFooterView()
-                }
+                HomeHeaderView()
+                HomeFooterView()
             }
-            
-            .navigationBarTitle("", displayMode: .inline)
         }
-        
+        .navigationBarTitle("", displayMode: .inline)
     }
 }
 

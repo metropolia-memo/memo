@@ -135,22 +135,33 @@ struct HomeFooterView: View {
                     .padding()
                 }
             }
+            // Buttons for adding tasks and notes
             VStack {
                 Spacer()
                 
                 HStack {
                     Spacer()
-                    Button(action: {}, label: {
-                        Text("+")
-                            .font(.largeTitle)
-                            .frame(width: 80, height: 70)
-                            .foregroundColor(Color.white)
-                            .padding(.bottom, 7)
-                    })
-                        .background(Color.cyan)
-                        .cornerRadius(50)
-                        .padding()
-                        .shadow(color: Color.black.opacity(0.3), radius: 3, x: 3, y: 3)
+                    // Add task button
+                    if !taskOrNote {
+                        NavigationLink(destination: AddTaskView()) {
+                            ZStack {
+                                Circle()
+                                    .fill(Color.cyan)
+                                    .frame(width: 75, height: 75)
+                                    .shadow(color: Color.black.opacity(0.3), radius: 3, x: 3, y: 3)
+                                Text("+")
+                                    .foregroundColor(Color.white)
+                                    .font(.title)
+                            }
+                            .padding([.bottom, .trailing], 20)
+                            .frame(width: 75, height: 75)
+                                
+                        }
+                    }
+                    // Add note button
+                    else {
+                        // TODO: Add note button here
+                    }
                 }
             }
         }
