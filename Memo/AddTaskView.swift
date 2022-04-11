@@ -2,7 +2,7 @@
 //  AddTaskView.swift
 //  Memo
 //
-//  Created by iosdev on 6.4.2022.
+//  Created by Oskari Arponen on 6.4.2022.
 //
 
 import SwiftUI
@@ -13,51 +13,200 @@ struct AddTaskView: View {
     @State private var taskTitle = ""
     @State private var taskDescription = ""
     @State private var taskDeadline = Date()
+    @State private var showDateSheet = false
+    @State private var taskDesc = ""
+    @State private var currentLocation = ""
+    @State private var addedSteps : [Step] = []
     
     @Environment(\.managedObjectContext) var moc
     
     var body: some View {
-        VStack {
-            Section(header: Text("Add new task")) {
+        ZStack {
+
+                NavigationView {
+                    VStack {
+                        
+                        // Title input
+                        Section {
+                            VStack(alignment: .leading) {
+                                Text("Title")
+                                    .bold()
+                                HStack {
+                                    TextField("Task title", text: $taskTitle)
+                                    Button(action: {}) {
+                                        Image(systemName: "pencil")
+                                            .font(.system(size: 40))
+                                    }
+                                
+                                }
+                               
+                            }
+                            .padding(15)
+                            .background(Color(red: 242/255, green: 242/255, blue: 242/255))
+                            .cornerRadius(15)
+                            .shadow(radius: 5)
+                      
+                        }
+                        .padding(.horizontal, 5)
+                   
+                        
+                        // Deadline input
+                        Section {
+                            VStack(alignment: .leading) {
+                                Text("Deadline")
+                                    .bold()
+                                HStack {
+                                    Text(taskDeadline, style: .date)
+                                    Text(taskDeadline, style: .time)
+                                    Spacer()
+                                    Button(action: {withAnimation(.linear(duration: 0.3)) {
+                                        showDateSheet.toggle()
+                                    }}) {
+                                        Image(systemName: "calendar")
+                                            .font(.system(size: 40))
+                                    }
+                                   
+                                }
+                                .frame(maxWidth: .infinity)
+                    
+                            }
+                            .frame(maxWidth: .infinity)
+                            .padding(15)
+                            .background(Color(red: 242/255, green: 242/255, blue: 242/255))                            .cornerRadius(15)
+                            .shadow(radius: 5)
+                            
+                            
+
+            
+                        }
+                        .padding(.horizontal, 5)
+               
+                        
+                        // Location input
+                        VStack {
+                            VStack(alignment: .leading) {
+                                Text("Location")
+                                    .bold()
+                                HStack {
+                                    Text("Karaportti 2")
+                                    Spacer()
+                                    Button(action: {}) {
+                                        Image(systemName: "location.fill")
+                                            .font(.system(size: 40))
+                                    }
+                                
+                                }
+                               
+                            }
+                            .padding(15)
+                            .frame(maxWidth: .infinity)
+                            .background(Color(red: 242/255, green: 242/255, blue: 242/255))
+                            .cornerRadius(15)
+                            .shadow(radius: 5)
+                      
+                        }
+                        .padding(.horizontal, 5)
+                        
+                        
+                        ScrollView {
+                            HStack {
+                                Text("Steps")
+                        
+                                    .font( .system(size: 30, weight: .medium))
+                                Spacer()
+                                Button(action: {}) {
+
+                                    Image(systemName: "plus.circle")
+                                        .font(.system(size: 50))
+                                      
+                                }
+                                .padding(5)
+                                .frame(maxHeight: .infinity)
+                           
+                            }
+                            .padding(5)
+                       
+                            
+                            LazyVStack {
+                                ForEach(TempStep.sampleSteps) {step in
+                                    HStack {
+                                        Text(step.name)
+                                            .padding(5)
+                                        Spacer()
+                                        VStack {
+                                            
+                                        }
+                                        .frame(maxHeight: .infinity)
+                                        .padding(.vertical, 5)
+                                        .padding(.horizontal, 2)
+                                        .background(Color.blue)
+                                    }
+            
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                
+                                    .padding(10)
+                                   
+                                    .background(Color(red: 242/255, green: 242/255, blue: 242/255))
+                                    .cornerRadius(10)
+                                    .shadow(radius: 5)
+                                 
+
+                                }
                 
-                Section {
-                    TextField("Task title", text: $taskTitle)
-                        .padding()
-                        .background(Color.green)
+                            }
+                        }
+                        .padding(.horizontal, 5)
+                        
+
+                        
+                        // Note input
+                        VStack {
+                            Text("Note")
+                                .font( .system(size: 30, weight: .medium))
+                                .padding(5)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            VStack(alignment: .leading) {
+                              
+                                    TextField("Task description", text: $taskDesc)
+      
+                               
+                            }
+                            .padding(15)
+                            .frame(maxHeight: .infinity, alignment: .topLeading)
+                            .background(Color(red: 242/255, green: 242/255, blue: 242/255))
+                            .cornerRadius(15)
+                      
+                        }
+                        .padding(.horizontal, 5)
+                        .frame(maxHeight: .infinity)
+           
+                        
+                        Button("Save task") {
+                            let task = Task(context: moc)
+                            task.name = taskTitle
+                            task.desc = taskDescription
+                            task.id = UUID()
+                 
+                        }
+                        .frame(maxHeight: 50)
+                        .padding(.horizontal, 20)
+                        .background(Color(red: 45/255, green: 91/255, blue: 255/255))
+                        .foregroundColor(Color.white)
                         .cornerRadius(10)
-                        .shadow(radius: 5)
+                    }
+                
                 }
-                .padding(.horizontal, 5)
            
                 
-                Section {
-                    TextField("Task description", text: $taskDescription)
-                        .padding()
-                        .background(Color.green)
-                        .cornerRadius(10)
-                        .shadow(radius: 5)
-                }
-                .padding(.horizontal, 5)
-              
-    
-                DatePicker("", selection: $taskDeadline, displayedComponents: [.date, .hourAndMinute])
-                    .padding(.trailing, 5)
-                    .labelsHidden()
-                
-                
-                Text("Selected date: \(taskDeadline)")
-            }
-            Button("Save task") {
-                let task = Task(context: moc)
-                task.name = taskTitle
-                task.desc = taskDescription
-                task.id = UUID()
      
-                // Doesn't do anything right now.
-            }
+            
+       
+            DatePickerPopup(display: $showDateSheet, taskDeadline: $taskDeadline, displayToFalse: {showDateSheet = false})
         }
-        .background(Color.blue)
+        
+     
     }
+    
 }
 
 struct AddTaskView_Previews: PreviewProvider {

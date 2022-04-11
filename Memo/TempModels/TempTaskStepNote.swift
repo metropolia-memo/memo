@@ -40,6 +40,13 @@ struct TempStep: Identifiable {
         self.name = name
         self.completed = completed
     }
+    
+    static let sampleSteps : [TempStep] = [
+        TempStep(name: "Step1", completed: false),
+        TempStep(name: "Step2", completed: false),
+        TempStep(name: "Step3", completed: false),
+        TempStep(name: "Step4", completed: false),
+    ]
 }
 
 struct TempNote: Identifiable {

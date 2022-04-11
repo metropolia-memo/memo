@@ -20,7 +20,7 @@ extension Step {
     @NSManaged public var desc: String?
     @NSManaged public var id: UUID?
     @NSManaged public var origin: Task?
-
+    
 }
 
 extension Step : Identifiable {
