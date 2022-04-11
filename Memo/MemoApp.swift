@@ -11,9 +11,14 @@ import SwiftUI
 struct MemoApp: App {
     
     var body: some Scene {
+        
         WindowGroup {
-          //  Home()
-            AddTaskView()
+            NavigationView {
+                Home()
+            }
+            
         }
+        
+        
     }
 }
