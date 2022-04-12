@@ -14,6 +14,7 @@ struct AddTaskView: View {
     @State private var taskDeadline = Date()
     @State private var showDateSheet = false
     @State private var showAddStepPopup = false
+    @State private var showConfirmWindow = false
     @State private var taskDesc = ""
     @State private var currentLocation = ""
     @State private var addedSteps : [Step] = []
@@ -127,38 +128,59 @@ struct AddTaskView: View {
                         .frame(maxHeight: 80)
                         .padding(.horizontal, 10)
                         
-                        ScrollView {
-                           
-                            LazyVStack {
-                                ForEach(addedSteps) {step in
-                                    HStack {
-                                        Image(systemName: "checkmark.circle")
-                                        Text(step.desc ?? "Description not found")
-                                            .padding(5)
-                                        Spacer()
-                                        VStack {
-                                            
-                                        }
-                                        .frame(maxHeight: .infinity)
-                                        .padding(.vertical, 5)
-                                        .padding(.horizontal, 2)
-                                        .background(Color.blue)
-                                    }
-            
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                
-                                    .padding(10)
+                        VStack {
+                            if !addedSteps.isEmpty {
+                                ScrollView {
                                    
-                                    .background(Color(red: 242/255, green: 242/255, blue: 242/255))
-                                    .cornerRadius(10)
-                                    .shadow(radius: 5)
-                                 
+                                    VStack {
+           
+                                            ForEach(addedSteps) {step in
+                                                HStack {
+                                                    Image(systemName: "checkmark.circle")
+                                                    Text(step.desc ?? "Description not found")
+                                                        .padding(5)
+                                                    Spacer()
+                                                    VStack {
+                                                        
+                                                    }
+                                                    .frame(maxHeight: .infinity)
+                                                    .padding(.vertical, 5)
+                                                    .padding(.horizontal, 2)
+                                                    .background(Color.blue)
+                                                }
+                        
+                                                .frame(
+                                                       maxWidth: .infinity,
+                                                       maxHeight: 35,alignment: .leading)
+                                            
+                                                .padding(10)
+                                               
+                                                .background(Color(red: 242/255, green: 242/255, blue: 242/255))
+                                                .cornerRadius(10)
+                                                .shadow(radius: 5)
+                                             
+                                            }
+                                    }
+                               
+
                                 }
-                             
-                
+                                .padding(5)
+                              
+                            } else {
+                                VStack {
+                                    Text("No steps added")
+                                        .font(.system(size: 30))
+                                    Image(systemName: "moon.zzz.fill")
+                                        .font(.system(size: 50))
+                                        .padding(5)
+                    
+                                }
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                           
                             }
+
+                        
                         }
-                        .padding(.horizontal, 5)
                         
 
                         
@@ -182,30 +204,9 @@ struct AddTaskView: View {
                         }
                         .padding(.horizontal, 5)
                         .frame(maxHeight: .infinity)
-           
-                        
-                        // Creates a new Task object with the given State variables and saves it to Core Data.
+ 
                             Button("Save task") {
-                                do {
-                                    let newTask = Task(context: moc)
-                                    newTask.name = taskTitle
-                                    newTask.desc = taskDesc
-                                    newTask.deadline = taskDeadline
-                                    newTask.id = UUID()
-                                    
-                                    for step in addedSteps {
-                                        step.origin = newTask
-                                    }
-
-                                    try self.moc.save()
-                                    
-                                    print("Task \( newTask) saved succesfully to Core Data.")
-                                } catch {
-                                    print("Saving to Core Data failed. \(error)")
-                                }
-                                
-                                
-                                self.presentationMode.wrappedValue.dismiss()
+                                showConfirmWindow = true
                             }
                             .disabled(taskTitle == "")
                             .frame(maxHeight: 50)
@@ -222,10 +223,41 @@ struct AddTaskView: View {
                 
            
                 
+            // Displays a DatePicker popup
             DatePickerPopup(display: $showDateSheet, taskDeadline: $taskDeadline, displayToFalse: {showDateSheet = false})
+            
+            
+            // Displays a popup which enables adding steps
             AddStepPopup(display: $showAddStepPopup, displayToFalse: {showAddStepPopup = false}, addStepToList: {step in
                 addedSteps.append(step)
             })
+            
+            
+            // Displays a confirmation popup
+            ConfirmAddTaskPopup(display: $showConfirmWindow, taskTitle: $taskTitle, displayToFalse: {showConfirmWindow = false}, saveTaskToCoreData: {
+                do {
+                    // Creates a new Task object with the given State variables and saves it to Core Data.
+                    let newTask = Task(context: moc)
+                    newTask.name = taskTitle
+                    newTask.desc = taskDesc
+                    newTask.deadline = taskDeadline
+                    newTask.id = UUID()
+                    
+                    for step in addedSteps {
+                        step.origin = newTask
+                    }
+
+                    try self.moc.save()
+                    
+                    print("Task \( newTask) saved succesfully to Core Data.")
+                } catch {
+                    print("Saving to Core Data failed. \(error)")
+                }
+                
+                
+                self.presentationMode.wrappedValue.dismiss()
+            })
+            
         }
         
      
