@@ -10,10 +10,12 @@ import SwiftUI
 // Displays components for creating a new task.
 struct AddTaskView: View {
     
+    @State private var showAlert = false
     @State private var taskTitle = ""
     @State private var taskDeadline = Date()
     @State private var showDateSheet = false
     @State private var showAddStepPopup = false
+    
     @State private var showConfirmWindow = false
     @State private var taskDesc = ""
     @State private var currentLocation = ""
@@ -173,6 +175,7 @@ struct AddTaskView: View {
                                     Image(systemName: "moon.zzz.fill")
                                         .font(.system(size: 50))
                                         .padding(5)
+                                        .foregroundColor(Color.gray)
                     
                                 }
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -206,9 +209,12 @@ struct AddTaskView: View {
                         .frame(maxHeight: .infinity)
  
                             Button("Save task") {
+                                if (taskTitle == "") {
+                                    showAlert = true
+                                    return
+                                }
                                 showConfirmWindow = true
                             }
-                            .disabled(taskTitle == "")
                             .frame(maxHeight: 50)
                             .padding(.horizontal, 20)
                             .background(taskTitle != "" ? Color(red: 45/255, green: 91/255, blue: 255/255) : Color.gray)
@@ -258,6 +264,11 @@ struct AddTaskView: View {
                 self.presentationMode.wrappedValue.dismiss()
             })
             
+        }
+        .alert("Title missing!", isPresented: $showAlert) {
+            Button("OK", role: .cancel) {
+                showAlert = false
+            }
         }
         
      
