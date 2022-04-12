@@ -10,11 +10,16 @@ import SwiftUI
 @main
 struct MemoApp: App {
     
+    @StateObject private var dataController = DataController()
+    
     var body: some Scene {
         
         WindowGroup {
             NavigationView {
                 Home()
+                    .environment(\.managedObjectContext, dataController.container.viewContext)
+//                ContentView()
+//                    .environment(\.managedObjectContext, dataController.container.viewContext)
             }
             
         }

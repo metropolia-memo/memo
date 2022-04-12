@@ -2,7 +2,7 @@
 //  DataController.swift
 //  Memo
 //
-//  Created by iosdev on 4.4.2022.
+//  Created by Oskari Arponen on 4.4.2022.
 //
 
 import CoreData

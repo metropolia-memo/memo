@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct HomeFooterView: View {
+    @StateObject private var dataController = DataController()
+    
     @State private var searchInput: String = ""
     
     // Boolean for showing either tasks or notes
@@ -143,7 +145,7 @@ struct HomeFooterView: View {
                     Spacer()
                     // Add task button
                     if !taskOrNote {
-                        NavigationLink(destination: AddTaskView()) {
+                        NavigationLink(destination: AddTaskView().environment(\.managedObjectContext, dataController.container.viewContext)) {
                             ZStack {
                                 Circle()
                                     .fill(Color.cyan)

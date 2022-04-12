@@ -11,9 +11,9 @@ import SwiftUI
 struct AddTaskView: View {
     
     @State private var taskTitle = ""
-    @State private var taskDescription = ""
     @State private var taskDeadline = Date()
     @State private var showDateSheet = false
+    @State private var showAddStepPopup = false
     @State private var taskDesc = ""
     @State private var currentLocation = ""
     @State private var addedSteps : [Step] = []
@@ -28,7 +28,7 @@ struct AddTaskView: View {
                     VStack {
                         
                         // Title input
-                        Section {
+                        VStack {
                             VStack(alignment: .leading) {
                                 Text("Title")
                                     .bold()
@@ -52,7 +52,7 @@ struct AddTaskView: View {
                    
                         
                         // Deadline input
-                        Section {
+                        VStack {
                             VStack(alignment: .leading) {
                                 Text("Deadline")
                                     .bold()
@@ -114,7 +114,7 @@ struct AddTaskView: View {
                     
                                 .font( .system(size: 30, weight: .medium))
                             Spacer()
-                            Button(action: {}) {
+                            Button(action: {showAddStepPopup = true}) {
 
                                 Image(systemName: "plus.circle")
                                     .font(.system(size: 50))
@@ -130,10 +130,10 @@ struct AddTaskView: View {
                         ScrollView {
                            
                             LazyVStack {
-                                ForEach(TempStep.sampleSteps) {step in
+                                ForEach(addedSteps) {step in
                                     HStack {
                                         Image(systemName: "checkmark.circle")
-                                        Text(step.name)
+                                        Text(step.desc ?? "Description not found")
                                             .padding(5)
                                         Spacer()
                                         VStack {
@@ -186,33 +186,33 @@ struct AddTaskView: View {
                         
                         // Creates a new Task object with the given State variables and saves it to Core Data.
                             Button("Save task") {
-                                
-                                // WORK IN PROGRESS
-//                                do {
-//
-//                                    let newTask = Task(context: moc)
-//                                    newTask.name = taskTitle
-//                                    newTask.desc = taskDescription
-//                                    newTask.id = UUID()
-//
-//                                    for step in addedSteps {
-//                                        step.origin = newTask
-//                                    }
-//
-//
-//                                   try moc.save()
-//                                    print("Task \(String(describing: newTask.name)) saved succesfully to Core Data.")
-//                                } catch {
-//                                    print("Saving to Core Data failed.")
-//                                }
+                                do {
+                                    let newTask = Task(context: moc)
+                                    newTask.name = taskTitle
+                                    newTask.desc = taskDesc
+                                    newTask.deadline = taskDeadline
+                                    newTask.id = UUID()
+                                    
+                                    for step in addedSteps {
+                                        step.origin = newTask
+                                    }
+
+                                    try self.moc.save()
+                                    
+                                    print("Task \( newTask) saved succesfully to Core Data.")
+                                } catch {
+                                    print("Saving to Core Data failed. \(error)")
+                                }
                                 
                                 
                                 self.presentationMode.wrappedValue.dismiss()
                             }
+                            .disabled(taskTitle == "")
                             .frame(maxHeight: 50)
                             .padding(.horizontal, 20)
-                            .background(Color(red: 45/255, green: 91/255, blue: 255/255))
+                            .background(taskTitle != "" ? Color(red: 45/255, green: 91/255, blue: 255/255) : Color.gray)
                             .foregroundColor(Color.white)
+                        
                         .cornerRadius(10)
                         
                     }
@@ -223,6 +223,9 @@ struct AddTaskView: View {
            
                 
             DatePickerPopup(display: $showDateSheet, taskDeadline: $taskDeadline, displayToFalse: {showDateSheet = false})
+            AddStepPopup(display: $showAddStepPopup, displayToFalse: {showAddStepPopup = false}, addStepToList: {step in
+                addedSteps.append(step)
+            })
         }
         
      

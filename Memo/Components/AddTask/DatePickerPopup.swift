@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// A popup window used for setting a deadline Date.
+// Utilized in AddTaskView.
 struct DatePickerPopup: View {
     
     @Binding var display : Bool
@@ -49,9 +51,7 @@ struct DatePickerPopup: View {
 
 struct DatePickerPopup_Previews:
     PreviewProvider {
-  
-  
-    
+
     static var previews: some View {
         DatePickerPopup(display: .constant(true), taskDeadline: .constant(Date()), displayToFalse: {})
     }
