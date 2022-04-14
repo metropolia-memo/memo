@@ -10,6 +10,9 @@
 		6A0323062804718A000B1B21 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A809C3827FB794A0065A427 /* DataController.swift */; };
 		6A0323092804729E000B1B21 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8D220527FAEA22002AC898 /* ContentView.swift */; };
 		6A03230E28061C61000B1B21 /* ConfirmAddTaskPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A03230D28061C61000B1B21 /* ConfirmAddTaskPopup.swift */; };
+		6A03231028082485000B1B21 /* StepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A03230F28082485000B1B21 /* StepView.swift */; };
+		6A032312280834DD000B1B21 /* ConfirmDeletePopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A032311280834DD000B1B21 /* ConfirmDeletePopup.swift */; };
+		6A0323142808A477000B1B21 /* EditStepPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0323132808A477000B1B21 /* EditStepPopup.swift */; };
 		6A8D220427FAEA22002AC898 /* MemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8D220327FAEA22002AC898 /* MemoApp.swift */; };
 		6A8D220827FAEA29002AC898 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A8D220727FAEA29002AC898 /* Assets.xcassets */; };
 		6A8D220B27FAEA29002AC898 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A8D220A27FAEA29002AC898 /* Preview Assets.xcassets */; };
@@ -49,6 +52,9 @@
 
 /* Begin PBXFileReference section */
 		6A03230D28061C61000B1B21 /* ConfirmAddTaskPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmAddTaskPopup.swift; sourceTree = "<group>"; };
+		6A03230F28082485000B1B21 /* StepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepView.swift; sourceTree = "<group>"; };
+		6A032311280834DD000B1B21 /* ConfirmDeletePopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmDeletePopup.swift; sourceTree = "<group>"; };
+		6A0323132808A477000B1B21 /* EditStepPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStepPopup.swift; sourceTree = "<group>"; };
 		6A809C3827FB794A0065A427 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		6A8D220027FAEA22002AC898 /* Memo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Memo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A8D220327FAEA22002AC898 /* MemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoApp.swift; sourceTree = "<group>"; };
@@ -179,6 +185,9 @@
 				6AD7D3A12800319C00B657B4 /* DatePickerPopup.swift */,
 				6AD7D3A3280382F300B657B4 /* AddStepPopup.swift */,
 				6A03230D28061C61000B1B21 /* ConfirmAddTaskPopup.swift */,
+				6A03230F28082485000B1B21 /* StepView.swift */,
+				6A032311280834DD000B1B21 /* ConfirmDeletePopup.swift */,
+				6A0323132808A477000B1B21 /* EditStepPopup.swift */,
 			);
 			path = AddTask;
 			sourceTree = "<group>";
@@ -350,6 +359,8 @@
 				6A03230E28061C61000B1B21 /* ConfirmAddTaskPopup.swift in Sources */,
 				6ADBDD2027FF02D400EFF647 /* TempTaskStepNote.swift in Sources */,
 				6AF9D7F127FEF4F300CEB68A /* HomeHeaderView.swift in Sources */,
+				6A032312280834DD000B1B21 /* ConfirmDeletePopup.swift in Sources */,
+				6A0323142808A477000B1B21 /* EditStepPopup.swift in Sources */,
 				6A0323092804729E000B1B21 /* ContentView.swift in Sources */,
 				6ADBDD2227FF082000EFF647 /* HomeFooterView.swift in Sources */,
 				6AF9D7ED27FEF49B00CEB68A /* Home.swift in Sources */,
@@ -361,6 +372,7 @@
 				6AF9D7ED27FEF49B00CEB68A /* Home.swift in Sources */,
 				6A0323062804718A000B1B21 /* DataController.swift in Sources */,
 				6A8D220427FAEA22002AC898 /* MemoApp.swift in Sources */,
+				6A03231028082485000B1B21 /* StepView.swift in Sources */,
 				6AD7D39127FDB5E100B657B4 /* Step+CoreDataClass.swift in Sources */,
 				6A8D221027FAEA29002AC898 /* Memo.xcdatamodeld in Sources */,
 				6AD7D39227FDB5E100B657B4 /* Step+CoreDataProperties.swift in Sources */,

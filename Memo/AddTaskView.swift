@@ -16,6 +16,11 @@ struct AddTaskView: View {
     @State private var showDateSheet = false
     @State private var showAddStepPopup = false
     
+    @State private var displayDeleteWindow = false
+    @State private var displayEditWindow = false
+    @State private var deletableStep: Step?
+    @State private var editableStep: Step = Step()
+    
     @State private var showConfirmWindow = false
     @State private var taskDesc = ""
     @State private var currentLocation = ""
@@ -23,6 +28,12 @@ struct AddTaskView: View {
     
     @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentationMode
+    
+    
+    func deleteStep(at offsets: IndexSet) {
+        addedSteps.remove(atOffsets: offsets)
+    }
+    
     
     var body: some View {
         ZStack {
@@ -137,36 +148,18 @@ struct AddTaskView: View {
                                     VStack {
            
                                             ForEach(addedSteps) {step in
-                                                HStack {
-                                                    Image(systemName: "checkmark.circle")
-                                                    Text(step.desc ?? "Description not found")
-                                                        .padding(5)
-                                                    Spacer()
-                                                    VStack {
-                                                        
-                                                    }
-                                                    .frame(maxHeight: .infinity)
-                                                    .padding(.vertical, 5)
-                                                    .padding(.horizontal, 2)
-                                                    .background(Color.blue)
-                                                }
-                        
-                                                .frame(
-                                                       maxWidth: .infinity,
-                                                       maxHeight: 35,alignment: .leading)
-                                            
-                                                .padding(10)
-                                               
-                                                .background(Color(red: 242/255, green: 242/255, blue: 242/255))
-                                                .cornerRadius(10)
-                                                .shadow(radius: 5)
-                                             
+                                                StepView(step: step,
+                                                    displayDeleteWindow: $displayDeleteWindow,
+                                                         displayEditWindow: $displayEditWindow,
+                                                         deletableStep: $deletableStep, editableStep: $editableStep)
                                             }
+                                
                                     }
                                
 
                                 }
                                 .padding(5)
+                          
                               
                             } else {
                                 VStack {
@@ -234,9 +227,17 @@ struct AddTaskView: View {
             
             
             // Displays a popup which enables adding steps
-            AddStepPopup(display: $showAddStepPopup, displayToFalse: {showAddStepPopup = false}, addStepToList: {step in
+            AddStepPopup(display: $showAddStepPopup, addStepToList: {step in
                 addedSteps.append(step)
             })
+            
+            
+            // Displays a confirmation popup for Step deletion.
+            ConfirmDeletePopup(display: $displayDeleteWindow, addedSteps: $addedSteps, step: $deletableStep, task: .constant(nil))
+            
+            
+            // Displays a popup for editing a Step object.
+            EditStepPopup(display: $displayEditWindow, editableStep: $editableStep)
             
             
             // Displays a confirmation popup

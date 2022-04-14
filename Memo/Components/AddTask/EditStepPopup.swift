@@ -1,19 +1,16 @@
 //
-//  AddStepPopup.swift
+//  EditStepPopup.swift
 //  Memo
 //
-//  Created by iosdev on 11.4.2022.
+//  Created by iosdev on 14.4.2022.
 //
 
 import SwiftUI
 
-// A popup window used for adding steps.
-// Utilized in AddTaskView.
-struct AddStepPopup: View {
-    
+struct EditStepPopup: View {
     @Binding var display : Bool
-    @State var stepTitle : String = ""
-    var addStepToList : (Step) -> Void
+    @Binding var editableStep : Step
+    @State var newDesc : String = ""
     
     @Environment(\.managedObjectContext) var moc
     
@@ -23,11 +20,11 @@ struct AddStepPopup: View {
                 Color.black.opacity(display ? 0.5 : 0).edgesIgnoringSafeArea(.all)
                 VStack {
                     VStack(alignment: .leading) {
-                        Text("Step title")
+                        Text("Edit step title")
                             .font(.system(size: 20, weight: .medium))
                             .padding(.top)
                   
-                        TextField("insert title", text: $stepTitle)
+                        TextField("Insert new title", text: $newDesc)
                        
                             .padding(.vertical, 20)
                             .font( .system(size: 30, weight: .medium))
@@ -40,7 +37,7 @@ struct AddStepPopup: View {
                     HStack(spacing: 0) {
                         
                         Button(action: {withAnimation(.linear(duration: 0.3)) {
-                            display = false                       }}) {
+                            display = false                     }}) {
                             Text("Cancel")
                                     .foregroundColor(Color.white)
                                     
@@ -49,16 +46,10 @@ struct AddStepPopup: View {
                             .frame(maxWidth: .infinity)
                             .background(Color.gray)
                 
-                        // Creates a new Step object and adds it to the addSteps list in AddTaskView. After this, navigate back.
+                        // Edits the chosen Step object. After this, navigate back.
                         Button(action: {withAnimation(.linear(duration: 0.3)) {
-                            // TODO: Add step to list
-                            
-                            let newStep = Step(context: moc)
-                            newStep.desc = stepTitle
-                            newStep.id = UUID()
-                            
-                            addStepToList(newStep)
-                            stepTitle = ""
+                            editableStep.desc = newDesc
+                            newDesc = ""
                             display = false
                         }}) {
                             Text("Confirm")
@@ -82,10 +73,9 @@ struct AddStepPopup: View {
     }
 }
 
-    struct AddStepPopup_Previews: PreviewProvider {
-        
+    struct EditStepPopup_Previews: PreviewProvider {
         static var previews: some View {
-            AddStepPopup(display: .constant(true), addStepToList: {Step in})
+            EditStepPopup(display: .constant(true), editableStep: .constant(Step()))
         }
     }
 }

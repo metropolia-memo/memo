@@ -1,21 +1,41 @@
 //
-//  AddStepPopup.swift
+//  ConfirmDeletePopup.swift
 //  Memo
 //
-//  Created by iosdev on 11.4.2022.
+//  Created by iosdev on 14.4.2022.
 //
 
 import SwiftUI
 
-// A popup window used for adding steps.
-// Utilized in AddTaskView.
-struct AddStepPopup: View {
+// Handles the deletion of the selected object depending on it being a Step or Task.
+struct ConfirmDeletePopup: View {
     
     @Binding var display : Bool
-    @State var stepTitle : String = ""
-    var addStepToList : (Step) -> Void
+    @Binding var addedSteps : [Step]
+    @Binding var step : Step?
+    @Binding var task : Task?
     
-    @Environment(\.managedObjectContext) var moc
+    
+    // Displays a corresponding message according to the item being a Step or Task.
+    func displayMessage() -> String {
+        if step != nil {
+            return "Delete step '\(step?.desc ?? "unknown")'?"
+        } else if task != nil {
+            return "Delete task '\(task?.name ?? "unknown")'?"
+        }
+        return "Not a Step or Task object"
+    }
+    
+    
+    // Deletes an item according to the item being a Step or Task.
+    func deleteItem() {
+        if step != nil {
+            addedSteps.remove(at: addedSteps.firstIndex(where: {$0.id == step?.id}) ?? 0)
+        } else if task != nil {
+            // Remove from Core Data
+        }
+    }
+    
     
     var body: some View {
         ZStack {
@@ -23,24 +43,20 @@ struct AddStepPopup: View {
                 Color.black.opacity(display ? 0.5 : 0).edgesIgnoringSafeArea(.all)
                 VStack {
                     VStack(alignment: .leading) {
-                        Text("Step title")
+                        Text(displayMessage())
                             .font(.system(size: 20, weight: .medium))
                             .padding(.top)
-                  
-                        TextField("insert title", text: $stepTitle)
                        
                             .padding(.vertical, 20)
                             .font( .system(size: 30, weight: .medium))
                       
                     }
                     .padding()
-               
-                    
-                    
+                         
                     HStack(spacing: 0) {
                         
                         Button(action: {withAnimation(.linear(duration: 0.3)) {
-                            display = false                       }}) {
+                            display = false                      }}) {
                             Text("Cancel")
                                     .foregroundColor(Color.white)
                                     
@@ -51,17 +67,10 @@ struct AddStepPopup: View {
                 
                         // Creates a new Step object and adds it to the addSteps list in AddTaskView. After this, navigate back.
                         Button(action: {withAnimation(.linear(duration: 0.3)) {
-                            // TODO: Add step to list
-                            
-                            let newStep = Step(context: moc)
-                            newStep.desc = stepTitle
-                            newStep.id = UUID()
-                            
-                            addStepToList(newStep)
-                            stepTitle = ""
+                            deleteItem()
                             display = false
                         }}) {
-                            Text("Confirm")
+                            Text("Delete")
                                     .foregroundColor(Color.white)
                         }
                             .padding()
@@ -80,12 +89,11 @@ struct AddStepPopup: View {
             .padding()
         }
     }
+    }
 }
 
-    struct AddStepPopup_Previews: PreviewProvider {
-        
-        static var previews: some View {
-            AddStepPopup(display: .constant(true), addStepToList: {Step in})
-        }
+struct ConfirmDeletePopup_Previews: PreviewProvider {
+    static var previews: some View {
+        ConfirmDeletePopup(display: .constant(true), addedSteps: .constant([Step()]), step: .constant(Step()), task: .constant(nil))
     }
 }
