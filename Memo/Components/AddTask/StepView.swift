@@ -2,21 +2,33 @@
 //  StepView.swift
 //  Memo
 //
-//  Created by iosdev on 14.4.2022.
+//  Created by Oskari Arponen on 14.4.2022.
 //
 
 import SwiftUI
 
+// Displays a Step object, with a delete and edit button.
 struct StepView: View {
     
+    
+    // Accessing the Context applied to the environment.
     @Environment(\.managedObjectContext) var moc
-
-    var step : Step
+    
+    // step: The currently displayed Step object.
+    @StateObject var step : Step
+    
+    // offset manages the position of the StepView object in the x-axis. Used for creating a DragGesture.
     @State private var offset : Float = 0
+    
+    // Manages the displayed status of the Delete and Edit popups.
     @Binding var displayDeleteWindow : Bool
     @Binding var displayEditWindow : Bool
+    
+    
+    // deletableStep and editableStep used for controlling what Step object the Delete and Edit popups handle.
     @Binding var deletableStep : Step?
     @Binding var editableStep : Step
+    
     
     var body: some View {
         ZStack {
@@ -32,6 +44,7 @@ struct StepView: View {
                         .font(.system(size: 30))
                         .foregroundColor(Color.blue)
                         .padding(5)
+                        .shadow(radius: 3)
                 }
                 
                 Button(action: {
@@ -44,6 +57,7 @@ struct StepView: View {
                         .font(.system(size: 30))
                         .foregroundColor(Color.red)
                         .padding(5)
+                        .shadow(radius: 3)
                 }
                     
             }
@@ -79,11 +93,9 @@ struct StepView: View {
             .contentShape(Rectangle())
             .offset(x: CGFloat(offset))
             .gesture(DragGesture().onChanged(onChanged(value:)).onEnded(onEnd(value:)))
-
         }
-      
-        
     }
+    
     
     // Defines how much the Step can slide in the x-axis.
     func onChanged(value: DragGesture.Value) {
@@ -98,13 +110,16 @@ struct StepView: View {
         
     }
     
+    
     // Defines what happens after the swipe motion ends.
     func onEnd(value: DragGesture.Value) {
+        
         if (value.translation.width > -40) {
             offset = 0
         } else {
             offset = Float(-100)
         }
+        
     }
     
 }

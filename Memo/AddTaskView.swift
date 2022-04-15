@@ -10,26 +10,36 @@ import SwiftUI
 // Displays components for creating a new task.
 struct AddTaskView: View {
     
+    
+    // Used in DatePickerPopup, AddStepPopup and for displaying an error alert if the user lacks a title input.
     @State private var showAlert = false
     @State private var taskTitle = ""
     @State private var taskDeadline = Date()
     @State private var showDateSheet = false
     @State private var showAddStepPopup = false
     
+    
+    // Used in ConfirmDeletePopup and EditStepPopup.
     @State private var displayDeleteWindow = false
     @State private var displayEditWindow = false
     @State private var deletableStep: Step?
     @State private var editableStep: Step = Step()
     
+    
+    // Used in ConfirmAddTaskPopup
     @State private var showConfirmWindow = false
     @State private var taskDesc = ""
     @State private var currentLocation = ""
     @State private var addedSteps : [Step] = []
     
+    
+    // Accessing the Context applied to the environment.
     @Environment(\.managedObjectContext) var moc
+    // Used for dismissing the AddTaskView.
     @Environment(\.presentationMode) var presentationMode
     
     
+    // Deletes the selected Step object from the addedSteps list.
     func deleteStep(at offsets: IndexSet) {
         addedSteps.remove(atOffsets: offsets)
     }
@@ -223,7 +233,7 @@ struct AddTaskView: View {
            
                 
             // Displays a DatePicker popup
-            DatePickerPopup(display: $showDateSheet, taskDeadline: $taskDeadline, displayToFalse: {showDateSheet = false})
+            DatePickerPopup(display: $showDateSheet, taskDeadline: $taskDeadline)
             
             
             // Displays a popup which enables adding steps
@@ -241,7 +251,7 @@ struct AddTaskView: View {
             
             
             // Displays a confirmation popup
-            ConfirmAddTaskPopup(display: $showConfirmWindow, taskTitle: $taskTitle, displayToFalse: {showConfirmWindow = false}, saveTaskToCoreData: {
+            ConfirmAddTaskPopup(display: $showConfirmWindow, taskTitle: $taskTitle, saveTaskToCoreData: {
                 do {
                     // Creates a new Task object with the given State variables and saves it to Core Data.
                     let newTask = Task(context: moc)
@@ -276,7 +286,6 @@ struct AddTaskView: View {
     }
     
 }
-
 
 
 struct AddTaskView_Previews: PreviewProvider {

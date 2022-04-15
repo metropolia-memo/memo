@@ -2,14 +2,21 @@
 //  EditStepPopup.swift
 //  Memo
 //
-//  Created by iosdev on 14.4.2022.
+//  Created by Oskari Arponen on 14.4.2022.
 //
 
 import SwiftUI
 
+// Displays a window which allows the user to edit the Step title.
 struct EditStepPopup: View {
+    
+    // Handles displayed status.
     @Binding var display : Bool
+    
+    // Chosen Step object to be edited.
     @Binding var editableStep : Step
+    
+    // Current description input.
     @State var newDesc : String = ""
     
     @Environment(\.managedObjectContext) var moc
@@ -37,6 +44,7 @@ struct EditStepPopup: View {
                     HStack(spacing: 0) {
                         
                         Button(action: {withAnimation(.linear(duration: 0.3)) {
+                            newDesc = ""
                             display = false                     }}) {
                             Text("Cancel")
                                     .foregroundColor(Color.white)

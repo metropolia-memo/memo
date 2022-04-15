@@ -2,7 +2,7 @@
 //  ConfirmDeletePopup.swift
 //  Memo
 //
-//  Created by iosdev on 14.4.2022.
+//  Created by Oskari Arponen on 14.4.2022.
 //
 
 import SwiftUI
@@ -10,9 +10,16 @@ import SwiftUI
 // Handles the deletion of the selected object depending on it being a Step or Task.
 struct ConfirmDeletePopup: View {
     
+    // Handles displayed status.
     @Binding var display : Bool
+    
+    // Accessing the addedSteps list in the AddTaskView.
     @Binding var addedSteps : [Step]
+    
+    // Possible Step object getting deleted.
     @Binding var step : Step?
+    
+    // Possible Task object getting deleted.
     @Binding var task : Task?
     
     

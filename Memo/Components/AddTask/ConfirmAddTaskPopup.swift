@@ -2,16 +2,21 @@
 //  ConfirmAddTaskPopup.swift
 //  Memo
 //
-//  Created by iosdev on 12.4.2022.
+//  Created by Oskari Arponen on 12.4.2022.
 //
 
 import SwiftUI
 
+// Displays a confirmation window for saving the Task object to Core Data.
 struct ConfirmAddTaskPopup: View {
     
+    // Handles displayed status.
     @Binding var display : Bool
+    
+    // Current title of the task.
     @Binding var taskTitle : String
-    var displayToFalse : () -> Void
+    
+    // Saves the task to Core Data.
     var saveTaskToCoreData : () -> Void
     
     var body: some View {
@@ -35,7 +40,7 @@ struct ConfirmAddTaskPopup: View {
                     HStack(spacing: 0) {
                         
                         Button(action: {withAnimation(.linear(duration: 0.3)) {
-                            displayToFalse()                       }}) {
+                            display = false                   }}) {
                             Text("Cancel")
                                     .foregroundColor(Color.white)
                                     
@@ -47,7 +52,7 @@ struct ConfirmAddTaskPopup: View {
                         // Creates a new Step object and adds it to the addSteps list in AddTaskView. After this, navigate back.
                         Button(action: {withAnimation(.linear(duration: 0.3)) {
                             saveTaskToCoreData()
-                            displayToFalse()
+                            display = false
                         }}) {
                             Text("Confirm")
                                     .foregroundColor(Color.white)
@@ -73,6 +78,6 @@ struct ConfirmAddTaskPopup: View {
 
 struct ConfirmAddTaskPopup_Previews: PreviewProvider {
     static var previews: some View {
-        ConfirmAddTaskPopup(display: .constant(true), taskTitle: .constant("Preview title"), displayToFalse: {}, saveTaskToCoreData: {})
+        ConfirmAddTaskPopup(display: .constant(true), taskTitle: .constant("Preview title"), saveTaskToCoreData: {})
     }
 }
