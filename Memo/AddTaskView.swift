@@ -10,19 +10,40 @@ import SwiftUI
 // Displays components for creating a new task.
 struct AddTaskView: View {
     
+    
+    // Used in DatePickerPopup, AddStepPopup and for displaying an error alert if the user lacks a title input.
     @State private var showAlert = false
     @State private var taskTitle = ""
     @State private var taskDeadline = Date()
     @State private var showDateSheet = false
     @State private var showAddStepPopup = false
     
+    
+    // Used in ConfirmDeletePopup and EditStepPopup.
+    @State private var displayDeleteWindow = false
+    @State private var displayEditWindow = false
+    @State private var deletableStep: Step?
+    @State private var editableStep: Step = Step()
+    
+    
+    // Used in ConfirmAddTaskPopup
     @State private var showConfirmWindow = false
     @State private var taskDesc = ""
     @State private var currentLocation = ""
     @State private var addedSteps : [Step] = []
     
+    
+    // Accessing the Context applied to the environment.
     @Environment(\.managedObjectContext) var moc
+    // Used for dismissing the AddTaskView.
     @Environment(\.presentationMode) var presentationMode
+    
+    
+    // Deletes the selected Step object from the addedSteps list.
+    func deleteStep(at offsets: IndexSet) {
+        addedSteps.remove(atOffsets: offsets)
+    }
+    
     
     var body: some View {
         ZStack {
@@ -137,36 +158,18 @@ struct AddTaskView: View {
                                     VStack {
            
                                             ForEach(addedSteps) {step in
-                                                HStack {
-                                                    Image(systemName: "checkmark.circle")
-                                                    Text(step.desc ?? "Description not found")
-                                                        .padding(5)
-                                                    Spacer()
-                                                    VStack {
-                                                        
-                                                    }
-                                                    .frame(maxHeight: .infinity)
-                                                    .padding(.vertical, 5)
-                                                    .padding(.horizontal, 2)
-                                                    .background(Color.blue)
-                                                }
-                        
-                                                .frame(
-                                                       maxWidth: .infinity,
-                                                       maxHeight: 35,alignment: .leading)
-                                            
-                                                .padding(10)
-                                               
-                                                .background(Color(red: 242/255, green: 242/255, blue: 242/255))
-                                                .cornerRadius(10)
-                                                .shadow(radius: 5)
-                                             
+                                                StepView(step: step,
+                                                    displayDeleteWindow: $displayDeleteWindow,
+                                                         displayEditWindow: $displayEditWindow,
+                                                         deletableStep: $deletableStep, editableStep: $editableStep)
                                             }
+                                
                                     }
                                
 
                                 }
                                 .padding(5)
+                          
                               
                             } else {
                                 VStack {
@@ -230,17 +233,25 @@ struct AddTaskView: View {
            
                 
             // Displays a DatePicker popup
-            DatePickerPopup(display: $showDateSheet, taskDeadline: $taskDeadline, displayToFalse: {showDateSheet = false})
+            DatePickerPopup(display: $showDateSheet, taskDeadline: $taskDeadline)
             
             
             // Displays a popup which enables adding steps
-            AddStepPopup(display: $showAddStepPopup, displayToFalse: {showAddStepPopup = false}, addStepToList: {step in
+            AddStepPopup(display: $showAddStepPopup, addStepToList: {step in
                 addedSteps.append(step)
             })
             
             
+            // Displays a confirmation popup for Step deletion.
+            ConfirmDeletePopup(display: $displayDeleteWindow, addedSteps: $addedSteps, step: $deletableStep, task: .constant(nil))
+            
+            
+            // Displays a popup for editing a Step object.
+            EditStepPopup(display: $displayEditWindow, editableStep: $editableStep)
+            
+            
             // Displays a confirmation popup
-            ConfirmAddTaskPopup(display: $showConfirmWindow, taskTitle: $taskTitle, displayToFalse: {showConfirmWindow = false}, saveTaskToCoreData: {
+            ConfirmAddTaskPopup(display: $showConfirmWindow, taskTitle: $taskTitle, saveTaskToCoreData: {
                 do {
                     // Creates a new Task object with the given State variables and saves it to Core Data.
                     let newTask = Task(context: moc)
@@ -275,7 +286,6 @@ struct AddTaskView: View {
     }
     
 }
-
 
 
 struct AddTaskView_Previews: PreviewProvider {

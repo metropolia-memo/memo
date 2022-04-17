@@ -2,18 +2,19 @@
 //  DatePickerPopup.swift
 //  Memo
 //
-//  Created by iosdev on 8.4.2022.
+//  Created by Oskari Arponen on 8.4.2022.
 //
 
 import SwiftUI
 
-// A popup window used for setting a deadline Date.
-// Utilized in AddTaskView.
+// Displays a DatePicker, which is used to set a deadline for the Task object.
 struct DatePickerPopup: View {
     
+    // Handles the displayed status.
     @Binding var display : Bool
+    
+    // The current set deadline.
     @Binding var taskDeadline : Date
-    var displayToFalse : () -> Void
     
     var body: some View {
         ZStack {
@@ -31,8 +32,8 @@ struct DatePickerPopup: View {
                     
                     
                     Button(action: {withAnimation(.linear(duration: 0.3)) {
-                        displayToFalse()                       }}) {
-                        Text("Confirm")
+                        display = false                       }}) {
+                        Text("Done")
                                 .foregroundColor(Color.white)
                     }
                         .padding()
@@ -53,7 +54,7 @@ struct DatePickerPopup_Previews:
     PreviewProvider {
 
     static var previews: some View {
-        DatePickerPopup(display: .constant(true), taskDeadline: .constant(Date()), displayToFalse: {})
+        DatePickerPopup(display: .constant(true), taskDeadline: .constant(Date()))
     }
     }
 }

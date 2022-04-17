@@ -1,23 +1,25 @@
 //
-//  ConfirmAddTaskPopup.swift
+//  EditStepPopup.swift
 //  Memo
 //
-//  Created by Oskari Arponen on 12.4.2022.
+//  Created by Oskari Arponen on 14.4.2022.
 //
 
 import SwiftUI
 
-// Displays a confirmation window for saving the Task object to Core Data.
-struct ConfirmAddTaskPopup: View {
+// Displays a window which allows the user to edit the Step title.
+struct EditStepPopup: View {
     
     // Handles displayed status.
     @Binding var display : Bool
     
-    // Current title of the task.
-    @Binding var taskTitle : String
+    // Chosen Step object to be edited.
+    @Binding var editableStep : Step
     
-    // Saves the task to Core Data.
-    var saveTaskToCoreData : () -> Void
+    // Current description input.
+    @State var newDesc : String = ""
+    
+    @Environment(\.managedObjectContext) var moc
     
     var body: some View {
         ZStack {
@@ -25,9 +27,11 @@ struct ConfirmAddTaskPopup: View {
                 Color.black.opacity(display ? 0.5 : 0).edgesIgnoringSafeArea(.all)
                 VStack {
                     VStack(alignment: .leading) {
-                        Text("Save task '\(taskTitle)'?")
+                        Text("Edit step title")
                             .font(.system(size: 20, weight: .medium))
                             .padding(.top)
+                  
+                        TextField("Insert new title", text: $newDesc)
                        
                             .padding(.vertical, 20)
                             .font( .system(size: 30, weight: .medium))
@@ -40,7 +44,8 @@ struct ConfirmAddTaskPopup: View {
                     HStack(spacing: 0) {
                         
                         Button(action: {withAnimation(.linear(duration: 0.3)) {
-                            display = false                   }}) {
+                            newDesc = ""
+                            display = false                     }}) {
                             Text("Cancel")
                                     .foregroundColor(Color.white)
                                     
@@ -49,9 +54,10 @@ struct ConfirmAddTaskPopup: View {
                             .frame(maxWidth: .infinity)
                             .background(Color.gray)
                 
-                        // Creates a new Step object and adds it to the addSteps list in AddTaskView. After this, navigate back.
+                        // Edits the chosen Step object. After this, navigate back.
                         Button(action: {withAnimation(.linear(duration: 0.3)) {
-                            saveTaskToCoreData()
+                            editableStep.desc = newDesc
+                            newDesc = ""
                             display = false
                         }}) {
                             Text("Confirm")
@@ -73,11 +79,11 @@ struct ConfirmAddTaskPopup: View {
             .padding()
         }
     }
-    }
 }
 
-struct ConfirmAddTaskPopup_Previews: PreviewProvider {
-    static var previews: some View {
-        ConfirmAddTaskPopup(display: .constant(true), taskTitle: .constant("Preview title"), saveTaskToCoreData: {})
+    struct EditStepPopup_Previews: PreviewProvider {
+        static var previews: some View {
+            EditStepPopup(display: .constant(true), editableStep: .constant(Step()))
+        }
     }
 }

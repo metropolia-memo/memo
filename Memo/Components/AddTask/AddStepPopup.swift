@@ -2,7 +2,7 @@
 //  AddStepPopup.swift
 //  Memo
 //
-//  Created by iosdev on 11.4.2022.
+//  Created by Oskari Arponen on 11.4.2022.
 //
 
 import SwiftUI
@@ -13,7 +13,6 @@ struct AddStepPopup: View {
     
     @Binding var display : Bool
     @State var stepTitle : String = ""
-    var displayToFalse : () -> Void
     var addStepToList : (Step) -> Void
     
     @Environment(\.managedObjectContext) var moc
@@ -28,7 +27,7 @@ struct AddStepPopup: View {
                             .font(.system(size: 20, weight: .medium))
                             .padding(.top)
                   
-                        TextField("Change title", text: $stepTitle)
+                        TextField("insert title", text: $stepTitle)
                        
                             .padding(.vertical, 20)
                             .font( .system(size: 30, weight: .medium))
@@ -41,7 +40,7 @@ struct AddStepPopup: View {
                     HStack(spacing: 0) {
                         
                         Button(action: {withAnimation(.linear(duration: 0.3)) {
-                            displayToFalse()                       }}) {
+                            display = false                       }}) {
                             Text("Cancel")
                                     .foregroundColor(Color.white)
                                     
@@ -60,7 +59,7 @@ struct AddStepPopup: View {
                             
                             addStepToList(newStep)
                             stepTitle = ""
-                            displayToFalse()
+                            display = false
                         }}) {
                             Text("Confirm")
                                     .foregroundColor(Color.white)
@@ -85,12 +84,8 @@ struct AddStepPopup: View {
 
     struct AddStepPopup_Previews: PreviewProvider {
         
-        var step = Step()
-        func addStep(step: Step) {
-            
-        }
         static var previews: some View {
-            AddStepPopup(display: .constant(true), displayToFalse: {}, addStepToList: {Step in})
+            AddStepPopup(display: .constant(true), addStepToList: {Step in})
         }
     }
 }

@@ -1,23 +1,48 @@
 //
-//  ConfirmAddTaskPopup.swift
+//  ConfirmDeletePopup.swift
 //  Memo
 //
-//  Created by Oskari Arponen on 12.4.2022.
+//  Created by Oskari Arponen on 14.4.2022.
 //
 
 import SwiftUI
 
-// Displays a confirmation window for saving the Task object to Core Data.
-struct ConfirmAddTaskPopup: View {
+// Handles the deletion of the selected object depending on it being a Step or Task.
+struct ConfirmDeletePopup: View {
     
     // Handles displayed status.
     @Binding var display : Bool
     
-    // Current title of the task.
-    @Binding var taskTitle : String
+    // Accessing the addedSteps list in the AddTaskView.
+    @Binding var addedSteps : [Step]
     
-    // Saves the task to Core Data.
-    var saveTaskToCoreData : () -> Void
+    // Possible Step object getting deleted.
+    @Binding var step : Step?
+    
+    // Possible Task object getting deleted.
+    @Binding var task : Task?
+    
+    
+    // Displays a corresponding message according to the item being a Step or Task.
+    func displayMessage() -> String {
+        if step != nil {
+            return "Delete step '\(step?.desc ?? "unknown")'?"
+        } else if task != nil {
+            return "Delete task '\(task?.name ?? "unknown")'?"
+        }
+        return "Not a Step or Task object"
+    }
+    
+    
+    // Deletes an item according to the item being a Step or Task.
+    func deleteItem() {
+        if step != nil {
+            addedSteps.remove(at: addedSteps.firstIndex(where: {$0.id == step?.id}) ?? 0)
+        } else if task != nil {
+            // Remove from Core Data
+        }
+    }
+    
     
     var body: some View {
         ZStack {
@@ -25,7 +50,7 @@ struct ConfirmAddTaskPopup: View {
                 Color.black.opacity(display ? 0.5 : 0).edgesIgnoringSafeArea(.all)
                 VStack {
                     VStack(alignment: .leading) {
-                        Text("Save task '\(taskTitle)'?")
+                        Text(displayMessage())
                             .font(.system(size: 20, weight: .medium))
                             .padding(.top)
                        
@@ -34,13 +59,11 @@ struct ConfirmAddTaskPopup: View {
                       
                     }
                     .padding()
-               
-                    
-                    
+                         
                     HStack(spacing: 0) {
                         
                         Button(action: {withAnimation(.linear(duration: 0.3)) {
-                            display = false                   }}) {
+                            display = false                      }}) {
                             Text("Cancel")
                                     .foregroundColor(Color.white)
                                     
@@ -51,10 +74,10 @@ struct ConfirmAddTaskPopup: View {
                 
                         // Creates a new Step object and adds it to the addSteps list in AddTaskView. After this, navigate back.
                         Button(action: {withAnimation(.linear(duration: 0.3)) {
-                            saveTaskToCoreData()
+                            deleteItem()
                             display = false
                         }}) {
-                            Text("Confirm")
+                            Text("Delete")
                                     .foregroundColor(Color.white)
                         }
                             .padding()
@@ -76,8 +99,8 @@ struct ConfirmAddTaskPopup: View {
     }
 }
 
-struct ConfirmAddTaskPopup_Previews: PreviewProvider {
+struct ConfirmDeletePopup_Previews: PreviewProvider {
     static var previews: some View {
-        ConfirmAddTaskPopup(display: .constant(true), taskTitle: .constant("Preview title"), saveTaskToCoreData: {})
+        ConfirmDeletePopup(display: .constant(true), addedSteps: .constant([Step()]), step: .constant(Step()), task: .constant(nil))
     }
 }
