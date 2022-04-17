@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct HomeHeaderView: View {
+    @ObservedObject var api : QuoteApi = QuoteApi()
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(spacing: 0) {
             HStack {
                 VStack(alignment: .leading) {
                     Text("Welcome back, John")
@@ -24,7 +25,21 @@ struct HomeHeaderView: View {
                 }
             }
             .fixedSize()
+            VStack(alignment: .leading){
+                Text(self.api.dailyQuote).font(.system(size: 16))
+                    .italic()
+                    .padding(5)
+                Text("- \(self.api.dailyAuthor)").font(.caption)
+                    .padding(5)
+            }
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.accentColor, lineWidth: 1)
+            )
             
+        }
+        .onAppear {
+            api.callAPI()
         }
         .padding()
         .toolbar {
@@ -38,6 +53,7 @@ struct HomeHeaderView: View {
             }
         }
     }
+        
 }
 
 struct HomeHeaderView_Previews: PreviewProvider {
