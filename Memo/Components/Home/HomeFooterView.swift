@@ -64,12 +64,12 @@ struct HomeFooterView: View {
                 if !taskOrNote {
                     ScrollView (.horizontal, showsIndicators: false) {
                         LazyHStack {
-                            ForEach(tasks.indices) { i in
-                                if (i == 0) {
-                                    TaskRow(task: tasks[i], tasks: tasks, first: true)
-                                } else {
-                                    TaskRow(task: tasks[i], tasks: tasks, first: false)
-                                }
+                            ForEach(tasks) { task in
+                                if (task == tasks[0]) {
+                                        TaskRow(task: task, tasks: tasks, first: true)
+                                    } else {
+                                        TaskRow(task: task, tasks: tasks, first: false)
+                                    }
                             }
                         }
                         .padding()
