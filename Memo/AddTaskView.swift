@@ -10,7 +10,6 @@ import SwiftUI
 // Displays components for creating a new task.
 struct AddTaskView: View {
     
-    
     // Used in DatePickerPopup, AddStepPopup and for displaying an error alert if the user lacks a title input.
     @State private var showAlert = false
     @State private var taskTitle = ""
@@ -32,7 +31,8 @@ struct AddTaskView: View {
     @State private var currentLocation = ""
     @State private var addedSteps : [Step] = []
     
-    
+    @State private var location : TaskLocation?
+    @State private var displayLocationWindow = false
     // Accessing the Context applied to the environment.
     @Environment(\.managedObjectContext) var moc
     // Used for dismissing the AddTaskView.
@@ -113,13 +113,14 @@ struct AddTaskView: View {
                                 Text("Location")
                                     .bold()
                                 HStack {
-                                    Text("Karaportti 2")
+                                    Text(location?.name ?? "Location not set")
                                     Spacer()
-                                    Button(action: {}) {
+                                    Button(action: {
+                                        displayLocationWindow = true
+                                    }) {
                                         Image(systemName: "location.fill")
                                             .font(.system(size: 40))
                                     }
-                                
                                 }
                                
                             }
@@ -249,6 +250,9 @@ struct AddTaskView: View {
             // Displays a popup for editing a Step object.
             EditStepPopup(display: $displayEditWindow, editableStep: $editableStep)
             
+            // Displays a View for adding a location.
+            AddLocationView(display: $displayLocationWindow, location: $location)
+            
             
             // Displays a confirmation popup
             ConfirmAddTaskPopup(display: $showConfirmWindow, taskTitle: $taskTitle, saveTaskToCoreData: {
@@ -259,6 +263,7 @@ struct AddTaskView: View {
                     newTask.desc = taskDesc
                     newTask.deadline = taskDeadline
                     newTask.id = UUID()
+                    newTask.taskLocation = location
                     
                     for step in addedSteps {
                         step.origin = newTask

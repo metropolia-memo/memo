@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import MapKit
 
 
 extension Task {
@@ -21,6 +22,7 @@ extension Task {
     @NSManaged public var name: String?
     @NSManaged public var desc: String?
     @NSManaged public var steps: NSSet?
+    @NSManaged public var taskLocation: TaskLocation?
 
 }
 
@@ -62,5 +64,7 @@ extension Task : Identifiable {
             $0.wrappedDesc < $1.wrappedDesc
         }
     }
+    
+    
     
 }

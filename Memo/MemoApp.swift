@@ -18,8 +18,7 @@ struct MemoApp: App {
             NavigationView {
                 Home()
                     .environment(\.managedObjectContext, dataController.container.viewContext)
-//                ContentView()
-//                    .environment(\.managedObjectContext, dataController.container.viewContext)
+
             }
             
         }
