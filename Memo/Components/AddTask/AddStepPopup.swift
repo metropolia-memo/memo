@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 // A popup window used for adding steps.
 // Utilized in AddTaskView.
@@ -15,7 +16,7 @@ struct AddStepPopup: View {
     @State var stepTitle : String = ""
     var addStepToList : (Step) -> Void
     
-    @Environment(\.managedObjectContext) var moc
+    var moc : NSManagedObjectContext
     
     var body: some View {
         ZStack {
@@ -81,11 +82,4 @@ struct AddStepPopup: View {
         }
     }
 }
-
-    struct AddStepPopup_Previews: PreviewProvider {
-        
-        static var previews: some View {
-            AddStepPopup(display: .constant(true), addStepToList: {Step in})
-        }
-    }
 }

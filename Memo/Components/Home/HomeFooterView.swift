@@ -10,12 +10,17 @@ import CoreData
 
 struct HomeFooterView: View {
     @StateObject private var dataController = DataController()
-    
-    @State private var refreshID = UUID()
 
     @Environment(\.managedObjectContext) var moc
-    @FetchRequest(entity: Task.entity(), sortDescriptors: []) var tasks: FetchedResults<Task>
     
+    @FetchRequest var tasks: FetchedResults<Task>
+    
+    init() {
+        self._tasks = FetchRequest(entity: Task.entity(), sortDescriptors: [
+            NSSortDescriptor(keyPath: \Task.date_added, ascending: false)
+        ])
+        moc.automaticallyMergesChangesFromParent = true
+    }
     @State private var searchInput: String = ""
     
     // Boolean for showing either tasks or notes
@@ -60,9 +65,13 @@ struct HomeFooterView: View {
                 if !taskOrNote {
                     ScrollView (.horizontal, showsIndicators: false) {
                         LazyHStack {
-                            ForEach(tasks.reversed(), id: \.self) { task in
-                                TaskRow(task: task, tasks: tasks)
-                            }.id(refreshID)
+                            ForEach(tasks.indices) { i in
+                                if (i == 0) {
+                                    TaskRow(task: tasks[i], tasks: tasks, first: true)
+                                } else {
+                                    TaskRow(task: tasks[i], tasks: tasks, first: false)
+                                }
+                            }
                         }
                         .padding()
                     }
@@ -73,7 +82,7 @@ struct HomeFooterView: View {
                             .font(.system(size: 28))
                         ScrollView {
                             LazyVStack {
-                                let withinTwo = tasks.filter {$0.withinTwo}
+                                let withinTwo = (tasks.filter {$0.withinTwo}).sorted(by: {$0.date_added < $1.date_added})
                                 if (withinTwo.isEmpty) {
                                     Text("No upcoming tasks within the next 48 hours.")
                                         .font(.caption)
@@ -83,8 +92,6 @@ struct HomeFooterView: View {
                                     }
                                 }
                             }
-                            
-                            
                         }
                     }
                     .padding()
@@ -127,8 +134,7 @@ struct HomeFooterView: View {
                     Spacer()
                     // Add task button
                     if !taskOrNote {
-                        NavigationLink(destination: AddTaskView().environment(\.managedObjectContext, dataController.container.viewContext)
-                                        .onDisappear(perform: {self.refreshID = UUID()})) {
+                        NavigationLink(destination: AddTaskView(moc: moc).environment(\.managedObjectContext, dataController.container.viewContext)) {
                             ZStack {
                                 Circle()
                                     .fill(Color.cyan)

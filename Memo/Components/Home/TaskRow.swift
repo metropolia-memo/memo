@@ -10,6 +10,7 @@ import SwiftUI
 struct TaskRow: View {
     @ObservedObject var task: Task
     let tasks: FetchedResults<Task>
+    let first: Bool
     var body: some View {
         VStack(alignment: .leading) {
             Image(systemName: "list.bullet.indent")
@@ -25,7 +26,7 @@ struct TaskRow: View {
         }
         .frame(width: 100)
         .padding()
-        .background((task.id == tasks[tasks.count - 1].id ? Color.accentColor : Color.cyan))
+        .background((first ? Color.accentColor : Color.cyan))
         .foregroundColor(Color.white)
         .cornerRadius(20)
         .shadow(radius: 5)
