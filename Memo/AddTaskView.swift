@@ -31,7 +31,7 @@ struct AddTaskView: View {
     @State private var currentLocation = ""
     @State private var addedSteps : [Step] = []
     
-    // Accessing the Context applied to the environment.
+    // Accessing the Context applied to the environment. Creating a child context to allow data updating in the Home screen.
     let childContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
     var moc : NSManagedObjectContext
     // Used for dismissing the AddTaskView.
@@ -43,6 +43,7 @@ struct AddTaskView: View {
         addedSteps.remove(atOffsets: offsets)
     }
     init(moc: NSManagedObjectContext) {
+        // Setting the Home screen context as the child context parent.
         self.moc = moc
         childContext.parent = moc
     }

@@ -19,7 +19,6 @@ struct HomeFooterView: View {
         self._tasks = FetchRequest(entity: Task.entity(), sortDescriptors: [
             NSSortDescriptor(keyPath: \Task.date_added, ascending: false)
         ])
-        moc.automaticallyMergesChangesFromParent = true
     }
     @State private var searchInput: String = ""
     
