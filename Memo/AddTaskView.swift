@@ -34,8 +34,7 @@ struct AddTaskView: View {
     
     @State private var location : TaskLocation?
     @State private var displayLocationWindow = false
-    // Accessing the Context applied to the environment.
-    @Environment(\.managedObjectContext) var moc
+  
     // Accessing the Context applied to the environment. Creating a child context to allow data updating in the Home screen.
     let childContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
     var moc : NSManagedObjectContext
@@ -259,7 +258,7 @@ struct AddTaskView: View {
             EditStepPopup(display: $displayEditWindow, editableStep: $editableStep)
             
             // Displays a View for adding a location.
-            AddLocationView(display: $displayLocationWindow, location: $location)
+            AddLocationView(moc: moc, display: $displayLocationWindow, location: $location)
             
             
             // Displays a confirmation popup

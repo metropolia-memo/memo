@@ -7,6 +7,7 @@
 
 import SwiftUI
 import MapKit
+import CoreData
 
 struct SelectedLocation: Identifiable {
     let id = UUID()
@@ -14,7 +15,11 @@ struct SelectedLocation: Identifiable {
 }
 
 struct AddLocationView: View {
-    @Environment(\.managedObjectContext) var moc
+  
+
+    var moc : NSManagedObjectContext
+    
+    
     @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.5, longitude: -0.12), span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
     @State private var regionCoordinates = CLLocationCoordinate2D(latitude: 51.5, longitude: -0.12)
     @State private var locationInput = ""
@@ -120,8 +125,8 @@ struct AddLocationView: View {
     }
 }
 
-struct AddLocationView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddLocationView(display: .constant(true), location: .constant(TaskLocation()))
-    }
-}
+//struct AddLocationView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        AddLocationView(display: .constant(true), location: .constant(TaskLocation()))
+//    }
+//}
