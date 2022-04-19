@@ -6,15 +6,22 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct HomeFooterView: View {
     @StateObject private var dataController = DataController()
+    
+    @State private var refreshID = UUID()
+
+    @Environment(\.managedObjectContext) var moc
+    @FetchRequest(entity: Task.entity(), sortDescriptors: []) var tasks: FetchedResults<Task>
     
     @State private var searchInput: String = ""
     
     // Boolean for showing either tasks or notes
     // Tasks == true, Notes == false
     @State private var taskOrNote: Bool = false
+    
     var body: some View {
         ZStack {
             VStack (alignment: .leading){
@@ -53,26 +60,9 @@ struct HomeFooterView: View {
                 if !taskOrNote {
                     ScrollView (.horizontal, showsIndicators: false) {
                         LazyHStack {
-                            ForEach(TempTask.sampleTasks) { task in
-                                VStack(alignment: .leading) {
-                                    Image(systemName: "list.bullet.indent")
-                                        .frame(width: 50, height: 100)
-                                        .scaleEffect(3)
-                                    Text("\(task.steps.count) steps")
-                                        .font(.body)
-                                        .fontWeight(.bold)
-                                    Spacer()
-                                    Text("\(task.name)")
-                                        .font(.body)
-                                        .fontWeight(.bold)
-                                }
-                                .frame(width: 100)
-                                .padding()
-                                .background((task.id == TempTask.sampleTasks[0].id ? Color.accentColor : Color.cyan))
-                                .foregroundColor(Color.white)
-                                .cornerRadius(20)
-                                .shadow(radius: 5)
-                            }
+                            ForEach(tasks.reversed(), id: \.self) { task in
+                                TaskRow(task: task, tasks: tasks)
+                            }.id(refreshID)
                         }
                         .padding()
                     }
@@ -145,7 +135,8 @@ struct HomeFooterView: View {
                     Spacer()
                     // Add task button
                     if !taskOrNote {
-                        NavigationLink(destination: AddTaskView().environment(\.managedObjectContext, dataController.container.viewContext)) {
+                        NavigationLink(destination: AddTaskView().environment(\.managedObjectContext, dataController.container.viewContext)
+                                        .onDisappear(perform: {self.refreshID = UUID()})) {
                             ZStack {
                                 Circle()
                                     .fill(Color.cyan)
