@@ -10,9 +10,11 @@
 		6A0323062804718A000B1B21 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A809C3827FB794A0065A427 /* DataController.swift */; };
 		6A0323092804729E000B1B21 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8D220527FAEA22002AC898 /* ContentView.swift */; };
 		6A03230E28061C61000B1B21 /* ConfirmAddTaskPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A03230D28061C61000B1B21 /* ConfirmAddTaskPopup.swift */; };
-          6A03231028082485000B1B21 /* StepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A03230F28082485000B1B21 /* StepView.swift */; };
-        6A032312280834DD000B1B21 /* ConfirmDeletePopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A032311280834DD000B1B21 /* ConfirmDeletePopup.swift */; };
-        6A0323142808A477000B1B21 /* EditStepPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0323132808A477000B1B21 /* EditStepPopup.swift */; };
+		6A03231028082485000B1B21 /* StepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A03230F28082485000B1B21 /* StepView.swift */; };
+		6A032312280834DD000B1B21 /* ConfirmDeletePopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A032311280834DD000B1B21 /* ConfirmDeletePopup.swift */; };
+		6A0323142808A477000B1B21 /* EditStepPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0323132808A477000B1B21 /* EditStepPopup.swift */; };
+		6A4E5135280EC3FE005C1664 /* NoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4E5134280EC3FE005C1664 /* NoteView.swift */; };
+		6A4E5137280EC52F005C1664 /* AddNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4E5136280EC52F005C1664 /* AddNoteView.swift */; };
 		6A59F8A22806D95300706B98 /* QuoteApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A59F8A12806D95300706B98 /* QuoteApi.swift */; };
 		6A59F8A52806DA4100706B98 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 6A59F8A42806DA4100706B98 /* SwiftyJSON */; };
 		6A59F8A82806E08800706B98 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 6A59F8A72806E08800706B98 /* Alamofire */; };
@@ -55,9 +57,11 @@
 
 /* Begin PBXFileReference section */
 		6A03230D28061C61000B1B21 /* ConfirmAddTaskPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmAddTaskPopup.swift; sourceTree = "<group>"; };
-        6A03230F28082485000B1B21 /* StepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepView.swift; sourceTree = "<group>"; };
-        6A032311280834DD000B1B21 /* ConfirmDeletePopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmDeletePopup.swift; sourceTree = "<group>"; };
-        6A0323132808A477000B1B21 /* EditStepPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStepPopup.swift; sourceTree = "<group>"; };
+		6A03230F28082485000B1B21 /* StepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepView.swift; sourceTree = "<group>"; };
+		6A032311280834DD000B1B21 /* ConfirmDeletePopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmDeletePopup.swift; sourceTree = "<group>"; };
+		6A0323132808A477000B1B21 /* EditStepPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStepPopup.swift; sourceTree = "<group>"; };
+		6A4E5134280EC3FE005C1664 /* NoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteView.swift; sourceTree = "<group>"; };
+		6A4E5136280EC52F005C1664 /* AddNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNoteView.swift; sourceTree = "<group>"; };
 		6A59F8A12806D95300706B98 /* QuoteApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteApi.swift; sourceTree = "<group>"; };
 		6A809C3827FB794A0065A427 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		6A8D220027FAEA22002AC898 /* Memo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Memo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -146,6 +150,7 @@
 				6ADBDD1E27FF02BE00EFF647 /* TempModels */,
 				6AF9D7EE27FEF4B100CEB68A /* Components */,
 				6AF9D7EB27FEF48D00CEB68A /* Screens */,
+				6A4E5136280EC52F005C1664 /* AddNoteView.swift */,
 				6AD7D39427FE278E00B657B4 /* AddTaskView.swift */,
 				6AD7D38A27FDB5C600B657B4 /* Data */,
 				6A8D220327FAEA22002AC898 /* MemoApp.swift */,
@@ -219,6 +224,7 @@
 			isa = PBXGroup;
 			children = (
 				6AF9D7EC27FEF49B00CEB68A /* Home.swift */,
+				6A4E5134280EC3FE005C1664 /* NoteView.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -383,6 +389,7 @@
 				6ADBDD2027FF02D400EFF647 /* TempTaskStepNote.swift in Sources */,
 				6AF9D7F127FEF4F300CEB68A /* HomeHeaderView.swift in Sources */,
 				6A032312280834DD000B1B21 /* ConfirmDeletePopup.swift in Sources */,
+				6A4E5135280EC3FE005C1664 /* NoteView.swift in Sources */,
 				6A0323142808A477000B1B21 /* EditStepPopup.swift in Sources */,
 				6A0323092804729E000B1B21 /* ContentView.swift in Sources */,
 				6ADBDD2227FF082000EFF647 /* HomeFooterView.swift in Sources */,
@@ -398,6 +405,7 @@
 				6A03231028082485000B1B21 /* StepView.swift in Sources */,
 				6AD7D39127FDB5E100B657B4 /* Step+CoreDataClass.swift in Sources */,
 				6A59F8A22806D95300706B98 /* QuoteApi.swift in Sources */,
+				6A4E5137280EC52F005C1664 /* AddNoteView.swift in Sources */,
 				6A8D221027FAEA29002AC898 /* Memo.xcdatamodeld in Sources */,
 				6AD7D39227FDB5E100B657B4 /* Step+CoreDataProperties.swift in Sources */,
 			);
