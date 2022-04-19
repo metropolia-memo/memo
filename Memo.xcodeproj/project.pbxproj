@@ -7,24 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6A809C3927FB794A0065A427 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A809C3827FB794A0065A427 /* DataController.swift */; };
 		6A8D220427FAEA22002AC898 /* MemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8D220327FAEA22002AC898 /* MemoApp.swift */; };
-		6A8D220627FAEA22002AC898 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8D220527FAEA22002AC898 /* ContentView.swift */; };
 		6A8D220827FAEA29002AC898 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A8D220727FAEA29002AC898 /* Assets.xcassets */; };
 		6A8D220B27FAEA29002AC898 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A8D220A27FAEA29002AC898 /* Preview Assets.xcassets */; };
 		6A8D221027FAEA29002AC898 /* Memo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6A8D220E27FAEA29002AC898 /* Memo.xcdatamodeld */; };
 		6A8D221A27FAEA29002AC898 /* MemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8D221927FAEA29002AC898 /* MemoTests.swift */; };
 		6A8D222427FAEA29002AC898 /* MemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8D222327FAEA29002AC898 /* MemoUITests.swift */; };
 		6A8D222627FAEA29002AC898 /* MemoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8D222527FAEA29002AC898 /* MemoUITestsLaunchTests.swift */; };
-		6ADBDD2027FF02D400EFF647 /* TempTaskStepNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADBDD1F27FF02D400EFF647 /* TempTaskStepNote.swift */; };
-		6ADBDD2227FF082000EFF647 /* HomeFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADBDD2127FF082000EFF647 /* HomeFooterView.swift */; };
-		6AF9D7ED27FEF49B00CEB68A /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF9D7EC27FEF49B00CEB68A /* Home.swift */; };
-		6AF9D7F127FEF4F300CEB68A /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF9D7F027FEF4F300CEB68A /* HomeHeaderView.swift */; };
+		6AA903C2280546D200FF4214 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA903C1280546D200FF4214 /* Profile.swift */; };
+		6AA903C4280547A400FF4214 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA903C3280547A400FF4214 /* ProfileView.swift */; };
 		6AD7D39127FDB5E100B657B4 /* Step+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD7D38D27FDB5E100B657B4 /* Step+CoreDataClass.swift */; };
 		6AD7D39227FDB5E100B657B4 /* Step+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD7D38E27FDB5E100B657B4 /* Step+CoreDataProperties.swift */; };
 		6AD7D39527FE278E00B657B4 /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD7D39427FE278E00B657B4 /* AddTaskView.swift */; };
 		6AD7D39E27FF053B00B657B4 /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD7D39C27FF053B00B657B4 /* Task+CoreDataClass.swift */; };
 		6AD7D39F27FF053B00B657B4 /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD7D39D27FF053B00B657B4 /* Task+CoreDataProperties.swift */; };
+		6ADBDD2027FF02D400EFF647 /* TempTaskStepNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADBDD1F27FF02D400EFF647 /* TempTaskStepNote.swift */; };
+		6ADBDD2227FF082000EFF647 /* HomeFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADBDD2127FF082000EFF647 /* HomeFooterView.swift */; };
+		6AF9D7ED27FEF49B00CEB68A /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF9D7EC27FEF49B00CEB68A /* Home.swift */; };
+		6AF9D7F127FEF4F300CEB68A /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF9D7F027FEF4F300CEB68A /* HomeHeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,15 +57,17 @@
 		6A8D221F27FAEA29002AC898 /* MemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A8D222327FAEA29002AC898 /* MemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoUITests.swift; sourceTree = "<group>"; };
 		6A8D222527FAEA29002AC898 /* MemoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		6ADBDD1F27FF02D400EFF647 /* TempTaskStepNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempTaskStepNote.swift; sourceTree = "<group>"; };
-		6ADBDD2127FF082000EFF647 /* HomeFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFooterView.swift; sourceTree = "<group>"; };
-		6AF9D7EC27FEF49B00CEB68A /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
-		6AF9D7F027FEF4F300CEB68A /* HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
+		6AA903C1280546D200FF4214 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		6AA903C3280547A400FF4214 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		6AD7D38D27FDB5E100B657B4 /* Step+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Step+CoreDataClass.swift"; sourceTree = "<group>"; };
 		6AD7D38E27FDB5E100B657B4 /* Step+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Step+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		6AD7D39427FE278E00B657B4 /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
 		6AD7D39C27FF053B00B657B4 /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataClass.swift"; sourceTree = "<group>"; };
 		6AD7D39D27FF053B00B657B4 /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		6ADBDD1F27FF02D400EFF647 /* TempTaskStepNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempTaskStepNote.swift; sourceTree = "<group>"; };
+		6ADBDD2127FF082000EFF647 /* HomeFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFooterView.swift; sourceTree = "<group>"; };
+		6AF9D7EC27FEF49B00CEB68A /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		6AF9D7F027FEF4F300CEB68A /* HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +158,14 @@
 			path = MemoUITests;
 			sourceTree = "<group>";
 		};
+		6AA903C02805463900FF4214 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				6AA903C3280547A400FF4214 /* ProfileView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		6AD7D38A27FDB5C600B657B4 /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -165,8 +175,8 @@
 				6AD7D38E27FDB5E100B657B4 /* Step+CoreDataProperties.swift */,
 			);
 			path = Data;
-            sourceTree = "<group>";
-        };
+			sourceTree = "<group>";
+		};
 		6ADBDD1E27FF02BE00EFF647 /* TempModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -179,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				6AF9D7EC27FEF49B00CEB68A /* Home.swift */,
+				6AA903C1280546D200FF4214 /* Profile.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -186,6 +197,7 @@
 		6AF9D7EE27FEF4B100CEB68A /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				6AA903C02805463900FF4214 /* Profile */,
 				6AF9D7EF27FEF4BC00CEB68A /* Home */,
 			);
 			path = Components;
@@ -333,7 +345,7 @@
 				6ADBDD2027FF02D400EFF647 /* TempTaskStepNote.swift in Sources */,
 				6AF9D7F127FEF4F300CEB68A /* HomeHeaderView.swift in Sources */,
 				6ADBDD2227FF082000EFF647 /* HomeFooterView.swift in Sources */,
-				6A8D220D27FAEA29002AC898 /* Persistence.swift in Sources */,
+				6AA903C2280546D200FF4214 /* Profile.swift in Sources */,
 				6AF9D7ED27FEF49B00CEB68A /* Home.swift in Sources */,
 				6AD7D39E27FF053B00B657B4 /* Task+CoreDataClass.swift in Sources */,
 				6AD7D39527FE278E00B657B4 /* AddTaskView.swift in Sources */,
@@ -342,6 +354,7 @@
 				6A8D220427FAEA22002AC898 /* MemoApp.swift in Sources */,
 				6AD7D39127FDB5E100B657B4 /* Step+CoreDataClass.swift in Sources */,
 				6A8D221027FAEA29002AC898 /* Memo.xcdatamodeld in Sources */,
+				6AA903C4280547A400FF4214 /* ProfileView.swift in Sources */,
 				6AD7D39227FDB5E100B657B4 /* Step+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
