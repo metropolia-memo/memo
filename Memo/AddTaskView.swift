@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 // Displays components for creating a new task.
 struct AddTaskView: View {
@@ -35,6 +36,9 @@ struct AddTaskView: View {
     @State private var displayLocationWindow = false
     // Accessing the Context applied to the environment.
     @Environment(\.managedObjectContext) var moc
+    // Accessing the Context applied to the environment. Creating a child context to allow data updating in the Home screen.
+    let childContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+    var moc : NSManagedObjectContext
     // Used for dismissing the AddTaskView.
     @Environment(\.presentationMode) var presentationMode
     
@@ -43,7 +47,11 @@ struct AddTaskView: View {
     func deleteStep(at offsets: IndexSet) {
         addedSteps.remove(atOffsets: offsets)
     }
-    
+    init(moc: NSManagedObjectContext) {
+        // Setting the Home screen context as the child context parent.
+        self.moc = moc
+        childContext.parent = moc
+    }
     
     var body: some View {
         ZStack {
@@ -240,7 +248,7 @@ struct AddTaskView: View {
             // Displays a popup which enables adding steps
             AddStepPopup(display: $showAddStepPopup, addStepToList: {step in
                 addedSteps.append(step)
-            })
+            }, moc: moc)
             
             
             // Displays a confirmation popup for Step deletion.
@@ -259,17 +267,17 @@ struct AddTaskView: View {
                 do {
                     // Creates a new Task object with the given State variables and saves it to Core Data.
                     let newTask = Task(context: moc)
-                    newTask.name = taskTitle
-                    newTask.desc = taskDesc
-                    newTask.deadline = taskDeadline
+                    newTask.date_added = Date()
+                    newTask.name = self.taskTitle
+                    newTask.desc = self.taskDesc
+                    newTask.deadline = self.taskDeadline
                     newTask.id = UUID()
                     newTask.taskLocation = location
                     
                     for step in addedSteps {
                         step.origin = newTask
                     }
-
-                    try self.moc.save()
+                    try moc.save()
                     
                     print("Task \( newTask) saved succesfully to Core Data.")
                 } catch {
@@ -293,8 +301,3 @@ struct AddTaskView: View {
 }
 
 
-struct AddTaskView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddTaskView()
-    }
-}
