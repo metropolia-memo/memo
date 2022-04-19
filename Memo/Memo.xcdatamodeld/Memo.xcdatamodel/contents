@@ -21,6 +21,6 @@
     <elements>
         <element name="Note" positionX="-63" positionY="-9" width="128" height="74"/>
         <element name="Step" positionX="-54" positionY="18" width="128" height="89"/>
-        <element name="Task" positionX="-63" positionY="-18" width="128" height="104"/>
+        <element name="Task" positionX="-63" positionY="-18" width="128" height="14"/>
     </elements>
 </model>

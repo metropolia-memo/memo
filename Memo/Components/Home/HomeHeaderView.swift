@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HomeHeaderView: View {
+    @StateObject private var dataController = DataController()
     @ObservedObject var api : QuoteApi = QuoteApi()
     var body: some View {
         VStack(spacing: 0) {
@@ -18,11 +19,11 @@ struct HomeHeaderView: View {
                     Text("Last visit: 15/03/2022")
                         .font(.caption)
                 }
-                Button(action: {} ) {
-                    Image(systemName: "person.circle.fill")
-                        .frame(width: 100, height: 100)
-                        .scaleEffect(5)
-                }
+                NavigationLink(destination: Profile().environment(\.managedObjectContext, dataController.container.viewContext)) {
+                        Image(systemName: "person.circle.fill")
+                            .frame(width: 100, height: 100)
+                            .scaleEffect(5)
+                    }
             }
             .fixedSize()
             VStack(alignment: .leading){

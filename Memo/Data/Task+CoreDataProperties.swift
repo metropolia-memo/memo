@@ -63,4 +63,13 @@ extension Task : Identifiable {
         }
     }
     
+    public var withinTwo : Bool {
+        if (deadline != nil) {
+            return (deadline! < Date().addingTimeInterval(172800) && deadline! > Date())
+        }
+        else {
+            return false
+        }
+    }
+    
 }

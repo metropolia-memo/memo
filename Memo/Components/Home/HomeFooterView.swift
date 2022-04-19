@@ -73,22 +73,14 @@ struct HomeFooterView: View {
                             .font(.system(size: 28))
                         ScrollView {
                             LazyVStack {
-                                ForEach(TempTask.tasksWithinTwoDays) { task in
-                                    VStack(alignment: .leading) {
-                                        Text("\(task.name)")
-                                            .font(.title)
-                                            .fontWeight(.bold)
-                                        HStack {
-                                            Spacer()
-                                            Text("Deadline \(task.date, style: .date)")
-                                                .font(.caption)
-                                        }
+                                let withinTwo = tasks.filter {$0.withinTwo}
+                                if (withinTwo.isEmpty) {
+                                    Text("No upcoming tasks within the next 48 hours.")
+                                        .font(.caption)
+                                } else {
+                                    ForEach(withinTwo) { task in
+                                        UpcomingTaskRow(task: task)
                                     }
-                                    .padding()
-                                    .background(Color.accentColor)
-                                    .foregroundColor(Color.white)
-                                    .cornerRadius(20)
-                                    Spacer()
                                 }
                             }
                             
