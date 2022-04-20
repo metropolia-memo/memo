@@ -15,6 +15,9 @@ struct AddNoteView: View {
     @State private var showAlert = false
     @State private var sensitive = false
     
+    // Used for dismissing the AddNoteView.
+    @Environment(\.presentationMode) var presentationMode
+    
     // Accessing the Context applied to the environment. Creating a child context to allow data updating in the Home screen.
     let childContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
     var moc : NSManagedObjectContext
@@ -79,6 +82,22 @@ struct AddNoteView: View {
                     Button("Save", action: {
                         if noteTitle == "" {
                             return showAlert = true
+                        } else {
+                            do {
+                                let newNote = Note(context: moc)
+                                newNote.id = UUID()
+                                newNote.date_added = Date()
+                                newNote.title = self.noteTitle
+                                newNote.isSensitive = self.sensitive
+                                newNote.note_text = self.note
+                                try moc.save()
+                                
+                                print("Note \( newNote) saved succesfully to Core Data.")
+                            } catch {
+                                print("Saving to Core Data failed. \(error)")
+                            }
+                            
+                            self.presentationMode.wrappedValue.dismiss()
                         }
                     })
                         .frame(maxHeight: 50)

@@ -14,9 +14,13 @@ struct HomeFooterView: View {
     @Environment(\.managedObjectContext) var moc
     
     @FetchRequest var tasks: FetchedResults<Task>
+    @FetchRequest var notes: FetchedResults<Note>
     
     init() {
         self._tasks = FetchRequest(entity: Task.entity(), sortDescriptors: [
+            NSSortDescriptor(keyPath: \Task.date_added, ascending: false)
+        ])
+        self._notes = FetchRequest(entity: Note.entity(), sortDescriptors: [
             NSSortDescriptor(keyPath: \Task.date_added, ascending: false)
         ])
     }
@@ -100,22 +104,24 @@ struct HomeFooterView: View {
                     VStack {
                         ScrollView {
                             LazyVStack {
-                                ForEach(TempNote.sampleNotes) { note in
-                                    VStack(alignment: .leading) {
-                                        Text("\(note.name)")
-                                            .font(.title)
-                                            .fontWeight(.bold)
-                                        HStack {
-                                            Spacer()
-                                            Text("Added \(note.date, style: .date)")
-                                                .font(.caption)
+                                ForEach(notes) { note in
+                                    NavigationLink(destination: NoteView(note: note).environment(\.managedObjectContext, dataController.container.viewContext)) {
+                                        VStack(alignment: .leading) {
+                                            Text("\(note.title)")
+                                                .font(.title)
+                                                .fontWeight(.bold)
+                                            HStack {
+                                                Spacer()
+                                                Text("Added \(note.date_added, style: .date)")
+                                                    .font(.caption)
+                                            }
                                         }
+                                        .padding()
+                                        .background(Color.accentColor)
+                                        .foregroundColor(Color.white)
+                                        .cornerRadius(20)
+                                        Spacer()
                                     }
-                                    .padding()
-                                    .background(Color.accentColor)
-                                    .foregroundColor(Color.white)
-                                    .cornerRadius(20)
-                                    Spacer()
                                 }
                             }
                             
