@@ -16,6 +16,7 @@ extension Task {
         return NSFetchRequest<Task>(entityName: "Task")
     }
 
+    @NSManaged public var date_added: Date
     @NSManaged public var deadline: Date?
     @NSManaged public var id: UUID?
     @NSManaged public var name: String?
@@ -60,6 +61,15 @@ extension Task : Identifiable {
         let s = steps as? Set<Step> ?? []
         return s.sorted {
             $0.wrappedDesc < $1.wrappedDesc
+        }
+    }
+    
+    public var withinTwo : Bool {
+        if (deadline != nil) {
+            return (deadline! < Date().addingTimeInterval(172800) && deadline! > Date())
+        }
+        else {
+            return false
         }
     }
     

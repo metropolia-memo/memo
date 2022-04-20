@@ -6,15 +6,26 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct HomeFooterView: View {
     @StateObject private var dataController = DataController()
+
+    @Environment(\.managedObjectContext) var moc
     
+    @FetchRequest var tasks: FetchedResults<Task>
+    
+    init() {
+        self._tasks = FetchRequest(entity: Task.entity(), sortDescriptors: [
+            NSSortDescriptor(keyPath: \Task.date_added, ascending: false)
+        ])
+    }
     @State private var searchInput: String = ""
     
     // Boolean for showing either tasks or notes
     // Tasks == true, Notes == false
     @State private var taskOrNote: Bool = false
+    
     var body: some View {
         ZStack {
             VStack (alignment: .leading){
@@ -53,25 +64,12 @@ struct HomeFooterView: View {
                 if !taskOrNote {
                     ScrollView (.horizontal, showsIndicators: false) {
                         LazyHStack {
-                            ForEach(TempTask.sampleTasks) { task in
-                                VStack(alignment: .leading) {
-                                    Image(systemName: "list.bullet.indent")
-                                        .frame(width: 50, height: 100)
-                                        .scaleEffect(3)
-                                    Text("\(task.steps.count) steps")
-                                        .font(.body)
-                                        .fontWeight(.bold)
-                                    Spacer()
-                                    Text("\(task.name)")
-                                        .font(.body)
-                                        .fontWeight(.bold)
-                                }
-                                .frame(width: 100)
-                                .padding()
-                                .background((task.id == TempTask.sampleTasks[0].id ? Color.accentColor : Color.cyan))
-                                .foregroundColor(Color.white)
-                                .cornerRadius(20)
-                                .shadow(radius: 5)
+                            ForEach(tasks) { task in
+                                if (task == tasks[0]) {
+                                        TaskRow(task: task, tasks: tasks, first: true)
+                                    } else {
+                                        TaskRow(task: task, tasks: tasks, first: false)
+                                    }
                             }
                         }
                         .padding()
@@ -83,26 +81,16 @@ struct HomeFooterView: View {
                             .font(.system(size: 28))
                         ScrollView {
                             LazyVStack {
-                                ForEach(TempTask.tasksWithinTwoDays) { task in
-                                    VStack(alignment: .leading) {
-                                        Text("\(task.name)")
-                                            .font(.title)
-                                            .fontWeight(.bold)
-                                        HStack {
-                                            Spacer()
-                                            Text("Deadline \(task.date, style: .date)")
-                                                .font(.caption)
-                                        }
+                                let withinTwo = (tasks.filter {$0.withinTwo}).sorted(by: {$0.date_added < $1.date_added})
+                                if (withinTwo.isEmpty) {
+                                    Text("No upcoming tasks within the next 48 hours.")
+                                        .font(.caption)
+                                } else {
+                                    ForEach(withinTwo) { task in
+                                        UpcomingTaskRow(task: task)
                                     }
-                                    .padding()
-                                    .background(Color.accentColor)
-                                    .foregroundColor(Color.white)
-                                    .cornerRadius(20)
-                                    Spacer()
                                 }
                             }
-                            
-                            
                         }
                     }
                     .padding()
@@ -145,7 +133,7 @@ struct HomeFooterView: View {
                     Spacer()
                     // Add task button
                     if !taskOrNote {
-                        NavigationLink(destination: AddTaskView().environment(\.managedObjectContext, dataController.container.viewContext)) {
+                        NavigationLink(destination: AddTaskView(moc: moc).environment(\.managedObjectContext, dataController.container.viewContext)) {
                             ZStack {
                                 Circle()
                                     .fill(Color.cyan)
