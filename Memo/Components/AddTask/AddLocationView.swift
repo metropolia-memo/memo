@@ -27,7 +27,7 @@ struct AddLocationView: View {
     @State private var selectedLocation = [SelectedLocation]()
     
     @State private var locationName = ""
-    
+    @State private var locationNotFound = false
     @Binding var display : Bool
     @Binding var location : TaskLocation?
     
@@ -41,6 +41,8 @@ struct AddLocationView: View {
         search.start {response, error in
             guard let response = response else {
                 print("Error: \(error?.localizedDescription ?? "Unknown error").")
+                    locationName = ""
+                    locationNotFound = true
                         return
             }
             
@@ -78,59 +80,68 @@ struct AddLocationView: View {
                 }
                 .ignoresSafeArea()
               
-
                 VStack {
                     VStack {
-                        TextField("Set text", text: $locationInput)
-                            .padding()
-                            .background(Color.white)
+                        HStack {
+                            TextField("Karamalmi, karaportti 2", text: $locationInput)
+                                .padding()
+                                .background(Color.white)
+                            Button(action: {searchLocation(input: locationInput)}) {
+                                Image(systemName: "magnifyingglass")
+                                    .scaleEffect(2)
+                                    .padding()
+                                    .shadow(radius: 5)
+                            }
+                        }
+                      
                         if (locationName != "") {
-                            Text("Found location:")
-                                .font(.title2)
-                            Text(locationName)
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    Text("Found location:")
+                                        .font(.title2)
+                                    Text(locationName)
+                                }
+                                Spacer()
+                                Button(action: {
+                                    
+                                    location = TaskLocation(context: moc)
+                                    location?.longitude = regionCoordinates.longitude
+                                    location?.latitude = regionCoordinates.latitude
+                                    location?.name = locationName
+                                    location?.id = UUID()
+
+                                    display = false
+                                    
+                                }) {
+                                    Text("Confirm")
+                                        .foregroundColor(Color.white)
+                                }
+                                .padding()
+                                .background(Color.blue)
+                                .cornerRadius(10)
+                                .shadow(radius: 5)
+                                
+                            }
+                      
                         }
                         
                     }
                     .padding()
                     .background(Color.white)
+                    .cornerRadius(10)
+                    .shadow(radius: 10)
+                    
            
                     Spacer()
-                    HStack {
-                        Button(action: {searchLocation(input: locationInput)}) {
-                            Image(systemName: "plus")
-                                .scaleEffect(2)
-                                .foregroundColor(Color.white)
-                        }
-                        .padding(40)
-                        .background(Color.blue)
-                        .clipShape(Circle())
-                        
-                        Spacer()
-                        
-                        Button(action: {
-                            
-                            location = TaskLocation(context: moc)
-                            location?.longitude = regionCoordinates.longitude
-                            location?.latitude = regionCoordinates.latitude
-                            location?.name = locationName
-                            location?.id = UUID()
-
-                            display = false
-                            
-                        }) {
-                            Image(systemName: "hand.thumbsup.fill")
-                                .scaleEffect(2)
-                                .foregroundColor(Color.white)
-                        }
-                        .padding(40)
-                        .background(Color.blue)
-                        .clipShape(Circle())
-                        
-                    }
-                    .padding()
                 }
                 .padding()
+                .alert("Location not found!", isPresented: $locationNotFound) {
+                        Button("OK", role: .cancel) {
+                            locationNotFound = false
+                        }
+                }
             }
+          
         }
   
     }

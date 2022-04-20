@@ -17,7 +17,7 @@ struct AddTaskView: View {
     @State private var taskDeadline = Date()
     @State private var showDateSheet = false
     @State private var showAddStepPopup = false
-    
+    @State private var deadlineEnabled = true
     
     // Used in ConfirmDeletePopup and EditStepPopup.
     @State private var displayDeleteWindow = false
@@ -297,6 +297,13 @@ struct AddTaskView: View {
      
     }
     
+}
+
+struct AddTaskView_Previews: PreviewProvider {
+    static var moc = NSManagedObjectContext()
+    static var previews: some View {
+        AddTaskView(moc: moc)
+    }
 }
 
 
