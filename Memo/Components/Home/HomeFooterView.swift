@@ -150,7 +150,20 @@ struct HomeFooterView: View {
                     }
                     // Add note button
                     else {
-                        // TODO: Add note button here
+                        NavigationLink(destination: AddNoteView(moc: moc).environment(\.managedObjectContext, dataController.container.viewContext)) {
+                            ZStack {
+                                Circle()
+                                    .fill(Color.cyan)
+                                    .frame(width: 75, height: 75)
+                                    .shadow(color: Color.black.opacity(0.3), radius: 3, x: 3, y: 3)
+                                Text("+")
+                                    .foregroundColor(Color.white)
+                                    .font(.title)
+                            }
+                            .padding([.bottom, .trailing], 20)
+                            .frame(width: 75, height: 75)
+                                
+                        }
                     }
                 }
             }

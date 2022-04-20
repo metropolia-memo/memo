@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct AddNoteView: View {
     
@@ -13,6 +14,16 @@ struct AddNoteView: View {
     @State private var noteTitle = ""
     @State private var showAlert = false
     @State private var sensitive = false
+    
+    // Accessing the Context applied to the environment. Creating a child context to allow data updating in the Home screen.
+    let childContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+    var moc : NSManagedObjectContext
+    
+    init(moc: NSManagedObjectContext) {
+        // Setting the Home screen context as the child context parent.
+        self.moc = moc
+        childContext.parent = moc
+    }
     
     var body: some View {
         ZStack {
@@ -88,10 +99,10 @@ struct AddNoteView: View {
     }
 }
 
-struct AddNoteView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            AddNoteView()
-        }
-    }
-}
+//struct AddNoteView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NavigationView {
+//            AddNoteView()
+//        }
+//    }
+//}
