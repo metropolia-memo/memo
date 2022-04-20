@@ -64,12 +64,12 @@ struct HomeFooterView: View {
                 if !taskOrNote {
                     ScrollView (.horizontal, showsIndicators: false) {
                         LazyHStack {
-                            ForEach(tasks.indices) { i in
-                                if (i == 0) {
-                                    TaskRow(task: tasks[i], tasks: tasks, first: true)
-                                } else {
-                                    TaskRow(task: tasks[i], tasks: tasks, first: false)
-                                }
+                            ForEach(tasks) { task in
+                                if (task == tasks[0]) {
+                                        TaskRow(task: task, tasks: tasks, first: true)
+                                    } else {
+                                        TaskRow(task: task, tasks: tasks, first: false)
+                                    }
                             }
                         }
                         .padding()
@@ -150,7 +150,20 @@ struct HomeFooterView: View {
                     }
                     // Add note button
                     else {
-                        // TODO: Add note button here
+                        NavigationLink(destination: AddNoteView(moc: moc).environment(\.managedObjectContext, dataController.container.viewContext)) {
+                            ZStack {
+                                Circle()
+                                    .fill(Color.cyan)
+                                    .frame(width: 75, height: 75)
+                                    .shadow(color: Color.black.opacity(0.3), radius: 3, x: 3, y: 3)
+                                Text("+")
+                                    .foregroundColor(Color.white)
+                                    .font(.title)
+                            }
+                            .padding([.bottom, .trailing], 20)
+                            .frame(width: 75, height: 75)
+                                
+                        }
                     }
                 }
             }
