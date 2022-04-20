@@ -27,7 +27,7 @@ struct AddNoteView: View {
                                 TextField("Note title", text: $noteTitle)
                                 Button(action: {}) {
                                     Image(systemName: "pencil")
-                                        .foregroundColor(Color.blue)
+                                        .foregroundColor(Color(red: 45/255, green: 91/255, blue: 255/255))
                                         .font(.system(size: 40))
                                 }
                             }
@@ -63,10 +63,27 @@ struct AddNoteView: View {
                         .cornerRadius(10)
                         .padding(5)
                     
-                    // TODO: Save button
+                    // Save button
+                    // TODO: Sending/saving the information when clicked.
+                    Button("Save", action: {
+                        if noteTitle == "" {
+                            return showAlert = true
+                        }
+                    })
+                        .frame(maxHeight: 50)
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 10)
+                        .background(Color(red: 45/255, green: 91/255, blue: 255/255))
+                        .foregroundColor(Color.white)
+                        .cornerRadius(10)
                 }
             }
             .navigationTitle("")
+        }
+        .alert("Title missing", isPresented: $showAlert) {
+            Button("OK", role: .cancel) {
+                showAlert = false
+            }
         }
     }
 }
