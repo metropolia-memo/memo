@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct NoteView: View {
+    let note: Note
     var body: some View {
         VStack(alignment: .trailing) {
             
@@ -21,7 +22,7 @@ struct NoteView: View {
             
             // Note
             ScrollView {
-            Text("A lot of text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare dolor a erat ultrices euismod. Etiam sed sapien euismod elit pulvinar volutpat. Duis a erat ut mauris dictum rhoncus sit amet a risus. Nullam sollicitudin mauris magna, vitae auctor justo ullamcorper ut. In magna ex, varius nec massa at, semper aliquam sapien. Integer posuere risus lectus, et tempor ante molestie sit amet. ")
+                Text(note.note_text)
                 .padding(20)
                 .background(Color(red: 240/255, green: 240/255, blue: 240/255))
                 .multilineTextAlignment(.leading)
@@ -29,14 +30,14 @@ struct NoteView: View {
                 .padding(10)
             }
         }
-        .navigationTitle("iOS Lecture")
+        .navigationTitle(note.title)
     }
 }
 
-struct NoteView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            NoteView()
-        }
-    }
-}
+//struct NoteView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NavigationView {
+//            NoteView()
+//        }
+//    }
+//}
