@@ -80,9 +80,20 @@ struct AddLocationView: View {
               
 
                 VStack {
-                    TextField("Set text", text: $locationInput)
-                        .padding()
-                        .background(Color.white)
+                    VStack {
+                        TextField("Set text", text: $locationInput)
+                            .padding()
+                            .background(Color.white)
+                        if (locationName != "") {
+                            Text("Found location:")
+                                .font(.title2)
+                            Text(locationName)
+                        }
+                        
+                    }
+                    .padding()
+                    .background(Color.white)
+           
                     Spacer()
                     HStack {
                         Button(action: {searchLocation(input: locationInput)}) {
@@ -125,8 +136,9 @@ struct AddLocationView: View {
     }
 }
 
-//struct AddLocationView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AddLocationView(display: .constant(true), location: .constant(TaskLocation()))
-//    }
-//}
+struct AddLocationView_Previews: PreviewProvider {
+    static var moc = NSManagedObjectContext()
+    static var previews: some View {
+        AddLocationView(moc: moc, display: .constant(true), location: .constant(TaskLocation()))
+    }
+}
