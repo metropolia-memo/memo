@@ -87,19 +87,29 @@ struct AddTaskView: View {
                             VStack(alignment: .leading) {
                                 Text("Deadline")
                                     .bold()
+                                    .foregroundColor(deadlineEnabled ? Color.black : Color.gray)
                                 HStack {
+                                  
                                     Text(taskDeadline, style: .date)
+                                        .foregroundColor(deadlineEnabled ? Color.black : Color.gray)
                                     Text(taskDeadline, style: .time)
+                                        .foregroundColor(deadlineEnabled ? Color.black : Color.gray)
+                                
                                     Spacer()
+                                 
+                                    Toggle("", isOn: $deadlineEnabled)
+                                        .toggleStyle(SwitchToggleStyle(tint: .blue))
                                     Button(action: {withAnimation(.linear(duration: 0.3)) {
                                         showDateSheet.toggle()
                                     }}) {
                                         Image(systemName: "calendar")
                                             .font(.system(size: 40))
                                     }
+                                    .disabled(!deadlineEnabled)
                                    
                                 }
                                 .frame(maxWidth: .infinity)
+                                
                     
                             }
                             .frame(maxWidth: .infinity)
@@ -269,7 +279,11 @@ struct AddTaskView: View {
                     newTask.date_added = Date()
                     newTask.name = self.taskTitle
                     newTask.desc = self.taskDesc
-                    newTask.deadline = self.taskDeadline
+                    
+                    if (deadlineEnabled) {
+                        newTask.deadline = self.taskDeadline
+                    }
+                    
                     newTask.id = UUID()
                     newTask.taskLocation = location
                     
