@@ -70,10 +70,15 @@ struct HomeFooterView: View {
                         LazyHStack {
                             ForEach(tasks) { task in
                                 if (task == tasks[0]) {
+                                    NavigationLink(destination: Tasks(task: task).environment(\.managedObjectContext, dataController.container.viewContext)) {
                                         TaskRow(task: task, tasks: tasks, first: true)
-                                    } else {
+                                    }
+                                        
+                                } else {
+                                    NavigationLink(destination: Tasks(task: task).environment(\.managedObjectContext, dataController.container.viewContext)) {
                                         TaskRow(task: task, tasks: tasks, first: false)
                                     }
+                                }
                             }
                         }
                         .padding()
@@ -91,7 +96,9 @@ struct HomeFooterView: View {
                                         .font(.caption)
                                 } else {
                                     ForEach(withinTwo) { task in
-                                        UpcomingTaskRow(task: task)
+                                        NavigationLink(destination: Tasks(task: task).environment(\.managedObjectContext, dataController.container.viewContext)) {
+                                            UpcomingTaskRow(task: task)
+                                        }
                                     }
                                 }
                             }

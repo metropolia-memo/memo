@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct Tasks: View {
+    var task : Task
     var body: some View {
         MapView()
     }
 }
 
-struct Tasks_Previews: PreviewProvider {
-    static var previews: some View {
-        Tasks()
-    }
-}
+//struct Tasks_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Tasks()
+//    }
+//}
