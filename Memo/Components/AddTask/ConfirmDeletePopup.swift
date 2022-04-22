@@ -6,12 +6,16 @@
 //
 
 import SwiftUI
+import CoreData
 
 // Handles the deletion of the selected object depending on it being a Step or Task.
 struct ConfirmDeletePopup: View {
     
     // Handles displayed status.
     @Binding var display : Bool
+    
+    // Editing status.
+    @Binding var editingTask : Bool
     
     // Accessing the addedSteps list in the AddTaskView.
     @Binding var addedSteps : [Step]
@@ -22,6 +26,7 @@ struct ConfirmDeletePopup: View {
     // Possible Task object getting deleted.
     @Binding var task : Task?
     
+    var moc : NSManagedObjectContext
     
     // Displays a corresponding message according to the item being a Step or Task.
     func displayMessage() -> String {
@@ -39,7 +44,17 @@ struct ConfirmDeletePopup: View {
         if step != nil {
             addedSteps.remove(at: addedSteps.firstIndex(where: {$0.id == step?.id}) ?? 0)
         } else if task != nil {
-            // Remove from Core Data
+        }
+    }
+    
+    
+    // Deletes a Task or Step which is being edited.
+    func deleteEditableItem() {
+        if step != nil {
+            addedSteps.remove(at: addedSteps.firstIndex(where: {$0.id == step?.id}) ?? 0)
+            moc.delete(step!)
+        } else if task != nil {
+            moc.delete(task!)
         }
     }
     
@@ -53,7 +68,6 @@ struct ConfirmDeletePopup: View {
                         Text(displayMessage())
                             .font(.system(size: 20, weight: .medium))
                             .padding(.top)
-                       
                             .padding(.vertical, 20)
                             .font( .system(size: 30, weight: .medium))
                       
@@ -74,7 +88,13 @@ struct ConfirmDeletePopup: View {
                 
                         // Creates a new Step object and adds it to the addSteps list in AddTaskView. After this, navigate back.
                         Button(action: {withAnimation(.linear(duration: 0.3)) {
-                            deleteItem()
+                            
+                            if (editingTask) {
+                                deleteEditableItem()
+                            } else {
+                                deleteItem()
+                            }
+                            
                             display = false
                         }}) {
                             Text("Delete")
@@ -101,6 +121,6 @@ struct ConfirmDeletePopup: View {
 
 struct ConfirmDeletePopup_Previews: PreviewProvider {
     static var previews: some View {
-        ConfirmDeletePopup(display: .constant(true), addedSteps: .constant([Step()]), step: .constant(Step()), task: .constant(nil))
+        ConfirmDeletePopup(display: .constant(true), editingTask: .constant(false), addedSteps: .constant([Step()]), step: .constant(Step()), task: .constant(nil), moc: NSManagedObjectContext())
     }
 }

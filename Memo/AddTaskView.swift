@@ -34,7 +34,11 @@ struct AddTaskView: View {
     
     @State private var location : TaskLocation?
     @State private var displayLocationWindow = false
-  
+    
+    // Used if AddTaskView is used for editing a Task
+    @State private var editingTask : Bool = false
+    @State private var editableTask : Task?
+    
     // Accessing the Context applied to the environment. Creating a child context to allow data updating in the Home screen.
     let childContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
     var moc : NSManagedObjectContext
@@ -46,10 +50,44 @@ struct AddTaskView: View {
     func deleteStep(at offsets: IndexSet) {
         addedSteps.remove(atOffsets: offsets)
     }
-    init(moc: NSManagedObjectContext) {
+    
+    // Used when editing a Task object. Changes the values of the chosen Task object with the current input.
+    func saveEditedTask(task: Task) {
+       
+        do {
+            task.desc = taskDesc
+            task.name = taskTitle
+            task.taskLocation = location
+            
+            
+            try moc.save()
+            
+            taskDesc = ""
+            taskTitle = ""
+            location = nil
+            
+            self.presentationMode.wrappedValue.dismiss()
+        } catch {
+            
+        }
+        
+       
+    }
+    
+    init(moc: NSManagedObjectContext, editingTask: Bool, editableTask: Task?) {
         // Setting the Home screen context as the child context parent.
         self.moc = moc
         childContext.parent = moc
+        
+        
+        self.editingTask = editingTask
+        self.editableTask = editableTask
+        self.taskTitle = editableTask?.name ?? ""
+        self.taskDesc = editableTask?.desc ?? ""
+        self.location = editableTask?.taskLocation
+        self.addedSteps = editableTask?.stepsArray ?? []
+        self.taskDeadline = editableTask?.deadline ?? Date()
+        
     }
     
     var body: some View {
@@ -179,7 +217,7 @@ struct AddTaskView: View {
                                                 StepView(step: step,
                                                     displayDeleteWindow: $displayDeleteWindow,
                                                          displayEditWindow: $displayEditWindow,
-                                                         deletableStep: $deletableStep, editableStep: $editableStep)
+                                                         deletableStep: $deletableStep, editableStep: $editableStep, editingTask: $editingTask)
                                             }
                                 
                                     }
@@ -216,7 +254,7 @@ struct AddTaskView: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             VStack(alignment: .leading) {
                               
-                                    TextField("Task description", text: $taskDesc)
+                                TextField("Task description", text: $taskDesc)
       
                                
                             }
@@ -229,7 +267,7 @@ struct AddTaskView: View {
                         .padding(.horizontal, 5)
                         .frame(maxHeight: .infinity)
  
-                            Button("Save task") {
+                        Button(editingTask ? "Save changes" : "Save task") {
                                 if (taskTitle == "") {
                                     showAlert = true
                                     return
@@ -261,7 +299,7 @@ struct AddTaskView: View {
             
             
             // Displays a confirmation popup for Step deletion.
-            ConfirmDeletePopup(display: $displayDeleteWindow, addedSteps: $addedSteps, step: $deletableStep, task: .constant(nil))
+            ConfirmDeletePopup(display: $displayDeleteWindow, editingTask: $editingTask, addedSteps: $addedSteps, step: $deletableStep, task: .constant(nil), moc: moc)
             
             
             // Displays a popup for editing a Step object.
@@ -316,7 +354,7 @@ struct AddTaskView: View {
 struct AddTaskView_Previews: PreviewProvider {
     static var moc = NSManagedObjectContext()
     static var previews: some View {
-        AddTaskView(moc: moc)
+        AddTaskView(moc: moc, editingTask: false, editableTask: Task())
     }
 }
 

@@ -46,25 +46,25 @@ struct AddLocationView: View {
                         return
             }
             
-            // Prints the found location and moves the map to it.
-            for item in response.mapItems {
-                if let name = item.name,
-                            let location = item.placemark.location {
-                    
-                            print("\(name): \(location.coordinate.latitude),\(location.coordinate.longitude)")
-                    
-                                regionCoordinates = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-                    
-                                let span = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
-                    
-                                region = MKCoordinateRegion(center: regionCoordinates, span: span)
-                                
-                                locationName = name
-                    
-                                selectedLocation = [SelectedLocation(coordinate: regionCoordinates)]
-                    
-                        }
-                }
+            // Sets the found location to the selectedLocation array.
+            print(response.mapItems)
+            if let name = response.mapItems[0].name,
+               let location = response.mapItems[0].placemark.location {
+                
+                        print("\(name): \(location.coordinate.latitude),\(location.coordinate.longitude)")
+                
+                            regionCoordinates = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+                
+                            let span = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
+                
+                            region = MKCoordinateRegion(center: regionCoordinates, span: span)
+                            
+                            locationName = name
+                
+                            selectedLocation = [SelectedLocation(coordinate: regionCoordinates)]
+                
+                    }
+
                 
             
             

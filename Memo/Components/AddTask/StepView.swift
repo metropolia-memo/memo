@@ -19,7 +19,7 @@ struct StepView: View {
     
     // offset manages the position of the StepView object in the x-axis. Used for creating a DragGesture.
     @State private var offset : Float = 0
-    
+
     // Manages the displayed status of the Delete and Edit popups.
     @Binding var displayDeleteWindow : Bool
     @Binding var displayEditWindow : Bool
@@ -28,6 +28,8 @@ struct StepView: View {
     // deletableStep and editableStep used for controlling what Step object the Delete and Edit popups handle.
     @Binding var deletableStep : Step?
     @Binding var editableStep : Step
+    
+    @Binding var editingTask : Bool
     
     
     var body: some View {
@@ -127,6 +129,6 @@ struct StepView: View {
 struct StepView_Previews: PreviewProvider {
     
     static var previews: some View {
-        StepView(step: Step(), displayDeleteWindow: .constant(false), displayEditWindow: .constant(false), deletableStep: .constant(Step()), editableStep: .constant(Step()))
+        StepView(step: Step(), displayDeleteWindow: .constant(false), displayEditWindow: .constant(false), deletableStep: .constant(Step()), editableStep: .constant(Step()), editingTask: .constant(false))
     }
 }

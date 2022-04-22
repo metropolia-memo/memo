@@ -139,7 +139,7 @@ struct HomeFooterView: View {
                     Spacer()
                     // Add task button
                     if !taskOrNote {
-                        NavigationLink(destination: AddTaskView(moc: moc).environment(\.managedObjectContext, dataController.container.viewContext)) {
+                        NavigationLink(destination: AddTaskView(moc: moc, editingTask: false, editableTask: nil).environment(\.managedObjectContext, dataController.container.viewContext)) {
                             ZStack {
                                 Circle()
                                     .fill(Color.cyan)
