@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-// Displays components for creating a new task.
+// Displays components for creating a new task. Used also for editing Tasks.
 struct AddTaskView: View {
     
     // Used in DatePickerPopup, AddStepPopup and for displaying an error alert if the user lacks a title input.
@@ -35,13 +35,13 @@ struct AddTaskView: View {
     @State private var location : TaskLocation?
     @State private var displayLocationWindow = false
     
-    // Used if AddTaskView is used for editing a Task
+    // Used if editing a Task.
     @Binding var editingTask : Bool
     @Binding var editableTask : Task?
     
-    // Accessing the Context applied to the environment. Creating a child context to allow data updating in the Home screen.
-    let childContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+    // Accessing the Context applied to the environment.
     var moc : NSManagedObjectContext
+    
     // Used for dismissing the AddTaskView.
     @Environment(\.presentationMode) var presentationMode
     
@@ -51,35 +51,6 @@ struct AddTaskView: View {
         addedSteps.remove(atOffsets: offsets)
     }
     
-    // Used when editing a Task object. Changes the values of the chosen Task object with the current input.
-    func saveEditedTask(task: Task) {
-       
-        do {
-            task.desc = taskDesc
-            task.name = taskTitle
-            task.taskLocation = location
-            
-            
-            try moc.save()
-            
-            taskDesc = ""
-            taskTitle = ""
-            location = nil
-            
-            self.presentationMode.wrappedValue.dismiss()
-        } catch {
-            
-        }
-        
-       
-    }
-    
-//    init() {
-//        // Setting the Home screen context as the child context parent
-//        childContext.parent = moc
-//        print("Init AddTaskView")
-//    }
-
     var body: some View {
         ZStack {
 
