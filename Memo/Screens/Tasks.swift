@@ -13,8 +13,10 @@ struct Tasks: View {
     var moc : NSManagedObjectContext
     @State var task : Task?
     @State var editingTask = false
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
+      
         ZStack {
             MapView()
             
@@ -34,8 +36,20 @@ struct Tasks: View {
             }
           
         }
-        
-        
+        .navigationBarTitle("", displayMode: .inline)
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: Button(action: {
+         if (editingTask) {
+             editingTask = false
+             return
+         }
+            self.presentationMode.wrappedValue.dismiss()
+  
+        }) {
+         Image(systemName: "chevron.left")
+             .foregroundColor(Color.blue)
+             .scaleEffect(1)
+        })
     }
 }
 

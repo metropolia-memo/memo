@@ -245,6 +245,7 @@ struct AddTaskView: View {
                     }
                    
                     .navigationBarTitle("", displayMode: .inline)
+ 
                 }
                 
            
