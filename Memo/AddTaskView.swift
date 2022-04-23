@@ -36,8 +36,8 @@ struct AddTaskView: View {
     @State private var displayLocationWindow = false
     
     // Used if AddTaskView is used for editing a Task
-    @State private var editingTask : Bool = false
-    @State private var editableTask : Task?
+    @Binding var editingTask : Bool
+    @Binding var editableTask : Task?
     
     // Accessing the Context applied to the environment. Creating a child context to allow data updating in the Home screen.
     let childContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
@@ -74,22 +74,12 @@ struct AddTaskView: View {
        
     }
     
-    init(moc: NSManagedObjectContext, editingTask: Bool, editableTask: Task?) {
-        // Setting the Home screen context as the child context parent.
-        self.moc = moc
-        childContext.parent = moc
-        
-        
-        self.editingTask = editingTask
-        self.editableTask = editableTask
-        self.taskTitle = editableTask?.name ?? ""
-        self.taskDesc = editableTask?.desc ?? ""
-        self.location = editableTask?.taskLocation
-        self.addedSteps = editableTask?.stepsArray ?? []
-        self.taskDeadline = editableTask?.deadline ?? Date()
-        
-    }
-    
+//    init() {
+//        // Setting the Home screen context as the child context parent
+//        childContext.parent = moc
+//        print("Init AddTaskView")
+//    }
+
     var body: some View {
         ZStack {
 
@@ -313,21 +303,25 @@ struct AddTaskView: View {
             ConfirmAddTaskPopup(display: $showConfirmWindow, taskTitle: $taskTitle, saveTaskToCoreData: {
                 do {
                     // Creates a new Task object with the given State variables and saves it to Core Data.
-                    let newTask = Task(context: moc)
-                    newTask.date_added = Date()
+                    let newTask = editableTask ?? Task(context: moc)
+                    
                     newTask.name = self.taskTitle
                     newTask.desc = self.taskDesc
-                    
-                    if (deadlineEnabled) {
-                        newTask.deadline = self.taskDeadline
-                    }
-                    
-                    newTask.id = UUID()
                     newTask.taskLocation = location
                     
+                    if (deadlineEnabled) { newTask.deadline = self.taskDeadline }
+                    else { newTask.deadline = nil }
+                    
+                    if (!editingTask) {
+                        
+                        newTask.date_added = Date()
+                        newTask.id = UUID()
+                        
+                    }
                     for step in addedSteps {
                         step.origin = newTask
                     }
+    
                     try moc.save()
                     
                     print("Task \( newTask) saved succesfully to Core Data.")
@@ -335,8 +329,13 @@ struct AddTaskView: View {
                     print("Saving to Core Data failed. \(error)")
                 }
                 
+                if (!editingTask) {
+                    self.presentationMode.wrappedValue.dismiss()
+                } else {
+                    editingTask = false
+                }
                 
-                self.presentationMode.wrappedValue.dismiss()
+               
             })
             
         }
@@ -345,6 +344,18 @@ struct AddTaskView: View {
                 showAlert = false
             }
         }
+        .onAppear {
+            self.taskTitle = editableTask?.name ?? ""
+            self.taskDesc = editableTask?.desc ?? ""
+            self.location = editableTask?.taskLocation
+            self.addedSteps = editableTask?.stepsArray ?? []
+            self.taskDeadline = editableTask?.deadline ?? Date()
+            
+            if (editableTask?.deadline == nil) {
+                deadlineEnabled = false
+            }
+            
+        }
         
      
     }
@@ -352,9 +363,9 @@ struct AddTaskView: View {
 }
 
 struct AddTaskView_Previews: PreviewProvider {
-    static var moc = NSManagedObjectContext()
+    static let moc = NSManagedObjectContext()
     static var previews: some View {
-        AddTaskView(moc: moc, editingTask: false, editableTask: Task())
+        AddTaskView(editingTask: .constant(false), editableTask: .constant(Task()), moc: moc)
     }
 }
 

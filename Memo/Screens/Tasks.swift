@@ -6,11 +6,36 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct Tasks: View {
-    var task : Task
+    
+    var moc : NSManagedObjectContext
+    @State var task : Task?
+    @State var editingTask = false
+    
     var body: some View {
-        MapView()
+        ZStack {
+            MapView()
+            
+            if (editingTask) {
+                AddTaskView(editingTask: $editingTask, editableTask: $task, moc: moc)
+            }
+            
+            if (!editingTask) {
+                HStack {
+                    Button(action: {editingTask = true}) {
+                        Text("Toggle edit view")
+                            .foregroundColor(Color.white)
+                    }
+                    .padding()
+                    .background(Color.blue)
+                }
+            }
+          
+        }
+        
+        
     }
 }
 

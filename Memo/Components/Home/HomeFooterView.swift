@@ -70,12 +70,12 @@ struct HomeFooterView: View {
                         LazyHStack {
                             ForEach(tasks) { task in
                                 if (task == tasks[0]) {
-                                    NavigationLink(destination: Tasks(task: task).environment(\.managedObjectContext, dataController.container.viewContext)) {
+                                    NavigationLink(destination: Tasks(moc: moc, task: task).environment(\.managedObjectContext, dataController.container.viewContext)) {
                                         TaskRow(task: task, tasks: tasks, first: true)
                                     }
                                         
                                 } else {
-                                    NavigationLink(destination: Tasks(task: task).environment(\.managedObjectContext, dataController.container.viewContext)) {
+                                    NavigationLink(destination: Tasks(moc: moc, task: task).environment(\.managedObjectContext, dataController.container.viewContext)) {
                                         TaskRow(task: task, tasks: tasks, first: false)
                                     }
                                 }
@@ -96,7 +96,7 @@ struct HomeFooterView: View {
                                         .font(.caption)
                                 } else {
                                     ForEach(withinTwo) { task in
-                                        NavigationLink(destination: Tasks(task: task).environment(\.managedObjectContext, dataController.container.viewContext)) {
+                                        NavigationLink(destination: Tasks(moc: moc, task: task).environment(\.managedObjectContext, dataController.container.viewContext)) {
                                             UpcomingTaskRow(task: task)
                                         }
                                     }
@@ -146,7 +146,7 @@ struct HomeFooterView: View {
                     Spacer()
                     // Add task button
                     if !taskOrNote {
-                        NavigationLink(destination: AddTaskView(moc: moc, editingTask: false, editableTask: nil).environment(\.managedObjectContext, dataController.container.viewContext)) {
+                        NavigationLink(destination: AddTaskView(editingTask: .constant(false), editableTask: .constant(nil), moc: moc).environment(\.managedObjectContext, dataController.container.viewContext)) {
                             ZStack {
                                 Circle()
                                     .fill(Color.cyan)
