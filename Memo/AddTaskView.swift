@@ -24,7 +24,7 @@ struct AddTaskView: View {
     @State private var displayEditWindow = false
     @State private var deletableStep: Step?
     @State private var editableStep: Step = Step()
-    
+    @State private var deletableTask: Task?
     
     // Used in ConfirmAddTaskPopup
     @State private var showConfirmWindow = false
@@ -53,10 +53,30 @@ struct AddTaskView: View {
     
     var body: some View {
         ZStack {
-
+            
                 NavigationView {
                     VStack {
                         
+                        if (editingTask) {
+                            HStack {
+                                Button(action: {
+                                    
+                                deletableTask = editableTask
+                                displayDeleteWindow = true
+                                    
+                                }) {
+                                    Text("Delete")
+                                        .foregroundColor(Color.white)
+                                }
+                                .padding(10)
+                                .background(Color.red)
+                                .cornerRadius(5)
+                                .shadow(radius: 5)
+                            }
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                            .padding(.horizontal, 5)
+                        }
+                   
                         // Title input
                         VStack {
                             VStack(alignment: .leading) {
@@ -72,7 +92,8 @@ struct AddTaskView: View {
                                 }
                                
                             }
-                            .padding(15)
+                            .padding(.horizontal, 15)
+                            .padding(.vertical, 10)
                             .background(Color(red: 242/255, green: 242/255, blue: 242/255))
                             .cornerRadius(15)
                             .shadow(radius: 5)
@@ -88,12 +109,13 @@ struct AddTaskView: View {
                                     .bold()
                                     .foregroundColor(deadlineEnabled ? Color.black : Color.gray)
                                 HStack {
-                                  
-                                    Text(taskDeadline, style: .date)
-                                        .foregroundColor(deadlineEnabled ? Color.black : Color.gray)
-                                    Text(taskDeadline, style: .time)
-                                        .foregroundColor(deadlineEnabled ? Color.black : Color.gray)
-                                
+                                    VStack(alignment: .leading) {
+                                        Text(taskDeadline, style: .date)
+                                            .foregroundColor(deadlineEnabled ? Color.black : Color.gray)
+                                        Text(taskDeadline, style: .time)
+                                            .foregroundColor(deadlineEnabled ? Color.black : Color.gray)
+                                    }
+                                   
                                     Spacer()
                                  
                                     Toggle("", isOn: $deadlineEnabled)
@@ -112,7 +134,8 @@ struct AddTaskView: View {
                     
                             }
                             .frame(maxWidth: .infinity)
-                            .padding(15)
+                            .padding(.horizontal, 15)
+                            .padding(.vertical, 10)
                             .background(Color(red: 242/255, green: 242/255, blue: 242/255))                            .cornerRadius(15)
                             .shadow(radius: 5)
                             
@@ -140,7 +163,8 @@ struct AddTaskView: View {
                                 }
                                
                             }
-                            .padding(15)
+                            .padding(.horizontal, 15)
+                            .padding(.vertical, 10)
                             .frame(maxWidth: .infinity)
                             .background(Color(red: 242/255, green: 242/255, blue: 242/255))
                             .cornerRadius(15)
@@ -261,7 +285,7 @@ struct AddTaskView: View {
             
             
             // Displays a confirmation popup for Step deletion.
-            ConfirmDeletePopup(display: $displayDeleteWindow, editingTask: $editingTask, addedSteps: $addedSteps, step: $deletableStep, task: .constant(nil), moc: moc)
+            ConfirmDeletePopup(display: $displayDeleteWindow, editingTask: $editingTask, addedSteps: $addedSteps, step: $deletableStep, task: $deletableTask, moc: moc)
             
             
             // Displays a popup for editing a Step object.

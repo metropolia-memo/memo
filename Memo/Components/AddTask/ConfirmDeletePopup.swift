@@ -27,6 +27,7 @@ struct ConfirmDeletePopup: View {
     @Binding var task : Task?
     
     var moc : NSManagedObjectContext
+    @Environment(\.presentationMode) var presentationMode
     
     // Displays a corresponding message according to the item being a Step or Task.
     func displayMessage() -> String {
@@ -55,6 +56,8 @@ struct ConfirmDeletePopup: View {
             moc.delete(step!)
         } else if task != nil {
             moc.delete(task!)
+            editingTask = false
+            self.presentationMode.wrappedValue.dismiss()
         }
     }
     
