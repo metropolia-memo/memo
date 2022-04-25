@@ -40,14 +40,17 @@ struct ConfirmAddTaskPopup: View {
                     HStack(spacing: 0) {
                         
                         Button(action: {withAnimation(.linear(duration: 0.3)) {
-                            display = false                   }}) {
+                            display = false  
+                        }}) {
                             Text("Cancel")
                                     .foregroundColor(Color.white)
+                                    .padding()
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color.gray)
+                                    .contentShape(Rectangle())
                                     
                         }
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(Color.gray)
+                       
                 
                         // Creates a new Step object and adds it to the addSteps list in AddTaskView. After this, navigate back.
                         Button(action: {withAnimation(.linear(duration: 0.3)) {
@@ -56,10 +59,12 @@ struct ConfirmAddTaskPopup: View {
                         }}) {
                             Text("Confirm")
                                     .foregroundColor(Color.white)
+                                    .padding()
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color.blue)
+                                    .contentShape(Rectangle())
                         }
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(Color.blue)
+                           
                 
                     }
                     

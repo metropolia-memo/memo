@@ -16,40 +16,40 @@ struct Tasks: View {
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
-      
-        ZStack {
-            MapView()
-            
-            if (editingTask) {
-                AddTaskView(editingTask: $editingTask, editableTask: $task, moc: moc)
-            }
-            
-            if (!editingTask) {
-                HStack {
-                    Button(action: {editingTask = true}) {
-                        Text("Toggle edit view")
-                            .foregroundColor(Color.white)
-                    }
-                    .padding()
-                    .background(Color.blue)
+            ZStack {
+
+                MapView()
+                
+                if (editingTask) {
+                    AddTaskView(editingTask: $editingTask, editableTask: $task, moc: moc)
                 }
+                
+                if (!editingTask) {
+                    HStack {
+                        Button(action: {editingTask = true}) {
+                            Text("Toggle edit view")
+                                .foregroundColor(Color.white)
+                        }
+                        .padding()
+                        .background(Color.blue)
+                    }
+                }
+              
             }
-          
-        }
-        .navigationBarTitle("", displayMode: .inline)
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: Button(action: {
-         if (editingTask) {
-             editingTask = false
-             return
-         }
-            self.presentationMode.wrappedValue.dismiss()
-  
-        }) {
-         Image(systemName: "chevron.left")
-             .foregroundColor(Color.blue)
-             .scaleEffect(1)
-        })
+            .navigationBarTitle("", displayMode: .inline)
+            .navigationBarBackButtonHidden(true)
+            .navigationBarItems(leading: Button(action: {
+             if (editingTask) {
+                 editingTask = false
+                 return
+             }
+                self.presentationMode.wrappedValue.dismiss()
+      
+            }) {
+             Image(systemName: "chevron.left")
+                 .foregroundColor(Color.blue)
+                 .scaleEffect(1)
+            })
     }
 }
 

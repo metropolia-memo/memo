@@ -70,7 +70,8 @@ struct StepView: View {
             
             
             HStack {
-                Image(systemName: "checkmark.circle")
+                Image(systemName: step.completed ? "checkmark.circle.fill" : "checkmark.circle")
+                    .foregroundColor(step.completed ? Color.blue : Color.gray)
                 Text(step.desc ?? "Description not found")
                     .padding(5)
                 Spacer()

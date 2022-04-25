@@ -19,7 +19,7 @@ struct AddLocationView: View {
 
     var moc : NSManagedObjectContext
     
-    
+    // Initial map coordinates set to the Helsinki region.
     @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 60.2255, longitude: 24.6575), span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
     @State private var regionCoordinates = CLLocationCoordinate2D(latitude: 51.5, longitude: -0.12)
     @State private var locationInput = ""
@@ -63,17 +63,14 @@ struct AddLocationView: View {
                 
                             selectedLocation = [SelectedLocation(coordinate: regionCoordinates)]
                 
-                    }
-
-                
-            
-            
+                }
         }
     }
     
     
     var body: some View {
         ZStack {
+            
             if display {
                 Map(coordinateRegion: $region, annotationItems: selectedLocation) {
                     MapMarker(coordinate: $0.coordinate)
@@ -140,6 +137,12 @@ struct AddLocationView: View {
                             locationNotFound = false
                         }
                 }
+                .navigationBarTitle("", displayMode: .inline)
+                .navigationBarItems(leading: Button(action: {display = false}) {
+                 Image(systemName: "chevron.left")
+                     .foregroundColor(Color.blue)
+                     .scaleEffect(1)
+                })
             }
           
         }
@@ -150,6 +153,9 @@ struct AddLocationView: View {
 struct AddLocationView_Previews: PreviewProvider {
     static var moc = NSManagedObjectContext()
     static var previews: some View {
-        AddLocationView(moc: moc, display: .constant(true), location: .constant(TaskLocation()))
+        Group {
+            AddLocationView(moc: moc, display: .constant(true), location: .constant(TaskLocation()))
+            AddLocationView(moc: moc, display: .constant(true), location: .constant(TaskLocation()))
+        }
     }
 }

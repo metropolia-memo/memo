@@ -55,6 +55,7 @@ struct AddTaskView: View {
         ZStack {
             
                 NavigationView {
+                    ScrollView {
                     VStack {
                         
                         if (editingTask) {
@@ -67,11 +68,14 @@ struct AddTaskView: View {
                                 }) {
                                     Text("Delete")
                                         .foregroundColor(Color.white)
+                                        .padding(10)
+                                        .frame(maxWidth: .infinity)
+                                        .contentShape(Rectangle())
+                                        .background(Color.red)
+                                        .cornerRadius(5)
+                                        .shadow(radius: 5)
                                 }
-                                .padding(10)
-                                .background(Color.red)
-                                .cornerRadius(5)
-                                .shadow(radius: 5)
+                           
                             }
                             .frame(maxWidth: .infinity, alignment: .trailing)
                             .padding(.horizontal, 5)
@@ -225,8 +229,7 @@ struct AddTaskView: View {
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                            
                             }
-
-                        
+    
                         }
                         
 
@@ -240,7 +243,7 @@ struct AddTaskView: View {
                             VStack(alignment: .leading) {
                               
                                 TextField("Task description", text: $taskDesc)
-      
+                                    .frame(minHeight: 50)
                                
                             }
                             .padding(15)
@@ -252,24 +255,28 @@ struct AddTaskView: View {
                         .padding(.horizontal, 5)
                         .frame(maxHeight: .infinity)
  
-                        Button(editingTask ? "Save changes" : "Save task") {
-                                if (taskTitle == "") {
-                                    showAlert = true
-                                    return
-                                }
-                                showConfirmWindow = true
+                        Button(action: {
+                            if (taskTitle == "") {
+                                showAlert = true
+                                return
                             }
-                            .frame(maxHeight: 50)
-                            .padding(.horizontal, 20)
-                            .background(taskTitle != "" ? Color(red: 45/255, green: 91/255, blue: 255/255) : Color.gray)
-                            .foregroundColor(Color.white)
+                                showConfirmWindow = true
+                            
+                        }) {
+                            Text(editingTask ? "Save changes" : "Save task")
+                                .frame(maxHeight: 50)
+                                .padding(.horizontal, 20)
+                                .padding(.vertical, 10)
+                                .background(taskTitle != "" ? Color(red: 45/255, green: 91/255, blue: 255/255) : Color.gray)
+                                .foregroundColor(Color.white)
+                                .cornerRadius(10)
+                            }
+       
                         
-                        .cornerRadius(10)
                         
                     }
-                   
                     .navigationBarTitle("", displayMode: .inline)
- 
+                    }
                 }
                 
            
@@ -309,11 +316,10 @@ struct AddTaskView: View {
                     else { newTask.deadline = nil }
                     
                     if (!editingTask) {
-                        
                         newTask.date_added = Date()
                         newTask.id = UUID()
-                        
                     }
+                    
                     for step in addedSteps {
                         step.origin = newTask
                     }
@@ -331,15 +337,17 @@ struct AddTaskView: View {
                     editingTask = false
                 }
                 
-               
+            
             })
             
         }
+        .navigationBarBackButtonHidden(displayLocationWindow)
         .alert("Title missing!", isPresented: $showAlert) {
             Button("OK", role: .cancel) {
                 showAlert = false
             }
         }
+       
         .onAppear {
             self.taskTitle = editableTask?.name ?? ""
             self.taskDesc = editableTask?.desc ?? ""
@@ -352,6 +360,7 @@ struct AddTaskView: View {
             }
             
         }
+        
         
      
     }
