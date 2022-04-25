@@ -105,7 +105,7 @@ struct HomeFooterView: View {
                         ScrollView {
                             LazyVStack {
                                 ForEach(notes) { note in
-                                    NavigationLink(destination: NoteView(note: note).environment(\.managedObjectContext, dataController.container.viewContext)) {
+                                    NavigationLink(destination: NoteView(moc: moc, note: note).environment(\.managedObjectContext, dataController.container.viewContext)) {
                                         VStack(alignment: .leading) {
                                             Text("\(note.title)")
                                                 .font(.title)
