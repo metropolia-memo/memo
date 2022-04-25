@@ -1,62 +1,132 @@
-//
-//  NoteView.swift
-//  Memo
-//
-//  Created by Sirja Kosonen on 12.4.2022.
-//
-
 import SwiftUI
 import CoreData
+import LocalAuthentication
 
 struct NoteView: View {
-    let note: Note
-    @State private var showingSheet = false
+    @ObservedObject var note: Note
+    @State private var isAuthenticated = false
+    @State private var isConfirmingDelete = false
     
-    // Accessing the Context applied to the environment. Creating a child context to allow data updating in the Home screen.
     let childContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-    var moc : NSManagedObjectContext
+    var moc: NSManagedObjectContext
+    var authContext = LAContext()
+    
+    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.scenePhase) var scenePhase
     
     init(moc: NSManagedObjectContext, note: Note) {
-        // Setting the Home screen context as the child context parent.
         self.moc = moc
         childContext.parent = moc
         self.note = note
     }
     
-    var body: some View {
-        VStack(alignment: .trailing) {
-            
-            // Edit note button
-            Button(action: {showingSheet.toggle()}) {
-                Image(systemName: "pencil")
-                    .foregroundColor(Color.blue)
-                    .font(.system(size: 40))
-            }
-            .padding(.horizontal, 15)
-            .sheet(isPresented: $showingSheet) {
-                ModifyNoteView(moc: moc, note: note)
-            }
-                
-            
-            // Note
-            ScrollView {
-                Text(note.note_text)
-                .padding(20)
-                .background(Color(red: 240/255, green: 240/255, blue: 240/255))
-                .multilineTextAlignment(.leading)
-                .cornerRadius(10)
-                .padding(10)
+    func authenticate() {
+        if (note.isSensitive && !isAuthenticated) {
+            let reason = "This is a sensitive note, you must authenticate yourself before viewing it."
+            authContext.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason) { success, error in
+                if success {
+                    isAuthenticated = true
+                } else {
+                    print(error?.localizedDescription ?? "Authentication failed with unknown error")
+                    isAuthenticated = false
+                }
             }
         }
-        .navigationTitle(note.title)
+    }
+    
+    func save() {
+        if (!note.isSensitive || isAuthenticated) {
+            if (note.title == "") {
+                note.title = "Unnamed"
+            }
+            do {
+                try moc.save()
+                print("Note '\(note.title)' saved succesfully")
+            } catch {
+                print("Saving note failed with exception \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func delete() {
+        if (!note.isSensitive || isAuthenticated) {
+            // TODO: delete note
+        }
+    }
+    
+    func toggleSensitivity() {
+        if (!note.isSensitive || isAuthenticated) {
+            // If the user can modify the sensitivity they are either authenticated already or have seen the note anyway
+            isAuthenticated = true
+            note.isSensitive.toggle()
+        }
+    }
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            if (note.isSensitive && !isAuthenticated) {
+                VStack(alignment: .center, spacing: 24) {
+                    Text("This is a sensitive note, you must authenticate yourself before viewing it.")
+                        .multilineTextAlignment(.center)
+                    Button("Authenticate", action: authenticate)
+                }
+            } else {
+                VStack(alignment: .leading, spacing: 12) {
+                    TextField("Title", text: $note.title)
+                        .font(.title)
+                        .multilineTextAlignment(.leading)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    TextEditor(text: $note.note_text)
+                        .multilineTextAlignment(.leading)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
+                .padding(.horizontal, 24)
+                .padding(.vertical, 12)
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .navigationBarBackButtonHidden(true)
+        .toolbar() {
+            ToolbarItem(placement: .cancellationAction) {
+                Button(action: {
+                    save()
+                    presentationMode.wrappedValue.dismiss()
+                }) {
+                    HStack {
+                        Image(systemName: "chevron.left")
+                            .font(.system(size: 16, weight: .semibold))
+                        Text("Back")
+                    }
+                }
+            }
+            ToolbarItem(placement: .primaryAction) {
+                Menu {
+                    Button(action: { toggleSensitivity() }) {
+                        note.isSensitive
+                         ? Label("Make unsecure", systemImage: "lock.open.fill")
+                         : Label("Make secure", systemImage: "lock.fill")
+                    }
+                        .disabled(note.isSensitive && !isAuthenticated)
+                    Button(role: .destructive, action: { isConfirmingDelete = true }) {
+                        Label("Delete", systemImage: "trash.fill")
+                    }
+                        .disabled(note.isSensitive && !isAuthenticated)
+                    Button(role: .cancel, action: {}) {
+                        Label("Cancel", image: "xmark")
+                    }
+                } label: {
+                    Label("More", systemImage: "ellipsis.circle")
+                }
+                .confirmationDialog("Are you sure you want to delete this note?", isPresented: $isConfirmingDelete) {
+                    Button("Delete", role: .destructive) { delete() }
+                    Button("Cancel", role: .cancel) { isConfirmingDelete = false }
+                } message: {
+                    Text("Are you sure you want to delete this note?")
+                }
+            }
+        }
+        .onAppear() { authenticate() }
+        .onDisappear() { isAuthenticated = false }
+        .onChange(of: scenePhase) { _ in save() }
     }
 }
-
-
-//struct NoteView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NavigationView {
-//            NoteView()
-//        }
-//    }
-//}
