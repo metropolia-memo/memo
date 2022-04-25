@@ -9,7 +9,6 @@ import SwiftUI
 import CoreData
 
 // A popup window used for adding steps.
-// Utilized in AddTaskView.
 struct AddStepPopup: View {
     
     @Binding var display : Bool

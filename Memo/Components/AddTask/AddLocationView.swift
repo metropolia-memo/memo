@@ -14,6 +14,7 @@ struct SelectedLocation: Identifiable {
     var coordinate: CLLocationCoordinate2D
 }
 
+// Displays a MapKit map and a TextField for searching locations.
 struct AddLocationView: View {
   
 
