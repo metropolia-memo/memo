@@ -10,7 +10,10 @@ import SwiftUI
 struct Tasks: View {
     var task : Task
     var body: some View {
-        MapView()
+        ZStack() {
+            MapView()
+            SlideUp()
+        }
     }
 }
 

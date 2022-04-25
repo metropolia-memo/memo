@@ -7,9 +7,14 @@
 import MapKit
 import SwiftUI
 
+struct Place: Identifiable {
+    let id = UUID()
+    let name: String
+    let coordinate: CLLocationCoordinate2D
+}
 
 struct MapView: View {
-    
+
     @StateObject private var viewModel = MapViewModel()
     
     public var screenHeight: CGFloat {
@@ -20,27 +25,38 @@ struct MapView: View {
         return UIScreen.main.bounds.width
     }
     
+    let annotations = [
+        Place(name: "Burger", coordinate: CLLocationCoordinate2D(latitude: 60.266190, longitude: 23.847260))
+    ]
+    
+    
     
     var body: some View {
-        Map(coordinateRegion: $viewModel.region, showsUserLocation: true)
+        
+        HStack(spacing: 0) {
+            
+        Map(coordinateRegion: $viewModel.region, showsUserLocation: true, annotationItems: annotations) { place in MapPin(coordinate: place.coordinate)}
             .frame(width: screenWidth, height: screenHeight)
             .ignoresSafeArea()
             .accentColor(Color(.systemRed))
             .onAppear {
                 viewModel.checkIfLocationServices()
-                
             }
         }
     }
-
-
+    
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
         MapView()
     }
 }
+}
+
+
 
 final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
+    
+    @IBOutlet weak var mapV: MKMapView!
     
     @Published var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 60.266190, longitude: 24.847280), span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
     
@@ -67,9 +83,10 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
         case .restricted:
-            print("Switch case restricted!, Make alert here!")
+            print("something")
         case .denied:
-            print("Switch case denied!, Make alert here!")
+            print("something")
+            
         case .authorizedAlways, .authorizedWhenInUse:
             region = MKCoordinateRegion(center: locationManager.location!.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
         @unknown default:
@@ -80,6 +97,7 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         checkLocationAuth()
     }
-}
+    
+    }
 
 
