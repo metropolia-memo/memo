@@ -11,6 +11,8 @@ import SwiftUI
 
 
 struct SlideUp: View {
+    
+    //Offsets for slider bar
     @State private var offsets = (top: CGFloat.zero, middle: CGFloat.zero, bottom: CGFloat.zero)
     @State private var offset: CGFloat = .zero
     @State private var lastOffset: CGFloat = .zero
@@ -84,7 +86,6 @@ struct SlideUp: View {
                             .padding(.bottom, 8)
                         
                         if(step != steps[steps.count-1])  {
-                       //I dont want to do this for last index
                         Image(systemName: "arrow.down")
                             .font(.system(size: 15))
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -146,10 +147,6 @@ struct SlideUp: View {
     }
 }
 
-/*struct SlideUp_Previews: PreviewProvider {
-    static var previews: some View {
-        MapView()
-    }
-}*/
+
 
 

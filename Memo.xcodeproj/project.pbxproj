@@ -37,6 +37,7 @@
 		6AA903C928112E2400FF4214 /* Tasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA903C828112E2300FF4214 /* Tasks.swift */; };
 		6AA903CF2811341B00FF4214 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA903CE2811341B00FF4214 /* MapView.swift */; };
 		6AA903D1281273B300FF4214 /* SlideUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA903D0281273B300FF4214 /* SlideUp.swift */; };
+		6AA903D62817FF0100FF4214 /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA903D52817FF0100FF4214 /* CustomAnnotation.swift */; };
 		6AD7D39127FDB5E100B657B4 /* Step+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD7D38D27FDB5E100B657B4 /* Step+CoreDataClass.swift */; };
 		6AD7D39227FDB5E100B657B4 /* Step+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD7D38E27FDB5E100B657B4 /* Step+CoreDataProperties.swift */; };
 		6AD7D39527FE278E00B657B4 /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD7D39427FE278E00B657B4 /* AddTaskView.swift */; };
@@ -100,6 +101,7 @@
 		6AA903CE2811341B00FF4214 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		6AA903D0281273B300FF4214 /* SlideUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideUp.swift; sourceTree = "<group>"; };
 		6AA903D228127F0A00FF4214 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		6AA903D52817FF0100FF4214 /* CustomAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
 		6AD7D38D27FDB5E100B657B4 /* Step+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Step+CoreDataClass.swift"; sourceTree = "<group>"; };
 		6AD7D38E27FDB5E100B657B4 /* Step+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Step+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		6AD7D39427FE278E00B657B4 /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 			children = (
 				6AA903CE2811341B00FF4214 /* MapView.swift */,
 				6AA903D0281273B300FF4214 /* SlideUp.swift */,
+				6AA903D52817FF0100FF4214 /* CustomAnnotation.swift */,
 			);
 			path = TaskScreen;
 			sourceTree = "<group>";
@@ -450,6 +453,7 @@
 				6A92FA54280E8EBA0005A010 /* AddLocationView.swift in Sources */,
 				6AA903CF2811341B00FF4214 /* MapView.swift in Sources */,
 				6A0323092804729E000B1B21 /* ContentView.swift in Sources */,
+				6AA903D62817FF0100FF4214 /* CustomAnnotation.swift in Sources */,
 				6ADBDD2227FF082000EFF647 /* HomeFooterView.swift in Sources */,
 				6AA903C2280546D200FF4214 /* Profile.swift in Sources */,
 				6AF9D7ED27FEF49B00CEB68A /* Home.swift in Sources */,

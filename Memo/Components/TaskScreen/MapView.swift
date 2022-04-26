@@ -46,21 +46,19 @@ struct MapView: View {
         HStack(spacing: 0) {
 
             
-        Map(coordinateRegion: $viewModel.region, showsUserLocation: true, annotationItems: taskPlace) { place in MapPin(coordinate: place.coordinate)}
+            Map(coordinateRegion: $viewModel.region, showsUserLocation: true, annotationItems: taskPlace, annotationContent: { place in MapAnnotation(coordinate: place.coordinate) {
+                CustomAnnotation()
+                }
+            })
             .frame(width: screenWidth, height: screenHeight)
             .ignoresSafeArea()
             .accentColor(Color(.systemRed))
             .onAppear {
                 viewModel.checkIfLocationServices()
             }
+            
         }
     }
-    
-//struct MapView_Previews: PreviewProvider {
-   // static var previews: some View {
-   //     MapView()
-   // }
-//}
 }
 
 
