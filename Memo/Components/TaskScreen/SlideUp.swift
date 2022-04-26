@@ -44,11 +44,11 @@ struct SlideUp: View {
                         .frame(width: 40, height: 40)
                 }
                 HStack() {
-                    Image(systemName: "pin")
+                    Image(systemName: "pin.fill")
                         .font(.system(size: 18))
                         .foregroundColor(Color(.systemBlue))
                     Text(task.taskLocation!.name!)
-                        .font(.system(size: 18))
+                        .font(.system(size: 18, weight: .heavy))
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
@@ -60,7 +60,11 @@ struct SlideUp: View {
                     ForEach(steps) {step in
                         HStack(){
                         Button {
-                            step.completed = true
+                            if(step.completed == false){
+                                step.completed = true
+                            }else if(step.completed == true){
+                                step.completed = false
+                            }
                         } label: {
                             if (step.completed == true) {
                                 Image(systemName: "chevron.down.circle.fill")
