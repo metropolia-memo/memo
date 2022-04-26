@@ -6,36 +6,47 @@
 //
 import MapKit
 import SwiftUI
+import Alamofire
 
+//Places are used for map pins
 struct Place: Identifiable {
     let id = UUID()
     let name: String
     let coordinate: CLLocationCoordinate2D
 }
 
-struct MapView: View {
 
+
+struct MapView: View {
+    
+    let task: Task
     @StateObject private var viewModel = MapViewModel()
+    
     
     public var screenHeight: CGFloat {
         return UIScreen.main.bounds.height
     }
-    
     public var screenWidth: CGFloat {
         return UIScreen.main.bounds.width
     }
-    
-    let annotations = [
-        Place(name: "Burger", coordinate: CLLocationCoordinate2D(latitude: 60.266190, longitude: 23.847260))
-    ]
     
     
     
     var body: some View {
         
+        let latitude = task.taskLocation?.latitude ?? 0
+        let longitude = task.taskLocation?.longitude ?? 0
+        
+        //Holds a location which can be pinned in the map
+        let taskPlace = [
+            Place(name: task.name!, coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
+        ]
+        
+        
         HStack(spacing: 0) {
+
             
-        Map(coordinateRegion: $viewModel.region, showsUserLocation: true, annotationItems: annotations) { place in MapPin(coordinate: place.coordinate)}
+        Map(coordinateRegion: $viewModel.region, showsUserLocation: true, annotationItems: taskPlace) { place in MapPin(coordinate: place.coordinate)}
             .frame(width: screenWidth, height: screenHeight)
             .ignoresSafeArea()
             .accentColor(Color(.systemRed))
@@ -45,13 +56,12 @@ struct MapView: View {
         }
     }
     
-struct MapView_Previews: PreviewProvider {
-    static var previews: some View {
-        MapView()
-    }
+//struct MapView_Previews: PreviewProvider {
+   // static var previews: some View {
+   //     MapView()
+   // }
+//}
 }
-}
-
 
 
 final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {

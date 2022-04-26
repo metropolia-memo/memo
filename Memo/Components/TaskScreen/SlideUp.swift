@@ -16,45 +16,81 @@ struct SlideUp: View {
     @State private var lastOffset: CGFloat = .zero
     @State var show = false
     
+    let task: Task
+    
+    
+    
+    
     var body: some View {
+        
+        let steps = task.stepsArray
+        
+        
         GeometryReader { geometry in
             VStack (spacing: 30) {
                 RoundedRectangle(cornerRadius: 5)
                     .frame(width: 150, height: 2)
-                
-                Text("Task name")
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .font(.system(size: 22, weight: .heavy))
-                    
+            
+                HStack() {
+                    Text(task.name!)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .font(.system(size: 22, weight: .heavy))
+                    Button {
+                        print("button pressed")
+                    } label: {
+                        Image(systemName: "car.fill")
+                    } .contentShape(Rectangle())
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                        .frame(width: 40, height: 40)
+                }
                 HStack() {
                     Image(systemName: "pin")
                         .font(.system(size: 18))
                         .foregroundColor(Color(.systemBlue))
-                    Text("Address of the task")
+                    Text(task.taskLocation!.name!)
                         .font(.system(size: 18))
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
-                Text("Task description -> Task description -> task description")
+                Text(task.desc!)
                     .font(.system(size: 18))
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 
-                HStack() {
-                    Image(systemName: "chevron.down.circle.fill")
-                        .font(.system(size: 25))
-                        .foregroundColor(Color(.systemBlue))
-                    Text("This is the task!")
-                        .font(.system(size: 20))
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
+                VStack() {
+                    ForEach(steps) {step in
+                        HStack(){
+                        Button {
+                            step.completed = true
+                        } label: {
+                            if (step.completed == true) {
+                                Image(systemName: "chevron.down.circle.fill")
+                                    .font(.system(size: 25))
+                                    .foregroundColor(Color(.systemBlue))
+                            } else {
+                                Image(systemName: "chevron.down.circle")
+                                    .font(.system(size: 25))
+                                    .foregroundColor(Color(.systemBlue))
+                            }
+                        }
+                        Text(step.desc!)
+                            .font(.system(size: 20))
+                            
+                            
+                        }.frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.bottom, 8)
+                        
+                        if(step != steps[steps.count-1])  {
+                       //I dont want to do this for last index
+                        Image(systemName: "arrow.down")
+                            .font(.system(size: 15))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.leading, 7)
+                            .padding(.bottom, 2)
+                        }
+                    }
+                } .frame(maxWidth: .infinity, alignment: .leading)
                 
-                HStack() {
-                    Image(systemName: "chevron.down.circle")
-                        .font(.system(size: 25))
-                        .foregroundColor(Color(.systemBlue))
-                    Text("This is the second task!")
-                        .font(.system(size: 20))
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
+                
                 Spacer()
             }
             .padding()

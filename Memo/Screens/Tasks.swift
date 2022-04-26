@@ -11,8 +11,8 @@ struct Tasks: View {
     var task : Task
     var body: some View {
         ZStack() {
-            MapView()
-            SlideUp()
+            MapView(task: task)
+            SlideUp(task: task)
         }
     }
 }
