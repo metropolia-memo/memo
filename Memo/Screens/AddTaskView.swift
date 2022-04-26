@@ -33,7 +33,7 @@ struct AddTaskView: View {
     @State private var addedSteps : [Step] = []
     
     @State private var location : TaskLocation?
-    @State private var displayLocationWindow = false
+    @Binding var displayLocationWindow : Bool
     
     // Used if editing a Task.
     @Binding var editingTask : Bool
@@ -271,11 +271,9 @@ struct AddTaskView: View {
                                 .foregroundColor(Color.white)
                                 .cornerRadius(10)
                             }
-       
-                        
-                        
                     }
                     .navigationBarTitle("", displayMode: .inline)
+                  
                     }
                 }
                 
@@ -299,7 +297,7 @@ struct AddTaskView: View {
             EditStepPopup(display: $displayEditWindow, editableStep: $editableStep)
             
             // Displays a View for adding a location.
-            AddLocationView(moc: moc, display: $displayLocationWindow, location: $location)
+            AddLocationView(moc: moc, display: $displayLocationWindow, location: $location, editingTask: $editingTask)
             
             
             // Displays a confirmation popup
@@ -370,7 +368,7 @@ struct AddTaskView: View {
 struct AddTaskView_Previews: PreviewProvider {
     static let moc = NSManagedObjectContext()
     static var previews: some View {
-        AddTaskView(editingTask: .constant(false), editableTask: .constant(Task()), moc: moc)
+        AddTaskView(displayLocationWindow: .constant(false), editingTask: .constant(false), editableTask: .constant(Task()), moc: moc)
     }
 }
 

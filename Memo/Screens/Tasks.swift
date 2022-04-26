@@ -13,6 +13,7 @@ struct Tasks: View {
     var moc : NSManagedObjectContext
     @State var task : Task?
     @State var editingTask = false
+    @State var displayLocationWindow = false
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
@@ -21,7 +22,9 @@ struct Tasks: View {
                 MapView()
                 
                 if (editingTask) {
-                    AddTaskView(editingTask: $editingTask, editableTask: $task, moc: moc)
+              
+                    AddTaskView(displayLocationWindow: $displayLocationWindow, editingTask: $editingTask, editableTask: $task, moc: moc)
+
                 }
                 
                 if (!editingTask) {
@@ -38,13 +41,17 @@ struct Tasks: View {
             }
             .navigationBarTitle("", displayMode: .inline)
             .navigationBarBackButtonHidden(true)
+            .navigationBarHidden(editingTask)
             .navigationBarItems(leading: Button(action: {
-             if (editingTask) {
-                 editingTask = false
-                 return
-             }
-                self.presentationMode.wrappedValue.dismiss()
-      
+                if (displayLocationWindow) {
+                    displayLocationWindow = false
+                    return
+                } else if (editingTask) {
+                     editingTask = false
+                     return
+                 }
+                    self.presentationMode.wrappedValue.dismiss()
+
             }) {
              Image(systemName: "chevron.left")
                  .foregroundColor(Color.blue)
@@ -53,8 +60,9 @@ struct Tasks: View {
     }
 }
 
-//struct Tasks_Previews: PreviewProvider {
-//    static var previews: some View {
-//        Tasks()
-//    }
-//}
+struct Tasks_Previews: PreviewProvider {
+    static var moc = NSManagedObjectContext()
+    static var previews: some View {
+        Tasks(moc: moc)
+    }
+}

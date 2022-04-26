@@ -30,6 +30,8 @@ struct HomeFooterView: View {
     // Tasks == true, Notes == false
     @State private var taskOrNote: Bool = false
     
+    @State private var displayLocationWindow = false
+    
     var body: some View {
         ZStack {
             VStack (alignment: .leading){
@@ -146,7 +148,7 @@ struct HomeFooterView: View {
                     Spacer()
                     // Add task button
                     if !taskOrNote {
-                        NavigationLink(destination: AddTaskView(editingTask: .constant(false), editableTask: .constant(nil), moc: moc)) {
+                        NavigationLink(destination: AddTaskView(displayLocationWindow: $displayLocationWindow, editingTask: .constant(false), editableTask: .constant(nil), moc: moc)) {
                             ZStack {
                                 Circle()
                                     .fill(Color.cyan)

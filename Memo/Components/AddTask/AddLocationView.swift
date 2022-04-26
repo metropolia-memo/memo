@@ -31,7 +31,7 @@ struct AddLocationView: View {
     @State private var locationNotFound = false
     @Binding var display : Bool
     @Binding var location : TaskLocation?
-    
+    @Binding var editingTask : Bool
     // Searches the map with the given input.
     func searchLocation(input: String) {
         let searchReq = MKLocalSearch.Request()
@@ -91,6 +91,7 @@ struct AddLocationView: View {
                                     .shadow(radius: 5)
                             }
                         }
+    
                       
                         if (locationName != "") {
                             HStack {
@@ -124,6 +125,7 @@ struct AddLocationView: View {
                         }
                         
                     }
+                  
                     .padding()
                     .background(Color.white)
                     .cornerRadius(10)
@@ -133,16 +135,24 @@ struct AddLocationView: View {
                     Spacer()
                 }
                 .padding()
+                .padding(.vertical, 80)
                 .alert("Location not found!", isPresented: $locationNotFound) {
                         Button("OK", role: .cancel) {
                             locationNotFound = false
                         }
                 }
+
                 .navigationBarTitle("", displayMode: .inline)
-                .navigationBarItems(leading: Button(action: {display = false}) {
-                 Image(systemName: "chevron.left")
-                     .foregroundColor(Color.blue)
-                     .scaleEffect(1)
+                .navigationBarItems(leading: Button(action: {
+                    if (!editingTask) {
+                        display = false
+                    }
+                    }) {
+                    if (!editingTask) {
+                        Image(systemName: "chevron.left")
+                         .foregroundColor(Color.blue)
+                         .scaleEffect(1)
+                    }
                 })
             }
           
@@ -155,8 +165,7 @@ struct AddLocationView_Previews: PreviewProvider {
     static var moc = NSManagedObjectContext()
     static var previews: some View {
         Group {
-            AddLocationView(moc: moc, display: .constant(true), location: .constant(TaskLocation()))
-            AddLocationView(moc: moc, display: .constant(true), location: .constant(TaskLocation()))
+            AddLocationView(moc: moc, display: .constant(true), location: .constant(TaskLocation()), editingTask: .constant(false))
         }
     }
 }
