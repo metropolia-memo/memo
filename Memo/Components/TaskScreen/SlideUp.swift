@@ -9,7 +9,7 @@ import SwiftUI
 
 
 
-
+//User can drag this sliding menu up to see task name, address and steps of the task
 struct SlideUp: View {
     
     //Offsets for slider bar
@@ -19,9 +19,6 @@ struct SlideUp: View {
     @State var show = false
     
     let task: Task
-    
-    
-    
     
     var body: some View {
         
@@ -55,7 +52,7 @@ struct SlideUp: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
                 Text(task.desc!)
-                    .font(.system(size: 18))
+                    .font(.system(size: 16, weight: .heavy))
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 VStack() {

@@ -16,7 +16,7 @@ struct Place: Identifiable {
 }
 
 
-
+//Creates a map and an annotations for taskScreen
 struct MapView: View {
     
     let task: Task

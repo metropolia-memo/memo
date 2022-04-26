@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+
+//This is annotation marker which is used to show task location in the mapview
 struct CustomAnnotation: View {
     var body: some View {
         
