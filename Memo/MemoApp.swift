@@ -16,12 +16,9 @@ struct MemoApp: App {
         
         WindowGroup {
             NavigationView {
-                Home()
-                    
-//                ContentView()
-//                    .environment(\.managedObjectContext, dataController.container.viewContext)
+                ContentView()
+                    .environment(\.managedObjectContext, dataController.container.viewContext)
             }
-            .environment(\.managedObjectContext, dataController.container.viewContext)
             
         }
         

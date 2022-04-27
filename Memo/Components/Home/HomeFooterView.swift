@@ -179,8 +179,8 @@ struct HomeFooterView: View {
     }
 }
 
-struct HomeFooterView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeFooterView()
-    }
-}
+//struct HomeFooterView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        HomeFooterView()
+//    }
+//}

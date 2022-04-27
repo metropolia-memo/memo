@@ -8,15 +8,12 @@
 import SwiftUI
 
 struct Home: View {
-    @State private var showMenu = false
+    @Binding var showMenu: Bool
     var body: some View {
-        ZStack {
-            DrawerMenuView(showMenu: $showMenu)
+        VStack {
             VStack {
-                VStack {
-                    HomeHeaderView()
-                    HomeFooterView()
-                }
+                HomeHeaderView()
+                HomeFooterView()
             }
         }
         .navigationBarTitle("", displayMode: .inline)
