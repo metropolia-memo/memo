@@ -20,10 +20,10 @@ struct HomeHeaderView: View {
                         .font(.caption)
                 }
                 NavigationLink(destination: Profile().environment(\.managedObjectContext, dataController.container.viewContext)) {
-                        Image(systemName: "person.circle.fill")
-                            .frame(width: 100, height: 100)
-                            .scaleEffect(5)
-                    }
+                    Image(systemName: "person.circle.fill")
+                        .frame(width: 100, height: 100)
+                        .scaleEffect(5)
+                }
             }
             .fixedSize()
             VStack(alignment: .leading){
@@ -43,18 +43,8 @@ struct HomeHeaderView: View {
             api.callAPI()
         }
         .padding()
-        .toolbar {
-            ToolbarItem(placement: .cancellationAction) {
-                Button(action: {} ) {
-                    Image(systemName: "line.horizontal.3")
-                        .scaleEffect(1.5)
-                        .foregroundColor(Color.black)
-                }
-                .accessibilityLabel("Drawer Menu")
-            }
-        }
     }
-        
+    
 }
 
 struct HomeHeaderView_Previews: PreviewProvider {
