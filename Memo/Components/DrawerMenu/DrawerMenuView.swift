@@ -40,7 +40,7 @@ struct DrawerMenuView: View {
                 
                 // Home button
                 HStack {
-                    Button(action: {}) {
+                    Button(action: {showMenu.toggle()}) {
                         Image(systemName: "house.fill")
                             .resizable()
                             .scaledToFill()
@@ -56,7 +56,7 @@ struct DrawerMenuView: View {
                 
                 // Profile button
                 HStack {
-                    Button(action: {}) {
+                    Button(action: {showMenu.toggle()}) {
                         Image(systemName: "person.fill")
                             .resizable()
                             .scaledToFill()
@@ -71,7 +71,7 @@ struct DrawerMenuView: View {
                 
                 // History button
                 HStack {
-                    Button(action: {}) {
+                    Button(action: {showMenu.toggle()}) {
                         Image(systemName: "clock")
                             .resizable()
                             .scaledToFill()
