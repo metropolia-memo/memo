@@ -16,8 +16,14 @@ struct UpcomingTaskRow: View {
                 .fontWeight(.bold)
             HStack {
                 Spacer()
-                Text("Deadline \(task.deadline!, style: .date)")
-                    .font(.caption)
+                if (task.deadline != nil) {
+                    Text("Deadline \(task.deadline!, style: .date)")
+                        .font(.caption)
+                } else {
+                    Text("No deadline")
+                        .font(.caption)
+                }
+                
             }
         }
         .padding()

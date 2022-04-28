@@ -20,28 +20,14 @@ struct Tasks: View {
             ZStack {
 
                 MapView(task: task!)
+                SlideUp(task: task!)
                 
                 if (editingTask) {
-              
                     AddTaskView(displayLocationWindow: $displayLocationWindow, editingTask: $editingTask, editableTask: $task, moc: moc)
-
                 }
-                
-                if (!editingTask) {
-                    HStack {
-                        Button(action: {editingTask = true}) {
-                            Text("Toggle edit view")
-                                .foregroundColor(Color.white)
-                        }
-                        .padding()
-                        .background(Color.blue)
-                    }
-                }
-              
             }
             .navigationBarTitle("", displayMode: .inline)
             .navigationBarBackButtonHidden(true)
-            .navigationBarHidden(editingTask)
             .navigationBarItems(leading: Button(action: {
                 if (displayLocationWindow) {
                     displayLocationWindow = false
@@ -56,13 +42,14 @@ struct Tasks: View {
              Image(systemName: "chevron.left")
                  .foregroundColor(Color.blue)
                  .scaleEffect(1)
+            }, trailing: Button(action: {editingTask = true}) {
+                if (!editingTask) {
+                    Image(systemName: "square.and.pencil")
+                        .foregroundColor(Color.blue)
+                        .scaleEffect(2)
+                        .contentShape(Rectangle())
+                }
+                
             })
-    }
-}
-
-struct Tasks_Previews: PreviewProvider {
-    static var moc = NSManagedObjectContext()
-    static var previews: some View {
-        Tasks(moc: moc)
     }
 }
