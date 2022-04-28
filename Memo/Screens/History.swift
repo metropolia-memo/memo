@@ -36,7 +36,9 @@ struct History: View {
                             ForEach(tasks) { task in
                                 let taskDeadline = dateFormatter.string(from: task.deadline!)
                                 if (taskDeadline == date) {
-                                    HistoryTaskRow(task: task, today: (taskDeadline == today))
+                                    NavigationLink(destination: Tasks(task: task).environment(\.managedObjectContext, dataController.container.viewContext)) {
+                                        HistoryTaskRow(task: task, today: (taskDeadline == today))
+                                    }
                                 }
                             }
                         }
@@ -73,7 +75,11 @@ func getDates(tasks: FetchedResults<Task>) -> [String] {
         }
         dates.append(dateFormatter.string(from: task.deadline!))
     }
+
     dates = Array(Set(dates))
+    dates.sort {
+        dateFormatter.date(from: $0)! > dateFormatter.date(from: $1)!
+    }
     return dates
 }
 
