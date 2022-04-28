@@ -16,7 +16,7 @@ struct TaskRow: View {
             Image(systemName: "list.bullet.indent")
                 .frame(width: 50, height: 100)
                 .scaleEffect(3)
-            Text("\(task.stepsArray.count) steps")
+            Text("\(task.stepsArray.count) \(task.stepsArray.count == 1 ? "step" : "steps")")
                 .font(.body)
                 .fontWeight(.bold)
             Spacer()
