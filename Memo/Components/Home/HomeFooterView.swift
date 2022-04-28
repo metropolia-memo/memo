@@ -13,18 +13,8 @@ struct HomeFooterView: View {
 
     @Environment(\.managedObjectContext) var moc
     
-    @FetchRequest var tasks: FetchedResults<Task>
-    @FetchRequest var notes: FetchedResults<Note>
-    
-    init() {
-        self._tasks = FetchRequest(entity: Task.entity(), sortDescriptors: [
-            NSSortDescriptor(keyPath: \Task.date_added, ascending: false)
-        ])
-        self._notes = FetchRequest(entity: Note.entity(), sortDescriptors: [
-            NSSortDescriptor(keyPath: \Task.date_added, ascending: false)
-        ])
-    }
-    @State private var searchInput: String = ""
+    var tasks: FetchedResults<Task>
+    var notes: FetchedResults<Note>
     
     // Boolean for showing either tasks or notes
     // Tasks == true, Notes == false
@@ -181,8 +171,8 @@ struct HomeFooterView: View {
     }
 }
 
-struct HomeFooterView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeFooterView()
-    }
-}
+//struct HomeFooterView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        HomeFooterView()
+//    }
+//}

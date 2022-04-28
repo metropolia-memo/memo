@@ -9,13 +9,11 @@ import SwiftUI
 
 struct Profile: View {
     var body: some View {
-        NavigationView {
-            VStack {
-               
-                    ProfileView()
-                Spacer()
-            }
+        VStack {
+            ProfileView()
+            Spacer()
         }
+        .navigationBarTitle("", displayMode: .inline)
     }
 }
 
