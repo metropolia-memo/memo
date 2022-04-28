@@ -20,7 +20,7 @@ struct AddLocationView: View {
     var moc : NSManagedObjectContext
     
     
-    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.5, longitude: -0.12), span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
+    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 60.2255, longitude: 24.6575), span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
     @State private var regionCoordinates = CLLocationCoordinate2D(latitude: 51.5, longitude: -0.12)
     @State private var locationInput = ""
     
