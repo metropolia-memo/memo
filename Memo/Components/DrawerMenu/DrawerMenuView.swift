@@ -40,6 +40,7 @@ struct DrawerMenuView: View {
                 .background(Color(red: 124/255, green: 153/255, blue: 255/255))
                 
                 // Home button
+                // DO NOT NAVIGATE, just close the modal, or core data crashes
                 HStack {
                     Button(action: { drawerMenuState.isOpen.toggle() }) {
                         Image(systemName: "house.fill")
@@ -56,6 +57,7 @@ struct DrawerMenuView: View {
                 .padding(10)
                 
                 // Profile button
+                // TODO: add navigation
                 HStack {
                     Button(action: { drawerMenuState.isOpen.toggle() }) {
                         Image(systemName: "person.fill")
@@ -71,6 +73,7 @@ struct DrawerMenuView: View {
                 .padding(10)
                 
                 // History button
+                // TODO: add navigation
                 HStack {
                     Button(action: { drawerMenuState.isOpen.toggle() }) {
                         Image(systemName: "clock")
