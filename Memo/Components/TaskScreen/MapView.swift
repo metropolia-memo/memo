@@ -23,8 +23,6 @@ struct MapView: View {
     @StateObject private var viewModel = MapViewModel()
     
     @State private var region: MKCoordinateRegion
-    var latitude: Double
-    var longitude: Double
     
     public var screenHeight: CGFloat {
         return UIScreen.main.bounds.height
@@ -33,11 +31,12 @@ struct MapView: View {
         return UIScreen.main.bounds.width
     }
     
-    init(task: Task) {
-        self.task = task
-        self.latitude = task.taskLocation?.latitude ?? 0
-        self.longitude = task.taskLocation?.longitude ?? 0
-        region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+    init(task: Binding<Task?>) {
+        self._task = task
+        
+        let taskUnwrapped = task.wrappedValue
+        
+        self.region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: taskUnwrapped?.taskLocation?.latitude ?? 0.0, longitude: taskUnwrapped?.taskLocation?.longitude ?? 0.0), span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
     }
     
     
@@ -47,6 +46,7 @@ struct MapView: View {
         let taskPlace = [
             Place(name: task?.name ?? "Unknown", coordinate: CLLocationCoordinate2D(latitude: task?.taskLocation?.latitude ?? 0, longitude: task?.taskLocation?.longitude ?? 0))
         ]
+        
         
         
         HStack(spacing: 0) {
