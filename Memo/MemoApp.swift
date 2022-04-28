@@ -16,7 +16,7 @@ struct MemoApp: App {
         
         WindowGroup {
             NavigationView {
-                Home()
+                History()
                     
 //                ContentView()
 //                    .environment(\.managedObjectContext, dataController.container.viewContext)

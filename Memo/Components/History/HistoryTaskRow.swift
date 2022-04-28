@@ -1,14 +1,15 @@
 //
-//  UpcomingTaskRow.swift
+//  HistoryTaskRow.swift
 //  Memo
 //
-//  Created by Markus Nivasalo on 19.4.2022.
+//  Created by Markus Nivasalo on 26.4.2022.
 //
 
 import SwiftUI
 
-struct UpcomingTaskRow: View {
+struct HistoryTaskRow: View {
     @ObservedObject var task: Task
+    var today: Bool
     var body: some View {
         VStack(alignment: .leading) {
             Text("\(task.wrappedName)")
@@ -16,7 +17,7 @@ struct UpcomingTaskRow: View {
                 .fontWeight(.bold)
             HStack {
                 Spacer()
-                Text("Deadline \(task.deadline!, style: .date)")
+                Text(today ? "Deadline was today." : "Deadline was on \(task.deadline!, style: .date).")
                     .font(.caption)
             }
         }
@@ -28,4 +29,3 @@ struct UpcomingTaskRow: View {
         Spacer()
     }
 }
-

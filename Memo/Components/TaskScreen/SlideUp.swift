@@ -46,7 +46,8 @@ struct SlideUp: View {
                     Image(systemName: "pin.fill")
                         .font(.system(size: 18))
                         .foregroundColor(Color(.systemBlue))
-                    Text(task.taskLocation!.name!)
+                    let location = task.taskLocation?.name ?? "No location given."
+                    Text(location)
                         .font(.system(size: 18, weight: .heavy))
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
