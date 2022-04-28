@@ -19,7 +19,7 @@ struct Place: Identifiable {
 //Creates a map and an annotations for taskScreen
 struct MapView: View {
     
-    let task: Task
+    @Binding var task: Task?
     @StateObject private var viewModel = MapViewModel()
     
     
@@ -34,12 +34,9 @@ struct MapView: View {
     
     var body: some View {
         
-        let latitude = task.taskLocation?.latitude ?? 0
-        let longitude = task.taskLocation?.longitude ?? 0
-        
         //Holds a location which can be pinned in the map
         let taskPlace = [
-            Place(name: task.name!, coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
+            Place(name: task?.name ?? "Unknown", coordinate: CLLocationCoordinate2D(latitude: task?.taskLocation?.latitude ?? 0, longitude: task?.taskLocation?.longitude ?? 0))
         ]
         
         

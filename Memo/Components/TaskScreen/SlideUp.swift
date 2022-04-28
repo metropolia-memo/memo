@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import CoreData
 
 
 //User can drag this sliding menu up to see task name, address and steps of the task
@@ -18,11 +18,13 @@ struct SlideUp: View {
     @State private var lastOffset: CGFloat = .zero
     @State var show = false
     
-    let task: Task
+    @Binding var task: Task?
+    
+    var moc : NSManagedObjectContext
     
     var body: some View {
         
-        let steps = task.stepsArray
+        let steps = task?.stepsArray ?? []
         
         
         GeometryReader { geometry in
@@ -31,7 +33,7 @@ struct SlideUp: View {
                     .frame(width: 150, height: 2)
             
                 HStack() {
-                    Text(task.name!)
+                    Text(task?.name ?? "Unknown")
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .font(.system(size: 22, weight: .heavy))
                     Button {
@@ -46,13 +48,13 @@ struct SlideUp: View {
                     Image(systemName: "pin.fill")
                         .font(.system(size: 18))
                         .foregroundColor(Color(.systemBlue))
-                    let location = task.taskLocation?.name ?? "No location given."
+                    let location = task?.taskLocation?.name ?? "No location given."
                     Text(location)
                         .font(.system(size: 18, weight: .heavy))
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
-                Text(task.desc!)
+                Text(task?.desc ?? "Description not found")
                     .font(.system(size: 16, weight: .heavy))
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
@@ -60,11 +62,13 @@ struct SlideUp: View {
                     ForEach(steps) {step in
                         HStack(){
                         Button {
-                            if(step.completed == false){
-                                step.completed = true
-                            }else if(step.completed == true){
-                                step.completed = false
+                            do {
+                                step.completed.toggle()
+                                try moc.save()
+                            } catch {
+                                print("Failed to save step to Core Data. \(error)")
                             }
+   
                         } label: {
                             if (step.completed == true) {
                                 Image(systemName: "chevron.down.circle.fill")
