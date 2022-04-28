@@ -5,12 +5,13 @@
 //  Created by Sirja Kosonen on 20.4.2022.
 //
 
+import Foundation
 import SwiftUI
 
 // TODO: Slide-out animation
 struct DrawerMenuView: View {
     
-    @Binding var showMenu : Bool
+    @EnvironmentObject var drawerMenuState: DrawerMenuState
     
     var body: some View {
         ZStack {
@@ -18,7 +19,7 @@ struct DrawerMenuView: View {
                 
                 // Profile area
                 VStack(alignment: .leading) {
-                    Button(action: {showMenu.toggle()}) {
+                    Button(action: { drawerMenuState.isOpen.toggle() }) {
                         Image(systemName: "person.circle.fill")
                         // TODO: Delete foregroundColor when image changed to profile photo
                             .foregroundColor(Color.black)
@@ -40,7 +41,7 @@ struct DrawerMenuView: View {
                 
                 // Home button
                 HStack {
-                    Button(action: {showMenu.toggle()}) {
+                    Button(action: { drawerMenuState.isOpen.toggle() }) {
                         Image(systemName: "house.fill")
                             .resizable()
                             .scaledToFill()
@@ -56,7 +57,7 @@ struct DrawerMenuView: View {
                 
                 // Profile button
                 HStack {
-                    Button(action: {showMenu.toggle()}) {
+                    Button(action: { drawerMenuState.isOpen.toggle() }) {
                         Image(systemName: "person.fill")
                             .resizable()
                             .scaledToFill()
@@ -71,7 +72,7 @@ struct DrawerMenuView: View {
                 
                 // History button
                 HStack {
-                    Button(action: {showMenu.toggle()}) {
+                    Button(action: { drawerMenuState.isOpen.toggle() }) {
                         Image(systemName: "clock")
                             .resizable()
                             .scaledToFill()
@@ -95,17 +96,7 @@ struct DrawerMenuView: View {
         }
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
-                Button(action: {
-                    print("ÄHÄKUTTI")
-                    showMenu.toggle()
-                    print($showMenu)
-                    
-                } ) {
-                    Image(systemName: "line.horizontal.3")
-                        .scaleEffect(1.5)
-                        .foregroundColor(Color.black)
-                }
-                .accessibilityLabel("Drawer Menu")
+                DrawerMenuToggleButton()
             }
         }
     }
@@ -113,6 +104,6 @@ struct DrawerMenuView: View {
 
 struct DrawerMenuView_Previews: PreviewProvider {
     static var previews: some View {
-        DrawerMenuView(showMenu: .constant(true))
+        DrawerMenuView()
     }
 }

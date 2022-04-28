@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct Home: View {
-    @Binding var showMenu: Bool
     var body: some View {
         VStack {
             VStack {
@@ -19,17 +18,7 @@ struct Home: View {
         .navigationBarTitle("", displayMode: .inline)
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
-                Button(action: {
-                    print("ÄHÄKUTTI")
-                    showMenu.toggle()
-                    print($showMenu)
-                    
-                } ) {
-                    Image(systemName: "line.horizontal.3")
-                        .scaleEffect(1.5)
-                        .foregroundColor(Color.black)
-                }
-                .accessibilityLabel("Drawer Menu")
+                DrawerMenuToggleButton()
             }
         }
     }

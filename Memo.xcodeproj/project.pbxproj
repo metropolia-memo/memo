@@ -46,6 +46,9 @@
 		6ADBDD2227FF082000EFF647 /* HomeFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADBDD2127FF082000EFF647 /* HomeFooterView.swift */; };
 		6AF9D7ED27FEF49B00CEB68A /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF9D7EC27FEF49B00CEB68A /* Home.swift */; };
 		6AF9D7F127FEF4F300CEB68A /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF9D7F027FEF4F300CEB68A /* HomeHeaderView.swift */; };
+		EF05519B281ABFF200DEACB9 /* DrawerMenuState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF05519A281ABFF200DEACB9 /* DrawerMenuState.swift */; };
+		EF05519D281AC1FB00DEACB9 /* DrawerMenuToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF05519C281AC1FB00DEACB9 /* DrawerMenuToggleButton.swift */; };
+		EF05519F281AC31400DEACB9 /* DrawerMenuContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF05519E281AC31400DEACB9 /* DrawerMenuContainer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +109,9 @@
 		6ADBDD2127FF082000EFF647 /* HomeFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFooterView.swift; sourceTree = "<group>"; };
 		6AF9D7EC27FEF49B00CEB68A /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		6AF9D7F027FEF4F300CEB68A /* HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
+		EF05519A281ABFF200DEACB9 /* DrawerMenuState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerMenuState.swift; sourceTree = "<group>"; };
+		EF05519C281AC1FB00DEACB9 /* DrawerMenuToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerMenuToggleButton.swift; sourceTree = "<group>"; };
+		EF05519E281AC31400DEACB9 /* DrawerMenuContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerMenuContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +145,8 @@
 			isa = PBXGroup;
 			children = (
 				6A0B672628103BD000992CE6 /* DrawerMenuView.swift */,
+				EF05519C281AC1FB00DEACB9 /* DrawerMenuToggleButton.swift */,
+				EF05519E281AC31400DEACB9 /* DrawerMenuContainer.swift */,
 			);
 			path = DrawerMenu;
 			sourceTree = "<group>";
@@ -174,6 +182,7 @@
 		6A8D220227FAEA22002AC898 /* Memo */ = {
 			isa = PBXGroup;
 			children = (
+				EF055199281ABED900DEACB9 /* Observables */,
 				6A59F8A02806D93F00706B98 /* Network */,
 				6ADBDD1E27FF02BE00EFF647 /* TempModels */,
 				6AF9D7EE27FEF4B100CEB68A /* Components */,
@@ -291,6 +300,14 @@
 				6A59F8AB280EA6F000706B98 /* UpcomingTaskRow.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		EF055199281ABED900DEACB9 /* Observables */ = {
+			isa = PBXGroup;
+			children = (
+				EF05519A281ABFF200DEACB9 /* DrawerMenuState.swift */,
+			);
+			path = Observables;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -437,6 +454,7 @@
 				6AF9D7F127FEF4F300CEB68A /* HomeHeaderView.swift in Sources */,
 				6A59F8B4280FFC8700706B98 /* Note+CoreDataProperties.swift in Sources */,
 				6A032312280834DD000B1B21 /* ConfirmDeletePopup.swift in Sources */,
+				EF05519D281AC1FB00DEACB9 /* DrawerMenuToggleButton.swift in Sources */,
 				6A4E5135280EC3FE005C1664 /* NoteView.swift in Sources */,
 				6A0323142808A477000B1B21 /* EditStepPopup.swift in Sources */,
 				6A92FA54280E8EBA0005A010 /* AddLocationView.swift in Sources */,
@@ -448,6 +466,7 @@
 				6AD7D39E27FF053B00B657B4 /* Task+CoreDataClass.swift in Sources */,
 				6AD7D39527FE278E00B657B4 /* AddTaskView.swift in Sources */,
 				6AD7D3A4280382F300B657B4 /* AddStepPopup.swift in Sources */,
+				EF05519B281ABFF200DEACB9 /* DrawerMenuState.swift in Sources */,
 				6AD7D39F27FF053B00B657B4 /* Task+CoreDataProperties.swift in Sources */,
 				6A0B672728103BD000992CE6 /* DrawerMenuView.swift in Sources */,
 				6AD7D3A22800319C00B657B4 /* DatePickerPopup.swift in Sources */,
@@ -458,6 +477,7 @@
 				6A03231028082485000B1B21 /* StepView.swift in Sources */,
 				6AD7D39127FDB5E100B657B4 /* Step+CoreDataClass.swift in Sources */,
 				6A59F8A22806D95300706B98 /* QuoteApi.swift in Sources */,
+				EF05519F281AC31400DEACB9 /* DrawerMenuContainer.swift in Sources */,
 				6A59F8AA280C5EC900706B98 /* TaskRow.swift in Sources */,
 				6A4E5137280EC52F005C1664 /* AddNoteView.swift in Sources */,
 				6A8D221027FAEA29002AC898 /* Memo.xcdatamodeld in Sources */,
