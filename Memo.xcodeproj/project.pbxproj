@@ -269,9 +269,9 @@
 				6A4E5136280EC52F005C1664 /* AddNoteView.swift */,
 				6AD7D39427FE278E00B657B4 /* AddTaskView.swift */,
 				6A59F8B5281692DD00706B98 /* ModifyNoteView.swift */,
+				6AA903C1280546D200FF4214 /* Profile.swift */,
 				6AF9D7EC27FEF49B00CEB68A /* Home.swift */,
 				6A4E5134280EC3FE005C1664 /* NoteView.swift */,
-				6AA903C1280546D200FF4214 /* Profile.swift */,
 				6A59F8B72817DCA300706B98 /* History.swift */,
 			);
 			path = Screens;

@@ -2,13 +2,14 @@
 //  HistoryTaskRow.swift
 //  Memo
 //
-//  Created by iosdev on 26.4.2022.
+//  Created by Markus Nivasalo on 26.4.2022.
 //
 
 import SwiftUI
 
 struct HistoryTaskRow: View {
     @ObservedObject var task: Task
+    var today: Bool
     var body: some View {
         VStack(alignment: .leading) {
             Text("\(task.wrappedName)")
@@ -16,7 +17,7 @@ struct HistoryTaskRow: View {
                 .fontWeight(.bold)
             HStack {
                 Spacer()
-                Text("Deadline \(task.deadline!, style: .date)")
+                Text(today ? "Deadline was today." : "Deadline was on \(task.deadline!, style: .date).")
                     .font(.caption)
             }
         }
@@ -24,12 +25,7 @@ struct HistoryTaskRow: View {
         .background(Color.accentColor)
         .foregroundColor(Color.white)
         .cornerRadius(20)
+        .shadow(color: Color.gray, radius: 7)
         Spacer()
-    }
-}
-
-struct HistoryTaskRow_Previews: PreviewProvider {
-    static var previews: some View {
-        HistoryTaskRow()
     }
 }

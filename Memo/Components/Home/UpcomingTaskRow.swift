@@ -2,7 +2,7 @@
 //  UpcomingTaskRow.swift
 //  Memo
 //
-//  Created by iosdev on 19.4.2022.
+//  Created by Markus Nivasalo on 19.4.2022.
 //
 
 import SwiftUI
@@ -24,6 +24,7 @@ struct UpcomingTaskRow: View {
         .background(Color.accentColor)
         .foregroundColor(Color.white)
         .cornerRadius(20)
+        .shadow(color: Color.gray, radius: 7)
         Spacer()
     }
 }

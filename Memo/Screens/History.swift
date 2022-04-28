@@ -26,27 +26,22 @@ struct History: View {
     var body: some View {
         VStack {
             VStack (alignment: .leading) {
-                HStack {
-                    TextField("Search tasks...", text: $searchInput)
-                        .textFieldStyle(.roundedBorder)
-                    Image(systemName: "magnifyingglass")
-                        .foregroundColor(Color.accentColor)
-                }
-                .padding()
-                VStack (alignment: .leading) {
-                    ScrollView {
-                        LazyVStack {
-                            ForEach(getDates(tasks: tasks), id: \.self) { date in
-                                Text(date)
-                                ForEach(tasks) { task in
-                                    let taskDeadline = dateFormatter.string(from: task.deadline!)
-                                    if (taskDeadline == date) {
-                                        UpcomingTaskRow(task: task)
-                                    }
+                ScrollView {
+                    LazyVStack(alignment: .leading) {
+                        ForEach(getDates(tasks: tasks), id: \.self) { date in
+                            let today = dateFormatter.string(from: Date())
+                            Text(date == today ? "Today" : date)
+                                .font(.title)
+                                .fontWeight(.bold)
+                            ForEach(tasks) { task in
+                                let taskDeadline = dateFormatter.string(from: task.deadline!)
+                                if (taskDeadline == date) {
+                                    HistoryTaskRow(task: task, today: (taskDeadline == today))
                                 }
                             }
                         }
                     }
+                    .padding()
                 }
             }
             .toolbar {
@@ -71,6 +66,9 @@ func getDates(tasks: FetchedResults<Task>) -> [String] {
     var dates : [String] = []
     for task in tasks {
         if (task.deadline == nil) {
+            continue
+        }
+        if (task.deadline! > Date()) {
             continue
         }
         dates.append(dateFormatter.string(from: task.deadline!))
