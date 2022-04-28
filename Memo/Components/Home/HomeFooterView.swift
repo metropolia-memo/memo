@@ -36,13 +36,6 @@ struct HomeFooterView: View {
         ZStack {
             VStack (alignment: .leading){
                 HStack {
-                    TextField(!taskOrNote ? "Search tasks..." : "Search notes...", text: $searchInput)
-                        .textFieldStyle(.roundedBorder)
-                    Image(systemName: "magnifyingglass")
-                        .foregroundColor(Color.accentColor)
-                }
-                .padding()
-                HStack {
                     Spacer()
                     Button(action: { taskOrNote = false }, label: {
                         Text("Tasks")
