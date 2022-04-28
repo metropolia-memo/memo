@@ -36,7 +36,7 @@ struct History: View {
                             ForEach(tasks) { task in
                                 let taskDeadline = dateFormatter.string(from: task.deadline!)
                                 if (taskDeadline == date) {
-                                    NavigationLink(destination: Tasks(task: task).environment(\.managedObjectContext, dataController.container.viewContext)) {
+                                    NavigationLink(destination: Tasks(moc: moc, task: task).environment(\.managedObjectContext, dataController.container.viewContext)) {
                                         HistoryTaskRow(task: task, today: (taskDeadline == today))
                                     }
                                 }

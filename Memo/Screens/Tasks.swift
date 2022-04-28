@@ -19,7 +19,7 @@ struct Tasks: View {
     var body: some View {
             ZStack {
 
-                MapView()
+                MapView(task: task!)
                 
                 if (editingTask) {
               
