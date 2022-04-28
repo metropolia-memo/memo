@@ -15,16 +15,13 @@ struct Place: Identifiable {
     let coordinate: CLLocationCoordinate2D
 }
 
-
 //Creates a map and an annotations for taskScreen
 struct MapView: View {
     
-    let task: Task
+    @Binding var task: Task?
     @StateObject private var viewModel = MapViewModel()
     
     @State private var region: MKCoordinateRegion
-    var latitude: Double
-    var longitude: Double
     
     public var screenHeight: CGFloat {
         return UIScreen.main.bounds.height
@@ -33,24 +30,29 @@ struct MapView: View {
         return UIScreen.main.bounds.width
     }
     
-    init(task: Task) {
-        self.task = task
-        self.latitude = task.taskLocation?.latitude ?? 0
-        self.longitude = task.taskLocation?.longitude ?? 0
-        region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+    init(task: Binding<Task?>) {
+        self._task = task
+        
+        let taskUnwrapped = task.wrappedValue
+    
+        if (taskUnwrapped?.taskLocation != nil) {
+            self.region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: taskUnwrapped?.taskLocation?.latitude ?? 0.0, longitude: taskUnwrapped?.taskLocation?.longitude ?? 0.0), span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        } else {
+            self.region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 60.266190, longitude: 24.847280), span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        }
+        
     }
     
     
     var body: some View {
+        
         //Holds a location which can be pinned in the map
         let taskPlace = [
-            Place(name: task.name!, coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
+            Place(name: task?.name ?? "Unknown", coordinate: CLLocationCoordinate2D(latitude: task?.taskLocation?.latitude ?? 0, longitude: task?.taskLocation?.longitude ?? 0))
         ]
-        
         
         HStack(spacing: 0) {
 
-            
             Map(coordinateRegion: $region, showsUserLocation: true, annotationItems: taskPlace, annotationContent: { place in MapAnnotation(coordinate: place.coordinate) {
                 CustomAnnotation()
                 }
@@ -111,6 +113,6 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
         checkLocationAuth()
     }
     
-    }
+}
 
 

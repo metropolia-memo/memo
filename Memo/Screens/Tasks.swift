@@ -19,8 +19,8 @@ struct Tasks: View {
     var body: some View {
             ZStack {
 
-                MapView(task: task!)
-                SlideUp(task: task!)
+                MapView(task: $task)
+                SlideUp(task: $task, moc: moc)
                 
                 if (editingTask) {
                     AddTaskView(displayLocationWindow: $displayLocationWindow, editingTask: $editingTask, editableTask: $task, moc: moc)
