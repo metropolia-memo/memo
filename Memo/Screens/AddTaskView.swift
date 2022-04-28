@@ -157,6 +157,15 @@ struct AddTaskView: View {
                                     .bold()
                                 HStack {
                                     Text(location?.name ?? "Location not set")
+                                    if (location != nil) {
+                                        Button(action: {location = nil}) {
+                                            Image(systemName: "xmark")
+                                                .scaleEffect(1)
+                                                .foregroundColor(Color.red)
+                                        }
+                                        .padding(.horizontal, 10)
+                                    }
+                                 
                                     Spacer()
                                     Button(action: {
                                         displayLocationWindow = true
