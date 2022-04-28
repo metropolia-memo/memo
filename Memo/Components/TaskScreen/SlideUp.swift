@@ -44,6 +44,16 @@ struct SlideUp: View {
                         .frame(maxWidth: .infinity, alignment: .trailing)
                         .frame(width: 40, height: 40)
                 }
+                if (task?.deadline != nil) {
+                    Text("Deadline \(task?.deadline ?? Date(), style: .date)")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                     
+                } else {
+                    Text("No deadline")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                
+                }
+                
                 HStack() {
                     Image(systemName: "pin.fill")
                         .font(.system(size: 18))
