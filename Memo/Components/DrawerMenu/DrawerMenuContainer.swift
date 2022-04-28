@@ -10,6 +10,8 @@ import SwiftUI
 
 struct DrawerMenuContainer: View {
     
+    var tasks: FetchedResults<Task>
+
     @EnvironmentObject private var drawerMenuState: DrawerMenuState
     
     var body: some View {
@@ -22,7 +24,7 @@ struct DrawerMenuContainer: View {
                     .onTapGesture { drawerMenuState.isOpen.toggle() }
                 HStack {
                     GeometryReader { geometry in
-                        DrawerMenuView()
+                        DrawerMenuView(tasks: tasks)
                             .frame(width: geometry.size.width * (2 / 3))
                     }
                     Spacer()

@@ -11,6 +11,8 @@ import SwiftUI
 // TODO: Slide-out animation
 struct DrawerMenuView: View {
     
+    var tasks: FetchedResults<Task>
+    
     @EnvironmentObject var drawerMenuState: DrawerMenuState
     @StateObject private var dataController = DataController()
     
@@ -56,7 +58,12 @@ struct DrawerMenuView: View {
                 
                 // History button
                 HStack {
-                    Button(action: { drawerMenuState.isOpen.toggle() }) {
+                    NavigationLink(destination: History(tasks: tasks)
+                                    .environment(\.managedObjectContext, dataController.container.viewContext)
+                                    .onAppear {
+                        drawerMenuState.isOpen.toggle()
+                        
+                    }) {
                         HistoryButton()
                     }
                 }
@@ -73,8 +80,8 @@ struct DrawerMenuView: View {
     }
 }
 
-struct DrawerMenuView_Previews: PreviewProvider {
-    static var previews: some View {
-        DrawerMenuView()
-    }
-}
+//struct DrawerMenuView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DrawerMenuView()
+//    }
+//}

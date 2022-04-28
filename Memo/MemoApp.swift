@@ -16,7 +16,8 @@ struct MemoApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                ContentView() 
+                ContentView()
+                    
             }
             .environment(\.managedObjectContext, dataController.container.viewContext)
             .environmentObject(drawerMenuState)

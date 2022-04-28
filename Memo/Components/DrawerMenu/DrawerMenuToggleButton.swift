@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 
 struct DrawerMenuToggleButton: View {
-    
     @EnvironmentObject private var drawerMenuState: DrawerMenuState
     
     var body: some View {

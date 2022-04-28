@@ -8,19 +8,16 @@
 import SwiftUI
 
 struct History: View {
-    @State var searchInput: String = ""
     @StateObject private var dataController = DataController()
 
     @Environment(\.managedObjectContext) var moc
     
-    @FetchRequest var tasks: FetchedResults<Task>
+    var tasks: FetchedResults<Task>
     
     let dateFormatter = DateFormatter()
     
-    init() {
-        self._tasks = FetchRequest(entity: Task.entity(), sortDescriptors: [
-            NSSortDescriptor(keyPath: \Task.date_added, ascending: false)
-        ])
+    init(tasks: FetchedResults<Task>) {
+        self.tasks = tasks
         dateFormatter.dateFormat = "dd.MM.yy"
     }
     var body: some View {
@@ -44,16 +41,6 @@ struct History: View {
                         }
                     }
                     .padding()
-                }
-            }
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button(action: {} ) {
-                        Image(systemName: "line.horizontal.3")
-                            .scaleEffect(1.5)
-                            .foregroundColor(Color.black)
-                    }
-                    .accessibilityLabel("Drawer Menu")
                 }
             }
         }
@@ -83,8 +70,8 @@ func getDates(tasks: FetchedResults<Task>) -> [String] {
     return dates
 }
 
-struct History_Previews: PreviewProvider {
-    static var previews: some View {
-        History()
-    }
-}
+//struct History_Previews: PreviewProvider {
+//    static var previews: some View {
+//        History()
+//    }
+//}
