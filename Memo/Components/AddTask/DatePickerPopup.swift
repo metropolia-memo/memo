@@ -22,23 +22,27 @@ struct DatePickerPopup: View {
                 Color.black.opacity(display ? 0.5 : 0).edgesIgnoringSafeArea(.all)
                 VStack(alignment: .center, spacing: 0) {
               
-                    Text("Select a date")
+                    Text("Deadline")
                         .font(.title)
+                        .padding(.vertical, 10)
                 
                     DatePicker("", selection: $taskDeadline, displayedComponents: [.date, .hourAndMinute])
-                        .padding(.trailing, 5)
                         .labelsHidden()
                         .datePickerStyle(WheelDatePickerStyle())
                     
-                    
+                   
                     Button(action: {withAnimation(.linear(duration: 0.3)) {
                         display = false                       }}) {
                         Text("Done")
-                                .foregroundColor(Color.white)
+                            .foregroundColor(Color.white)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.blue)
+                            .contentShape(Rectangle())
                     }
-                        .padding()
-                        .background(Color.blue)
-                        .cornerRadius(10)
+                    
+                  
+                        
           
             }
                 .frame(maxWidth: .infinity)

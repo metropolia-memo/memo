@@ -24,10 +24,9 @@ extension Step {
 }
 
 extension Step : Identifiable {
-
+    
     public var wrappedDesc : String {
         desc ?? "Unknown step"
     }
     
-     
 }

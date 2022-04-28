@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-// Displays components for creating a new task.
+// Displays components for creating a new task. Used also for editing Tasks.
 struct AddTaskView: View {
     
     // Used in DatePickerPopup, AddStepPopup and for displaying an error alert if the user lacks a title input.
@@ -24,7 +24,7 @@ struct AddTaskView: View {
     @State private var displayEditWindow = false
     @State private var deletableStep: Step?
     @State private var editableStep: Step = Step()
-    
+    @State private var deletableTask: Task?
     
     // Used in ConfirmAddTaskPopup
     @State private var showConfirmWindow = false
@@ -33,11 +33,15 @@ struct AddTaskView: View {
     @State private var addedSteps : [Step] = []
     
     @State private var location : TaskLocation?
-    @State private var displayLocationWindow = false
-  
-    // Accessing the Context applied to the environment. Creating a child context to allow data updating in the Home screen.
-    let childContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+    @Binding var displayLocationWindow : Bool
+    
+    // Used if editing a Task.
+    @Binding var editingTask : Bool
+    @Binding var editableTask : Task?
+    
+    // Accessing the Context applied to the environment.
     var moc : NSManagedObjectContext
+    
     // Used for dismissing the AddTaskView.
     @Environment(\.presentationMode) var presentationMode
     
@@ -46,18 +50,37 @@ struct AddTaskView: View {
     func deleteStep(at offsets: IndexSet) {
         addedSteps.remove(atOffsets: offsets)
     }
-    init(moc: NSManagedObjectContext) {
-        // Setting the Home screen context as the child context parent.
-        self.moc = moc
-        childContext.parent = moc
-    }
     
     var body: some View {
         ZStack {
-
+            
                 NavigationView {
+                    ScrollView {
                     VStack {
                         
+                        if (editingTask) {
+                            HStack {
+                                Button(action: {
+                                    
+                                deletableTask = editableTask
+                                displayDeleteWindow = true
+                                    
+                                }) {
+                                    Text("Delete")
+                                        .foregroundColor(Color.white)
+                                        .padding(10)
+                                        .frame(maxWidth: .infinity)
+                                        .contentShape(Rectangle())
+                                        .background(Color.red)
+                                        .cornerRadius(5)
+                                        .shadow(radius: 5)
+                                }
+                           
+                            }
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                            .padding(.horizontal, 5)
+                        }
+                   
                         // Title input
                         VStack {
                             VStack(alignment: .leading) {
@@ -73,7 +96,8 @@ struct AddTaskView: View {
                                 }
                                
                             }
-                            .padding(15)
+                            .padding(.horizontal, 15)
+                            .padding(.vertical, 10)
                             .background(Color(red: 242/255, green: 242/255, blue: 242/255))
                             .cornerRadius(15)
                             .shadow(radius: 5)
@@ -87,23 +111,35 @@ struct AddTaskView: View {
                             VStack(alignment: .leading) {
                                 Text("Deadline")
                                     .bold()
+                                    .foregroundColor(deadlineEnabled ? Color.black : Color.gray)
                                 HStack {
-                                    Text(taskDeadline, style: .date)
-                                    Text(taskDeadline, style: .time)
+                                    VStack(alignment: .leading) {
+                                        Text(taskDeadline, style: .date)
+                                            .foregroundColor(deadlineEnabled ? Color.black : Color.gray)
+                                        Text(taskDeadline, style: .time)
+                                            .foregroundColor(deadlineEnabled ? Color.black : Color.gray)
+                                    }
+                                   
                                     Spacer()
+                                 
+                                    Toggle("", isOn: $deadlineEnabled)
+                                        .toggleStyle(SwitchToggleStyle(tint: .blue))
                                     Button(action: {withAnimation(.linear(duration: 0.3)) {
                                         showDateSheet.toggle()
                                     }}) {
                                         Image(systemName: "calendar")
                                             .font(.system(size: 40))
                                     }
+                                    .disabled(!deadlineEnabled)
                                    
                                 }
                                 .frame(maxWidth: .infinity)
+                                
                     
                             }
                             .frame(maxWidth: .infinity)
-                            .padding(15)
+                            .padding(.horizontal, 15)
+                            .padding(.vertical, 10)
                             .background(Color(red: 242/255, green: 242/255, blue: 242/255))                            .cornerRadius(15)
                             .shadow(radius: 5)
                             
@@ -121,6 +157,15 @@ struct AddTaskView: View {
                                     .bold()
                                 HStack {
                                     Text(location?.name ?? "Location not set")
+                                    if (location != nil) {
+                                        Button(action: {location = nil}) {
+                                            Image(systemName: "xmark")
+                                                .scaleEffect(1)
+                                                .foregroundColor(Color.red)
+                                        }
+                                        .padding(.horizontal, 10)
+                                    }
+                                 
                                     Spacer()
                                     Button(action: {
                                         displayLocationWindow = true
@@ -131,7 +176,8 @@ struct AddTaskView: View {
                                 }
                                
                             }
-                            .padding(15)
+                            .padding(.horizontal, 15)
+                            .padding(.vertical, 10)
                             .frame(maxWidth: .infinity)
                             .background(Color(red: 242/255, green: 242/255, blue: 242/255))
                             .cornerRadius(15)
@@ -169,7 +215,7 @@ struct AddTaskView: View {
                                                 StepView(step: step,
                                                     displayDeleteWindow: $displayDeleteWindow,
                                                          displayEditWindow: $displayEditWindow,
-                                                         deletableStep: $deletableStep, editableStep: $editableStep)
+                                                         deletableStep: $deletableStep, editableStep: $editableStep, editingTask: $editingTask)
                                             }
                                 
                                     }
@@ -192,8 +238,7 @@ struct AddTaskView: View {
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                            
                             }
-
-                        
+    
                         }
                         
 
@@ -206,8 +251,8 @@ struct AddTaskView: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             VStack(alignment: .leading) {
                               
-                                    TextField("Task description", text: $taskDesc)
-      
+                                TextField("Task description", text: $taskDesc)
+                                    .frame(minHeight: 50)
                                
                             }
                             .padding(15)
@@ -219,23 +264,26 @@ struct AddTaskView: View {
                         .padding(.horizontal, 5)
                         .frame(maxHeight: .infinity)
  
-                            Button("Save task") {
-                                if (taskTitle == "") {
-                                    showAlert = true
-                                    return
-                                }
-                                showConfirmWindow = true
+                        Button(action: {
+                            if (taskTitle == "") {
+                                showAlert = true
+                                return
                             }
-                            .frame(maxHeight: 50)
-                            .padding(.horizontal, 20)
-                            .background(taskTitle != "" ? Color(red: 45/255, green: 91/255, blue: 255/255) : Color.gray)
-                            .foregroundColor(Color.white)
-                        
-                        .cornerRadius(10)
-                        
+                                showConfirmWindow = true
+                            
+                        }) {
+                            Text(editingTask ? "Save changes" : "Save task")
+                                .frame(maxHeight: 50)
+                                .padding(.horizontal, 20)
+                                .padding(.vertical, 10)
+                                .background(taskTitle != "" ? Color(red: 45/255, green: 91/255, blue: 255/255) : Color.gray)
+                                .foregroundColor(Color.white)
+                                .cornerRadius(10)
+                            }
                     }
-                   
                     .navigationBarTitle("", displayMode: .inline)
+                  
+                    }
                 }
                 
            
@@ -251,31 +299,38 @@ struct AddTaskView: View {
             
             
             // Displays a confirmation popup for Step deletion.
-            ConfirmDeletePopup(display: $displayDeleteWindow, addedSteps: $addedSteps, step: $deletableStep, task: .constant(nil))
+            ConfirmDeletePopup(display: $displayDeleteWindow, editingTask: $editingTask, addedSteps: $addedSteps, step: $deletableStep, task: $deletableTask, moc: moc)
             
             
             // Displays a popup for editing a Step object.
             EditStepPopup(display: $displayEditWindow, editableStep: $editableStep)
             
             // Displays a View for adding a location.
-            AddLocationView(moc: moc, display: $displayLocationWindow, location: $location)
+            AddLocationView(moc: moc, display: $displayLocationWindow, location: $location, editingTask: $editingTask)
             
             
             // Displays a confirmation popup
             ConfirmAddTaskPopup(display: $showConfirmWindow, taskTitle: $taskTitle, saveTaskToCoreData: {
                 do {
                     // Creates a new Task object with the given State variables and saves it to Core Data.
-                    let newTask = Task(context: moc)
-                    newTask.date_added = Date()
+                    let newTask = editableTask ?? Task(context: moc)
+                    
                     newTask.name = self.taskTitle
                     newTask.desc = self.taskDesc
-                    newTask.deadline = self.taskDeadline
-                    newTask.id = UUID()
                     newTask.taskLocation = location
+                    
+                    if (deadlineEnabled) { newTask.deadline = self.taskDeadline }
+                    else { newTask.deadline = nil }
+                    
+                    if (!editingTask) {
+                        newTask.date_added = Date()
+                        newTask.id = UUID()
+                    }
                     
                     for step in addedSteps {
                         step.origin = newTask
                     }
+    
                     try moc.save()
                     
                     print("Task \( newTask) saved succesfully to Core Data.")
@@ -283,16 +338,36 @@ struct AddTaskView: View {
                     print("Saving to Core Data failed. \(error)")
                 }
                 
+                if (!editingTask) {
+                    self.presentationMode.wrappedValue.dismiss()
+                } else {
+                    editingTask = false
+                }
                 
-                self.presentationMode.wrappedValue.dismiss()
+            
             })
             
         }
+        .navigationBarBackButtonHidden(displayLocationWindow)
         .alert("Title missing!", isPresented: $showAlert) {
             Button("OK", role: .cancel) {
                 showAlert = false
             }
         }
+       
+        .onAppear {
+            self.taskTitle = editableTask?.name ?? ""
+            self.taskDesc = editableTask?.desc ?? ""
+            self.location = editableTask?.taskLocation
+            self.addedSteps = editableTask?.stepsArray ?? []
+            self.taskDeadline = editableTask?.deadline ?? Date()
+            
+            if (editableTask?.deadline == nil) {
+                deadlineEnabled = false
+            }
+            
+        }
+        
         
      
     }
@@ -300,9 +375,9 @@ struct AddTaskView: View {
 }
 
 struct AddTaskView_Previews: PreviewProvider {
-    static var moc = NSManagedObjectContext()
+    static let moc = NSManagedObjectContext()
     static var previews: some View {
-        AddTaskView(moc: moc)
+        AddTaskView(displayLocationWindow: .constant(false), editingTask: .constant(false), editableTask: .constant(Task()), moc: moc)
     }
 }
 

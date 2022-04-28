@@ -8,110 +8,93 @@
 import SwiftUI
 import MapKit
 import CoreData
+import CoreLocation
 
-struct SelectedLocation: Identifiable {
-    let id = UUID()
-    var coordinate: CLLocationCoordinate2D
-}
-
+// Displays a MapKit map and a TextField for searching locations.
 struct AddLocationView: View {
   
-
     var moc : NSManagedObjectContext
     
+    @StateObject var addLocationMapData = AddLocationMapViewModel()
+    @State private var locationManager = CLLocationManager()
     
-    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.5, longitude: -0.12), span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
-    @State private var regionCoordinates = CLLocationCoordinate2D(latitude: 51.5, longitude: -0.12)
-    @State private var locationInput = ""
-    
-    @State private var selectedLocation = [SelectedLocation]()
-    
-    @State private var locationName = ""
-    @State private var locationNotFound = false
     @Binding var display : Bool
     @Binding var location : TaskLocation?
-    
-    // Searches the map with the given input.
-    func searchLocation(input: String) {
-        let searchReq = MKLocalSearch.Request()
-        searchReq.naturalLanguageQuery = input
-        
-        let search = MKLocalSearch(request: searchReq)
-        
-        search.start {response, error in
-            guard let response = response else {
-                print("Error: \(error?.localizedDescription ?? "Unknown error").")
-                    locationName = ""
-                    locationNotFound = true
-                        return
-            }
-            
-            // Prints the found location and moves the map to it.
-            for item in response.mapItems {
-                if let name = item.name,
-                            let location = item.placemark.location {
-                    
-                            print("\(name): \(location.coordinate.latitude),\(location.coordinate.longitude)")
-                    
-                                regionCoordinates = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-                    
-                                let span = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
-                    
-                                region = MKCoordinateRegion(center: regionCoordinates, span: span)
-                                
-                                locationName = name
-                    
-                                selectedLocation = [SelectedLocation(coordinate: regionCoordinates)]
-                    
-                        }
-                }
-                
-            
-            
-        }
-    }
-    
-    
+    @Binding var editingTask : Bool
+
     var body: some View {
         ZStack {
+            
             if display {
-                Map(coordinateRegion: $region, annotationItems: selectedLocation) {
-                    MapMarker(coordinate: $0.coordinate)
-                }
-                .ignoresSafeArea()
-              
+                
+            AddLocationMapView()
+                .environmentObject(addLocationMapData)
+                .ignoresSafeArea(.all, edges: .all)
+         
                 VStack {
                     VStack {
                         HStack {
-                            TextField("Karamalmi, karaportti 2", text: $locationInput)
-                                .padding()
+                            Image(systemName: "magnifyingglass")
+                                .scaleEffect(1)
+                                .opacity(0.5)
+                            TextField("Search location..", text: $addLocationMapData.searchText)
                                 .background(Color.white)
-                            Button(action: {searchLocation(input: locationInput)}) {
-                                Image(systemName: "magnifyingglass")
-                                    .scaleEffect(2)
-                                    .padding()
-                                    .shadow(radius: 5)
+                            Spacer()
+                            if (addLocationMapData.searchText != "") {
+                                Button(action: {addLocationMapData.searchText = ""}) {
+                                    Image(systemName: "xmark")
+                                        .scaleEffect(1)
+                                }
                             }
                         }
-                      
-                        if (locationName != "") {
-                            HStack {
-                                VStack(alignment: .leading) {
-                                    Text("Found location:")
-                                        .font(.title2)
-                                    Text(locationName)
+                        
+                        // Displaying a list of search results, if there are any.
+                        if (!addLocationMapData.taskPlaces.isEmpty && addLocationMapData.searchText != "") {
+                            ScrollView {
+                                VStack(spacing: 0) {
+                                    ForEach(addLocationMapData.taskPlaces) {taskPlace in
+                                        VStack {
+                                            Text(taskPlace.place.name ?? "")
+                                                .foregroundColor(Color.black)
+                                                .bold()
+                                            
+                                        }
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .padding(.vertical, 20)
+                                        .contentShape(Rectangle())
+                                        .onTapGesture {
+                                            addLocationMapData.selectFoundLocation(place: taskPlace)
+                                        }
+                                      
+                                        Divider()
+                                    }
                                 }
+                            }
+                        }
+    
+                      
+                        if (addLocationMapData.searchText == "" && addLocationMapData.selectedLocation != nil) {
+                            Divider()
+                                .padding(.top, 10)
+                            HStack {
+                           
+                                Image(systemName: "pin.fill")
+                                    .scaleEffect(1)
+                                    .foregroundColor(Color.blue)
+                                Text(addLocationMapData.selectedLocation?.place.name ?? "")
+                    
                                 Spacer()
                                 Button(action: {
-                                    
+
+                                    // Creating a new TaskLocation and closing the AddLocationView window.
                                     location = TaskLocation(context: moc)
-                                    location?.longitude = regionCoordinates.longitude
-                                    location?.latitude = regionCoordinates.latitude
-                                    location?.name = locationName
+                                    location?.longitude = addLocationMapData.selectedLocation?.place.location?.coordinate.longitude ?? 0
+                                    location?.latitude = addLocationMapData.selectedLocation?.place.location?.coordinate.latitude ?? 0
+                                    location?.name = addLocationMapData.selectedLocation?.place.name ?? "Unknown"
                                     location?.id = UUID()
 
                                     display = false
-                                    
+
                                 }) {
                                     Text("Confirm")
                                         .foregroundColor(Color.white)
@@ -120,9 +103,9 @@ struct AddLocationView: View {
                                 .background(Color.blue)
                                 .cornerRadius(10)
                                 .shadow(radius: 5)
-                                
+
                             }
-                      
+
                         }
                         
                     }
@@ -130,16 +113,54 @@ struct AddLocationView: View {
                     .background(Color.white)
                     .cornerRadius(10)
                     .shadow(radius: 10)
-                    
-           
+    
                     Spacer()
+                    
+                    VStack {
+                        Button(action: addLocationMapData.toggleMapType) {
+                            Image(systemName: addLocationMapData.mapType == .standard ? "network" : "map")
+                                .font(.title)
+                                .padding(10)
+                                .background(Color.white)
+                                .clipShape(Circle())
+                        }
+                        
+                    }
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                    .padding()
                 }
                 .padding()
-                .alert("Location not found!", isPresented: $locationNotFound) {
-                        Button("OK", role: .cancel) {
-                            locationNotFound = false
+                .padding(.vertical, editingTask ? 80 : 10)
+                .navigationBarTitle("", displayMode: .inline)
+                .navigationBarItems(leading: Button(action: {
+                    if (!editingTask) {
+                        display = false
+                    }
+                    }) {
+                    if (!editingTask) {
+                        Image(systemName: "chevron.left")
+                         .foregroundColor(Color.blue)
+                         .scaleEffect(1)
+                    }
+                })
+                .onChange(of: addLocationMapData.searchText, perform: {value in
+                
+                    // Searching the map with the given parameters. Applying a delay, preventing overwhelming amounts of queries in case of constant parameter change.
+                    let delay = 0.3
+                    DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                        if value == addLocationMapData.searchText {
+                            addLocationMapData.searchLocation()
                         }
-                }
+                    }
+                    
+                })
+                .onAppear(perform: {
+                    
+                    // Checking if the user has enabled location.
+                    locationManager.delegate = addLocationMapData
+                    locationManager.requestWhenInUseAuthorization()
+                    
+                })
             }
           
         }
@@ -150,6 +171,8 @@ struct AddLocationView: View {
 struct AddLocationView_Previews: PreviewProvider {
     static var moc = NSManagedObjectContext()
     static var previews: some View {
-        AddLocationView(moc: moc, display: .constant(true), location: .constant(TaskLocation()))
+        Group {
+            AddLocationView(moc: moc, display: .constant(true), location: .constant(TaskLocation()), editingTask: .constant(false))
+        }
     }
 }

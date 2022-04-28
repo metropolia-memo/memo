@@ -19,20 +19,20 @@
         <attribute name="desc" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="steps" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Step" inverseName="origin" inverseEntity="Step"/>
-        <relationship name="taskLocation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TaskLocation" inverseName="taskLocation" inverseEntity="TaskLocation"/>
+        <relationship name="steps" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Step" inverseName="origin" inverseEntity="Step"/>
+        <relationship name="taskLocation" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="TaskLocation" inverseName="taskLocation" inverseEntity="TaskLocation"/>
     </entity>
     <entity name="TaskLocation" representedClassName="TaskLocation" syncable="YES">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="taskLocation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Task" inverseName="taskLocation" inverseEntity="Task"/>
+        <relationship name="taskLocation" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Task" inverseName="taskLocation" inverseEntity="Task"/>
     </entity>
     <elements>
         <element name="Note" positionX="-63" positionY="-9" width="128" height="104"/>
         <element name="Step" positionX="-54" positionY="18" width="128" height="89"/>
-        <element name="Task" positionX="-63" positionY="-18" width="128" height="119"/>
+        <element name="Task" positionX="-63" positionY="-18" width="128" height="134"/>
         <element name="TaskLocation" positionX="-54" positionY="36" width="128" height="104"/>
     </elements>
 </model>

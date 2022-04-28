@@ -30,16 +30,11 @@ struct HomeFooterView: View {
     // Tasks == true, Notes == false
     @State private var taskOrNote: Bool = false
     
+    @State private var displayLocationWindow = false
+    
     var body: some View {
         ZStack {
             VStack (alignment: .leading){
-                HStack {
-                    TextField(!taskOrNote ? "Search tasks..." : "Search notes...", text: $searchInput)
-                        .textFieldStyle(.roundedBorder)
-                    Image(systemName: "magnifyingglass")
-                        .foregroundColor(Color.accentColor)
-                }
-                .padding()
                 HStack {
                     Spacer()
                     Button(action: { taskOrNote = false }, label: {
@@ -70,10 +65,15 @@ struct HomeFooterView: View {
                         LazyHStack {
                             ForEach(tasks) { task in
                                 if (task == tasks[0]) {
+                                    NavigationLink(destination: Tasks(moc: moc, task: task).environment(\.managedObjectContext, dataController.container.viewContext)) {
                                         TaskRow(task: task, tasks: tasks, first: true)
-                                    } else {
+                                    }
+                                        
+                                } else {
+                                    NavigationLink(destination: Tasks(moc: moc, task: task).environment(\.managedObjectContext, dataController.container.viewContext)) {
                                         TaskRow(task: task, tasks: tasks, first: false)
                                     }
+                                }
                             }
                         }
                         .padding()
@@ -91,7 +91,9 @@ struct HomeFooterView: View {
                                         .font(.caption)
                                 } else {
                                     ForEach(withinTwo) { task in
-                                        UpcomingTaskRow(task: task)
+                                        NavigationLink(destination: Tasks(moc: moc, task: task).environment(\.managedObjectContext, dataController.container.viewContext)) {
+                                            UpcomingTaskRow(task: task)
+                                        }
                                     }
                                 }
                             }
@@ -105,7 +107,7 @@ struct HomeFooterView: View {
                         ScrollView {
                             LazyVStack {
                                 ForEach(notes) { note in
-                                    NavigationLink(destination: NoteView(note: note).environment(\.managedObjectContext, dataController.container.viewContext)) {
+                                    NavigationLink(destination: NoteView(moc: moc, note: note).environment(\.managedObjectContext, dataController.container.viewContext)) {
                                         VStack(alignment: .leading) {
                                             Text("\(note.title)")
                                                 .font(.title)
@@ -139,7 +141,7 @@ struct HomeFooterView: View {
                     Spacer()
                     // Add task button
                     if !taskOrNote {
-                        NavigationLink(destination: AddTaskView(moc: moc).environment(\.managedObjectContext, dataController.container.viewContext)) {
+                        NavigationLink(destination: AddTaskView(displayLocationWindow: $displayLocationWindow, editingTask: .constant(false), editableTask: .constant(nil), moc: moc)) {
                             ZStack {
                                 Circle()
                                     .fill(Color.cyan)
