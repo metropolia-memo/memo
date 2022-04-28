@@ -22,6 +22,9 @@ struct MapView: View {
     let task: Task
     @StateObject private var viewModel = MapViewModel()
     
+    @State private var region: MKCoordinateRegion
+    var latitude: Double
+    var longitude: Double
     
     public var screenHeight: CGFloat {
         return UIScreen.main.bounds.height
@@ -30,13 +33,15 @@ struct MapView: View {
         return UIScreen.main.bounds.width
     }
     
+    init(task: Task) {
+        self.task = task
+        self.latitude = task.taskLocation?.latitude ?? 0
+        self.longitude = task.taskLocation?.longitude ?? 0
+        region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+    }
     
     
     var body: some View {
-        
-        let latitude = task.taskLocation?.latitude ?? 0
-        let longitude = task.taskLocation?.longitude ?? 0
-        
         //Holds a location which can be pinned in the map
         let taskPlace = [
             Place(name: task.name!, coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
@@ -46,7 +51,7 @@ struct MapView: View {
         HStack(spacing: 0) {
 
             
-            Map(coordinateRegion: $viewModel.region, showsUserLocation: true, annotationItems: taskPlace, annotationContent: { place in MapAnnotation(coordinate: place.coordinate) {
+            Map(coordinateRegion: $region, showsUserLocation: true, annotationItems: taskPlace, annotationContent: { place in MapAnnotation(coordinate: place.coordinate) {
                 CustomAnnotation()
                 }
             })
