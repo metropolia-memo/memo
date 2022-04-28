@@ -2,7 +2,7 @@
 //  Note+CoreDataProperties.swift
 //  Memo
 //
-//  Created by iosdev on 20.4.2022.
+//  Created by Markus Nivasalo on 20.4.2022.
 //
 //
 

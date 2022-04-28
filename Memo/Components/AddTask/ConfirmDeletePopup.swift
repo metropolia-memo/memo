@@ -126,8 +126,3 @@ struct ConfirmDeletePopup: View {
     }
 }
 
-struct ConfirmDeletePopup_Previews: PreviewProvider {
-    static var previews: some View {
-        ConfirmDeletePopup(display: .constant(true), editingTask: .constant(false), addedSteps: .constant([Step()]), step: .constant(Step()), task: .constant(nil), moc: NSManagedObjectContext())
-    }
-}

@@ -2,7 +2,7 @@
 //  Step+CoreDataProperties.swift
 //  Memo
 //
-//  Created by iosdev on 6.4.2022.
+//  Created by Oskari Arponen on 6.4.2022.
 //
 //
 
@@ -25,8 +25,7 @@ extension Step {
 
 extension Step : Identifiable {
     
-    public var wrappedDesc : String {
-        desc ?? "Unknown step"
-    }
+    // Used for nil coalescing.
+    public var wrappedDesc : String {desc ?? "Unknown step"}
     
 }

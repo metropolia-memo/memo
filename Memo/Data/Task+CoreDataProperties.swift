@@ -2,7 +2,7 @@
 //  Task+CoreDataProperties.swift
 //  Memo
 //
-//  Created by iosdev on 7.4.2022.
+//  Created by Oskari Arponen on 7.4.2022.
 //
 //
 
@@ -26,7 +26,8 @@ extension Task {
 
 }
 
-// MARK: Generated accessors for steps
+
+// Generated accessors for steps
 extension Task {
 
     @objc(addStepsObject:)
@@ -43,21 +44,15 @@ extension Task {
 
 }
 
+
 // Creating wrapped values, in order to handle nil coalescing.
 extension Task : Identifiable {
 
-    public var wrappedName : String {
-        name ?? "Name not found"
-    }
+    public var wrappedName : String {name ?? "Name not found"}
+    public var wrappedDesc : String {desc ?? ""}
+    public var wrappedId : UUID {id ?? UUID()}
     
-    public var wrappedDesc : String {
-        desc ?? ""
-    }
-    
-    public var wrappedId : UUID {
-        id ?? UUID()
-    }
-    
+    // Returns an array of Step objects. Used in ForEach views.
     public var stepsArray : [Step] {
         let s = steps as? Set<Step> ?? []
         return s.sorted {
@@ -65,6 +60,7 @@ extension Task : Identifiable {
         }
     }
     
+    // Returns true if the deadline is within 48 hours.
     public var withinTwo : Bool {
         if (deadline != nil) {
             return (deadline! < Date().addingTimeInterval(172800) && deadline! > Date())
@@ -73,5 +69,4 @@ extension Task : Identifiable {
             return false
         }
     }
-    
 }

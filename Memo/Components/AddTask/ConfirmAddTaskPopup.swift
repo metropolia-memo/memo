@@ -71,18 +71,12 @@ struct ConfirmAddTaskPopup: View {
                   
           
             }
-                .frame(maxWidth: .infinity)
+            .frame(maxWidth: .infinity)
             .background(Color(red: 242/255, green: 242/255, blue: 242/255))
             .cornerRadius(30)
             .shadow(radius: 50)
             .padding()
         }
     }
-    }
-}
-
-struct ConfirmAddTaskPopup_Previews: PreviewProvider {
-    static var previews: some View {
-        ConfirmAddTaskPopup(display: .constant(true), taskTitle: .constant("Preview title"), saveTaskToCoreData: {})
     }
 }

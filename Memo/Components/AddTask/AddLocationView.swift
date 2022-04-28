@@ -167,12 +167,3 @@ struct AddLocationView: View {
   
     }
 }
-
-struct AddLocationView_Previews: PreviewProvider {
-    static var moc = NSManagedObjectContext()
-    static var previews: some View {
-        Group {
-            AddLocationView(moc: moc, display: .constant(true), location: .constant(TaskLocation()), editingTask: .constant(false))
-        }
-    }
-}

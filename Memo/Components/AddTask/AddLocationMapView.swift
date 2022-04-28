@@ -41,6 +41,7 @@ class AddLocationMapViewModel: NSObject, ObservableObject, CLLocationManagerDele
     @Published var taskPlaces : [TaskPlace] = []
     @Published var selectedLocation : TaskPlace?
     
+    // Sets an annotation to the selected place and moves the map to it.
     func selectFoundLocation(place: TaskPlace) {
         
         searchText = ""

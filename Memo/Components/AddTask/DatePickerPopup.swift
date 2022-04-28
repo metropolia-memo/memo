@@ -30,7 +30,6 @@ struct DatePickerPopup: View {
                         .labelsHidden()
                         .datePickerStyle(WheelDatePickerStyle())
                     
-                   
                     Button(action: {withAnimation(.linear(duration: 0.3)) {
                         display = false                       }}) {
                         Text("Done")
@@ -40,25 +39,14 @@ struct DatePickerPopup: View {
                             .background(Color.blue)
                             .contentShape(Rectangle())
                     }
-                    
-                  
-                        
-          
-            }
+                }
                 .frame(maxWidth: .infinity)
-            .background(Color(red: 249, green: 249, blue: 249))
-            .cornerRadius(30)
-            .shadow(radius: 50)
-            .padding()
+                .background(Color(red: 249, green: 249, blue: 249))
+                .cornerRadius(30)
+                .shadow(radius: 50)
+                .padding()
+            }
         }
     }
-}
 
-struct DatePickerPopup_Previews:
-    PreviewProvider {
-
-    static var previews: some View {
-        DatePickerPopup(display: .constant(true), taskDeadline: .constant(Date()))
-    }
-    }
 }

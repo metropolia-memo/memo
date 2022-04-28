@@ -2,7 +2,7 @@
 //  TaskLocation+CoreDataProperties.swift
 //  Memo
 //
-//  Created by iosdev on 19.4.2022.
+//  Created by Oskari Arponen on 19.4.2022.
 //
 //
 

@@ -126,10 +126,3 @@ struct StepView: View {
     }
     
 }
-
-struct StepView_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        StepView(step: Step(), displayDeleteWindow: .constant(false), displayEditWindow: .constant(false), deletableStep: .constant(Step()), editableStep: .constant(Step()), editingTask: .constant(false))
-    }
-}
