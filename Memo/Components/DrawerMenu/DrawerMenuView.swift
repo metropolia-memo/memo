@@ -12,6 +12,7 @@ import SwiftUI
 struct DrawerMenuView: View {
     
     @EnvironmentObject var drawerMenuState: DrawerMenuState
+    @StateObject private var dataController = DataController()
     
     var body: some View {
         ZStack {
@@ -19,13 +20,14 @@ struct DrawerMenuView: View {
                 
                 // Profile area
                 VStack(alignment: .leading) {
-                    Button(action: { drawerMenuState.isOpen.toggle() }) {
-                        Image(systemName: "person.circle.fill")
-                        // TODO: Delete foregroundColor when image changed to profile photo
-                            .foregroundColor(Color.black)
-                            .frame(width: 50, height: 50)
-                            .scaleEffect(3)
+                    NavigationLink(destination: Profile().environment(\.managedObjectContext, dataController.container.viewContext)) {
+                            Image(systemName: "person.circle.fill")
+                            // TODO: Delete foregroundColor when image changed to profile photo
+                                .foregroundColor(Color.white)
+                                .frame(width: 50, height: 50)
+                                .scaleEffect(3)
                     }
+                    .padding(.top, 60)
                     
                     Text("John Doe")
                         .padding(.top, 25)
@@ -39,68 +41,34 @@ struct DrawerMenuView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .background(Color(red: 124/255, green: 153/255, blue: 255/255))
                 
-                // Home button
-                // DO NOT NAVIGATE, just close the modal, or core data crashes
-                HStack {
-                    Button(action: { drawerMenuState.isOpen.toggle() }) {
-                        Image(systemName: "house.fill")
-                            .resizable()
-                            .scaledToFill()
-                            .foregroundColor(Color.black)
-                            .frame(width: 25, height: 25)
-                        Text("Home")
-                            .font(.headline)
-                            .foregroundColor(Color.black)
-                    }
-                }
-                .padding(.top, 30)
-                .padding(10)
-                
                 // Profile button
-                // TODO: add navigation
                 HStack {
-                    Button(action: { drawerMenuState.isOpen.toggle() }) {
-                        Image(systemName: "person.fill")
-                            .resizable()
-                            .scaledToFill()
-                            .foregroundColor(Color.black)
-                            .frame(width: 25, height: 25)
-                        Text("Profile")
-                            .font(.headline)
-                            .foregroundColor(Color.black)
+                    NavigationLink(destination: Profile()
+                                    .environment(\.managedObjectContext, dataController.container.viewContext)
+                                    .onAppear {
+                        drawerMenuState.isOpen.toggle()
+                        
+                    }) {
+                            ProfileButton()
                     }
                 }
                 .padding(10)
                 
                 // History button
-                // TODO: add navigation
                 HStack {
                     Button(action: { drawerMenuState.isOpen.toggle() }) {
-                        Image(systemName: "clock")
-                            .resizable()
-                            .scaledToFill()
-                            .foregroundColor(Color.black)
-                            .frame(width: 25, height: 25)
-                        Text("History")
-                            .font(.headline)
-                            .foregroundColor(Color.black)
-                        
+                        HistoryButton()
                     }
                 }
                 .padding(10)
                 Divider()
                     .background(Color.black)
-                    .padding(.top, 30)
+                    .padding(.top, 7)
                 Spacer()
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(Color(red: 242/255, green: 242/255, blue: 242/255))
             .edgesIgnoringSafeArea(.all)
-        }
-        .toolbar {
-            ToolbarItem(placement: .cancellationAction) {
-                DrawerMenuToggleButton()
-            }
         }
     }
 }

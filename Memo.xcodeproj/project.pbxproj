@@ -33,6 +33,9 @@
 		6A92FA54280E8EBA0005A010 /* AddLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A92FA53280E8EBA0005A010 /* AddLocationView.swift */; };
 		6A92FA5F280F166F0005A010 /* TaskLocation+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A92FA5D280F166F0005A010 /* TaskLocation+CoreDataClass.swift */; };
 		6A92FA60280F166F0005A010 /* TaskLocation+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A92FA5E280F166F0005A010 /* TaskLocation+CoreDataProperties.swift */; };
+		6AA132AB281AEF6300875C7F /* HomeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA132AA281AEF6300875C7F /* HomeButton.swift */; };
+		6AA132AD281AEF9A00875C7F /* ProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA132AC281AEF9A00875C7F /* ProfileButton.swift */; };
+		6AA132AF281AEFF200875C7F /* HistoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA132AE281AEFF200875C7F /* HistoryButton.swift */; };
 		6AA903C2280546D200FF4214 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA903C1280546D200FF4214 /* Profile.swift */; };
 		6AA903C4280547A400FF4214 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA903C3280547A400FF4214 /* ProfileView.swift */; };
 		6AD7D39127FDB5E100B657B4 /* Step+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD7D38D27FDB5E100B657B4 /* Step+CoreDataClass.swift */; };
@@ -96,6 +99,9 @@
 		6A92FA53280E8EBA0005A010 /* AddLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationView.swift; sourceTree = "<group>"; };
 		6A92FA5D280F166F0005A010 /* TaskLocation+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskLocation+CoreDataClass.swift"; sourceTree = "<group>"; };
 		6A92FA5E280F166F0005A010 /* TaskLocation+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskLocation+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		6AA132AA281AEF6300875C7F /* HomeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeButton.swift; sourceTree = "<group>"; };
+		6AA132AC281AEF9A00875C7F /* ProfileButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileButton.swift; sourceTree = "<group>"; };
+		6AA132AE281AEFF200875C7F /* HistoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryButton.swift; sourceTree = "<group>"; };
 		6AA903C1280546D200FF4214 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		6AA903C3280547A400FF4214 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		6AD7D38D27FDB5E100B657B4 /* Step+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Step+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -147,6 +153,9 @@
 				6A0B672628103BD000992CE6 /* DrawerMenuView.swift */,
 				EF05519C281AC1FB00DEACB9 /* DrawerMenuToggleButton.swift */,
 				EF05519E281AC31400DEACB9 /* DrawerMenuContainer.swift */,
+				6AA132AA281AEF6300875C7F /* HomeButton.swift */,
+				6AA132AC281AEF9A00875C7F /* ProfileButton.swift */,
+				6AA132AE281AEFF200875C7F /* HistoryButton.swift */,
 			);
 			path = DrawerMenu;
 			sourceTree = "<group>";
@@ -460,6 +469,7 @@
 				6A92FA54280E8EBA0005A010 /* AddLocationView.swift in Sources */,
 				6A0323092804729E000B1B21 /* ContentView.swift in Sources */,
 				6ADBDD2227FF082000EFF647 /* HomeFooterView.swift in Sources */,
+				6AA132AB281AEF6300875C7F /* HomeButton.swift in Sources */,
 				6AA903C2280546D200FF4214 /* Profile.swift in Sources */,
 				6AF9D7ED27FEF49B00CEB68A /* Home.swift in Sources */,
 				6A59F8AC280EA6F000706B98 /* UpcomingTaskRow.swift in Sources */,
@@ -470,9 +480,11 @@
 				6AD7D39F27FF053B00B657B4 /* Task+CoreDataProperties.swift in Sources */,
 				6A0B672728103BD000992CE6 /* DrawerMenuView.swift in Sources */,
 				6AD7D3A22800319C00B657B4 /* DatePickerPopup.swift in Sources */,
+				6AA132AD281AEF9A00875C7F /* ProfileButton.swift in Sources */,
 				6AF9D7ED27FEF49B00CEB68A /* Home.swift in Sources */,
 				6A92FA5F280F166F0005A010 /* TaskLocation+CoreDataClass.swift in Sources */,
 				6A0323062804718A000B1B21 /* DataController.swift in Sources */,
+				6AA132AF281AEFF200875C7F /* HistoryButton.swift in Sources */,
 				6A8D220427FAEA22002AC898 /* MemoApp.swift in Sources */,
 				6A03231028082485000B1B21 /* StepView.swift in Sources */,
 				6AD7D39127FDB5E100B657B4 /* Step+CoreDataClass.swift in Sources */,
