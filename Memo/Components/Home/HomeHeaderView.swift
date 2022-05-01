@@ -20,9 +20,8 @@ struct HomeHeaderView: View {
                         .font(.caption)
                 }
                 NavigationLink(destination: Profile().environment(\.managedObjectContext, dataController.container.viewContext)) {
-                    Image(systemName: "person.circle.fill")
+                    ProfilePicture()
                         .frame(width: 100, height: 100)
-                        .scaleEffect(5)
                 }
             }
             .fixedSize()
