@@ -20,6 +20,30 @@ class UserSettings: ObservableObject {
         }
     }
     
+    @Published var nickname: String {
+        didSet {
+            UserDefaults.standard.set(nickname, forKey: "nickname")
+        }
+    }
+    
+    @Published var notifications: Bool {
+        didSet {
+            UserDefaults.standard.set(notifications, forKey: "notifications")
+        }
+    }
+    
+    @Published var darkmode: Bool {
+        didSet {
+            UserDefaults.standard.set(darkmode, forKey: "darkmode")
+        }
+    }
+    
+    @Published var location: Bool {
+        didSet {
+            UserDefaults.standard.set(location, forKey: "location")
+        }
+    }
+    
     init() {
         let data = UserDefaults.standard.data(forKey: "image")
         if let data = data {
@@ -28,5 +52,10 @@ class UserSettings: ObservableObject {
                 self.image = image
             }
         }
+        self.nickname = UserDefaults.standard.string(forKey: "nickname") ?? ""
+        self.notifications = UserDefaults.standard.bool(forKey: "notifications")
+        self.darkmode = UserDefaults.standard.bool(forKey: "darkmode")
+        self.location = UserDefaults.standard.bool(forKey: "location")
     }
+    
 }

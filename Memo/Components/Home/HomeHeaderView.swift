@@ -8,13 +8,17 @@
 import SwiftUI
 
 struct HomeHeaderView: View {
+    
     @StateObject private var dataController = DataController()
     @ObservedObject var api : QuoteApi = QuoteApi()
+    
+    @EnvironmentObject private var userSettings: UserSettings
+    
     var body: some View {
         VStack(spacing: 0) {
             HStack {
                 VStack(alignment: .leading) {
-                    Text("Welcome back, John")
+                    Text(userSettings.nickname != "" ? "Welcome back, \(userSettings.nickname)" : "Welcome back")
                         .font(.system(size: 28))
                     Text("Last visit: 15/03/2022")
                         .font(.caption)
