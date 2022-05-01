@@ -12,15 +12,16 @@ struct MemoApp: App {
     
     @StateObject private var dataController = DataController()
     @StateObject private var drawerMenuState = DrawerMenuState()
+    @StateObject private var userSettings = UserSettings()
     
     var body: some Scene {
         WindowGroup {
             NavigationView {
                 ContentView()
-                    
             }
             .environment(\.managedObjectContext, dataController.container.viewContext)
             .environmentObject(drawerMenuState)
+            .environmentObject(userSettings)
         }
     }
 }

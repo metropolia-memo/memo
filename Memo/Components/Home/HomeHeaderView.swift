@@ -8,21 +8,24 @@
 import SwiftUI
 
 struct HomeHeaderView: View {
+    
     @StateObject private var dataController = DataController()
     @ObservedObject var api : QuoteApi = QuoteApi()
+    
+    @EnvironmentObject private var userSettings: UserSettings
+    
     var body: some View {
         VStack(spacing: 0) {
             HStack {
                 VStack(alignment: .leading) {
-                    Text("Welcome back, John")
+                    Text(userSettings.nickname != "" ? "Welcome back, \(userSettings.nickname)" : "Welcome back")
                         .font(.system(size: 28))
                     Text("Last visit: 15/03/2022")
                         .font(.caption)
                 }
                 NavigationLink(destination: Profile().environment(\.managedObjectContext, dataController.container.viewContext)) {
-                    Image(systemName: "person.circle.fill")
+                    ProfilePicture()
                         .frame(width: 100, height: 100)
-                        .scaleEffect(5)
                 }
             }
             .fixedSize()

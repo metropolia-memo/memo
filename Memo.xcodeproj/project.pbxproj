@@ -36,10 +36,10 @@
 		6A92FA54280E8EBA0005A010 /* AddLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A92FA53280E8EBA0005A010 /* AddLocationView.swift */; };
 		6A92FA5F280F166F0005A010 /* TaskLocation+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A92FA5D280F166F0005A010 /* TaskLocation+CoreDataClass.swift */; };
 		6A92FA60280F166F0005A010 /* TaskLocation+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A92FA5E280F166F0005A010 /* TaskLocation+CoreDataProperties.swift */; };
+		6A92FA63281808440005A010 /* AddLocationMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A92FA62281808440005A010 /* AddLocationMapView.swift */; };
 		6AA132AB281AEF6300875C7F /* HomeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA132AA281AEF6300875C7F /* HomeButton.swift */; };
 		6AA132AD281AEF9A00875C7F /* ProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA132AC281AEF9A00875C7F /* ProfileButton.swift */; };
 		6AA132AF281AEFF200875C7F /* HistoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA132AE281AEFF200875C7F /* HistoryButton.swift */; };
-		6A92FA63281808440005A010 /* AddLocationMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A92FA62281808440005A010 /* AddLocationMapView.swift */; };
 		6AA903C2280546D200FF4214 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA903C1280546D200FF4214 /* Profile.swift */; };
 		6AA903C4280547A400FF4214 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA903C3280547A400FF4214 /* ProfileView.swift */; };
 		6AA903C928112E2400FF4214 /* Tasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA903C828112E2300FF4214 /* Tasks.swift */; };
@@ -60,6 +60,10 @@
 		EF05519B281ABFF200DEACB9 /* DrawerMenuState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF05519A281ABFF200DEACB9 /* DrawerMenuState.swift */; };
 		EF05519D281AC1FB00DEACB9 /* DrawerMenuToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF05519C281AC1FB00DEACB9 /* DrawerMenuToggleButton.swift */; };
 		EF05519F281AC31400DEACB9 /* DrawerMenuContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF05519E281AC31400DEACB9 /* DrawerMenuContainer.swift */; };
+		EF530D3C281C271100AA06A8 /* ImagePickerModule in Frameworks */ = {isa = PBXBuildFile; productRef = EF530D3B281C271100AA06A8 /* ImagePickerModule */; };
+		EF530D3E281EB91600AA06A8 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF530D3D281EB91600AA06A8 /* UserSettings.swift */; };
+		EF530D40281EC07E00AA06A8 /* ProfilePicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF530D3F281EC07E00AA06A8 /* ProfilePicture.swift */; };
+		EF530D42281EDEFC00AA06A8 /* ProfileSettingToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF530D41281EDEFC00AA06A8 /* ProfileSettingToggle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,10 +114,10 @@
 		6A92FA53280E8EBA0005A010 /* AddLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationView.swift; sourceTree = "<group>"; };
 		6A92FA5D280F166F0005A010 /* TaskLocation+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskLocation+CoreDataClass.swift"; sourceTree = "<group>"; };
 		6A92FA5E280F166F0005A010 /* TaskLocation+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskLocation+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		6A92FA62281808440005A010 /* AddLocationMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationMapView.swift; sourceTree = "<group>"; };
 		6AA132AA281AEF6300875C7F /* HomeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeButton.swift; sourceTree = "<group>"; };
 		6AA132AC281AEF9A00875C7F /* ProfileButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileButton.swift; sourceTree = "<group>"; };
 		6AA132AE281AEFF200875C7F /* HistoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryButton.swift; sourceTree = "<group>"; };
-		6A92FA62281808440005A010 /* AddLocationMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationMapView.swift; sourceTree = "<group>"; };
 		6AA903C1280546D200FF4214 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		6AA903C3280547A400FF4214 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		6AA903C828112E2300FF4214 /* Tasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tasks.swift; sourceTree = "<group>"; };
@@ -135,6 +139,9 @@
 		EF05519A281ABFF200DEACB9 /* DrawerMenuState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerMenuState.swift; sourceTree = "<group>"; };
 		EF05519C281AC1FB00DEACB9 /* DrawerMenuToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerMenuToggleButton.swift; sourceTree = "<group>"; };
 		EF05519E281AC31400DEACB9 /* DrawerMenuContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerMenuContainer.swift; sourceTree = "<group>"; };
+		EF530D3D281EB91600AA06A8 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
+		EF530D3F281EC07E00AA06A8 /* ProfilePicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePicture.swift; sourceTree = "<group>"; };
+		EF530D41281EDEFC00AA06A8 /* ProfileSettingToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingToggle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +149,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF530D3C281C271100AA06A8 /* ImagePickerModule in Frameworks */,
 				6A59F8A52806DA4100706B98 /* SwiftyJSON in Frameworks */,
 				6A59F8A82806E08800706B98 /* Alamofire in Frameworks */,
 			);
@@ -262,6 +270,8 @@
 			isa = PBXGroup;
 			children = (
 				6AA903C3280547A400FF4214 /* ProfileView.swift */,
+				EF530D3F281EC07E00AA06A8 /* ProfilePicture.swift */,
+				EF530D41281EDEFC00AA06A8 /* ProfileSettingToggle.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -320,7 +330,6 @@
 				6A4E5136280EC52F005C1664 /* AddNoteView.swift */,
 				6AD7D39427FE278E00B657B4 /* AddTaskView.swift */,
 				6A59F8B5281692DD00706B98 /* ModifyNoteView.swift */,
-				6AA903C1280546D200FF4214 /* Profile.swift */,
 				6AF9D7EC27FEF49B00CEB68A /* Home.swift */,
 				6A4E5134280EC3FE005C1664 /* NoteView.swift */,
 				6A59F8B72817DCA300706B98 /* History.swift */,
@@ -358,6 +367,7 @@
 			isa = PBXGroup;
 			children = (
 				EF05519A281ABFF200DEACB9 /* DrawerMenuState.swift */,
+				EF530D3D281EB91600AA06A8 /* UserSettings.swift */,
 			);
 			path = Observables;
 			sourceTree = "<group>";
@@ -381,6 +391,7 @@
 			packageProductDependencies = (
 				6A59F8A42806DA4100706B98 /* SwiftyJSON */,
 				6A59F8A72806E08800706B98 /* Alamofire */,
+				EF530D3B281C271100AA06A8 /* ImagePickerModule */,
 			);
 			productName = Memo;
 			productReference = 6A8D220027FAEA22002AC898 /* Memo.app */;
@@ -457,6 +468,7 @@
 			packageReferences = (
 				6A59F8A32806DA4100706B98 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				6A59F8A62806E08800706B98 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				EF530D3A281C271100AA06A8 /* XCRemoteSwiftPackageReference "image-picker-module" */,
 			);
 			productRefGroup = 6A8D220127FAEA22002AC898 /* Products */;
 			projectDirPath = "";
@@ -503,6 +515,7 @@
 				6A03230E28061C61000B1B21 /* ConfirmAddTaskPopup.swift in Sources */,
 				6A59F8B3280FFC8700706B98 /* Note+CoreDataClass.swift in Sources */,
 				6ADBDD2027FF02D400EFF647 /* TempTaskStepNote.swift in Sources */,
+				EF530D42281EDEFC00AA06A8 /* ProfileSettingToggle.swift in Sources */,
 				6A59F8B82817DCA300706B98 /* History.swift in Sources */,
 				6AF9D7F127FEF4F300CEB68A /* HomeHeaderView.swift in Sources */,
 				6A59F8B4280FFC8700706B98 /* Note+CoreDataProperties.swift in Sources */,
@@ -513,6 +526,7 @@
 				6A92FA54280E8EBA0005A010 /* AddLocationView.swift in Sources */,
 				6AA903CF2811341B00FF4214 /* MapView.swift in Sources */,
 				6A0323092804729E000B1B21 /* ContentView.swift in Sources */,
+				EF530D3E281EB91600AA06A8 /* UserSettings.swift in Sources */,
 				6AA903D62817FF0100FF4214 /* CustomAnnotation.swift in Sources */,
 				6ADBDD2227FF082000EFF647 /* HomeFooterView.swift in Sources */,
 				6AA132AB281AEF6300875C7F /* HomeButton.swift in Sources */,
@@ -547,6 +561,7 @@
 				6AD7D39227FDB5E100B657B4 /* Step+CoreDataProperties.swift in Sources */,
 				6A92FA63281808440005A010 /* AddLocationMapView.swift in Sources */,
 				6A92FA60280F166F0005A010 /* TaskLocation+CoreDataProperties.swift in Sources */,
+				EF530D40281EC07E00AA06A8 /* ProfilePicture.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -891,6 +906,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		EF530D3A281C271100AA06A8 /* XCRemoteSwiftPackageReference "image-picker-module" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/swiftui-packages/image-picker-module.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -903,6 +926,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6A59F8A62806E08800706B98 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		EF530D3B281C271100AA06A8 /* ImagePickerModule */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EF530D3A281C271100AA06A8 /* XCRemoteSwiftPackageReference "image-picker-module" */;
+			productName = ImagePickerModule;
 		};
 /* End XCSwiftPackageProductDependency section */
 
