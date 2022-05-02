@@ -18,14 +18,17 @@ struct SlideUp: View {
     @State private var lastOffset: CGFloat = .zero
     @State var show = false
     
-    @Binding var task: Task?
-    
+    @ObservedObject var task: Task
+    @State var steps: [Step]
     var moc : NSManagedObjectContext
     
-    var body: some View {
-        
-        let steps = task?.stepsArray ?? []
-        
+    init(task: Task, moc: NSManagedObjectContext) {
+        self.moc = moc
+        self.task = task
+        steps = task.stepsArray ?? []
+    }
+    
+    var body: some View {        
         
         GeometryReader { geometry in
             VStack (spacing: 30) {
@@ -33,7 +36,7 @@ struct SlideUp: View {
                     .frame(width: 150, height: 2)
             
                 HStack() {
-                    Text(task?.name ?? "Unknown")
+                    Text(task.name ?? "Unknown")
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .font(.system(size: 22, weight: .heavy))
                     Button {
@@ -44,8 +47,8 @@ struct SlideUp: View {
                         .frame(maxWidth: .infinity, alignment: .trailing)
                         .frame(width: 40, height: 40)
                 }
-                if (task?.deadline != nil) {
-                    Text("Deadline \(task?.deadline ?? Date(), style: .date)")
+                if (task.deadline != nil) {
+                    Text("Deadline \(task.deadline ?? Date(), style: .date)")
                         .frame(maxWidth: .infinity, alignment: .leading)
                      
                 } else {
@@ -58,54 +61,57 @@ struct SlideUp: View {
                     Image(systemName: "pin.fill")
                         .font(.system(size: 18))
                         .foregroundColor(Color(.systemBlue))
-                    let location = task?.taskLocation?.name ?? "No location given."
+                    let location = task.taskLocation?.name ?? "No location given."
                     Text(location)
                         .font(.system(size: 18, weight: .heavy))
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
-                Text(task?.desc ?? "Description not found")
+                Text(task.desc ?? "Description not found")
                     .font(.system(size: 16, weight: .heavy))
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                VStack() {
-                    ForEach(steps) {step in
-                        HStack(){
-                        Button {
-                            do {
-                                step.completed.toggle()
-                                try moc.save()
-                            } catch {
-                                print("Failed to save step to Core Data. \(error)")
+                ScrollView {
+                    VStack() {
+                        ForEach(steps) {step in
+                            HStack(){
+                            Button {
+                                do {
+                                    step.completed.toggle()
+                                    try moc.save()
+                                } catch {
+                                    print("Failed to save step to Core Data. \(error)")
+                                }
+       
+                            } label: {
+                                if (step.completed == true) {
+                                    Image(systemName: "chevron.down.circle.fill")
+                                        .font(.system(size: 25))
+                                        .foregroundColor(Color(.systemBlue))
+                                } else {
+                                    Image(systemName: "chevron.down.circle")
+                                        .font(.system(size: 25))
+                                        .foregroundColor(Color(.systemBlue))
+                                }
                             }
-   
-                        } label: {
-                            if (step.completed == true) {
-                                Image(systemName: "chevron.down.circle.fill")
-                                    .font(.system(size: 25))
-                                    .foregroundColor(Color(.systemBlue))
-                            } else {
-                                Image(systemName: "chevron.down.circle")
-                                    .font(.system(size: 25))
-                                    .foregroundColor(Color(.systemBlue))
+                            Text(step.desc!)
+                                .font(.system(size: 20))
+                                
+                                
+                            }.frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.bottom, 8)
+                            
+                            if(step != steps[steps.count-1])  {
+                            Image(systemName: "arrow.down")
+                                .font(.system(size: 15))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 7)
+                                .padding(.bottom, 2)
                             }
                         }
-                        Text(step.desc!)
-                            .font(.system(size: 20))
-                            
-                            
-                        }.frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.bottom, 8)
-                        
-                        if(step != steps[steps.count-1])  {
-                        Image(systemName: "arrow.down")
-                            .font(.system(size: 15))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.leading, 7)
-                            .padding(.bottom, 2)
-                        }
-                    }
-                } .frame(maxWidth: .infinity, alignment: .leading)
+                    } .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                
                 
                 
                 Spacer()
@@ -117,7 +123,7 @@ struct SlideUp: View {
             .animation(.interactiveSpring(), value: show)
             .onAppear {
                 self.offsets = (
-                    top: geometry.size.height / 1.8,
+                    top: geometry.size.height / 3,
                     middle: geometry.size.height / 2,
                     bottom: geometry.size.height * 3 / 3.2
                 )
