@@ -11,6 +11,7 @@ import CoreData
 struct Tasks: View {
     
     var moc : NSManagedObjectContext
+    @ObservedObject var updatedTask : Task
     @State var task : Task?
     @State var editingTask = false
     @State var displayLocationWindow = false
@@ -20,7 +21,7 @@ struct Tasks: View {
             ZStack {
 
                 MapView(task: $task)
-                SlideUp(task: $task, moc: moc)
+                SlideUp(task: updatedTask, moc: moc)
                 
                 if (editingTask) {
                     AddTaskView(displayLocationWindow: $displayLocationWindow, editingTask: $editingTask, editableTask: $task, moc: moc)
