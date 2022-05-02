@@ -19,18 +19,18 @@ struct HomeHeaderView: View {
     var body: some View {
         VStack(spacing: 0) {
             HStack {
-                VStack(alignment: .leading) {
-                    Text(userSettings.nickname != "" ? "Welcome back, \(userSettings.nickname)" : "Welcome back")
-                        .font(.system(size: 28))
-                    Text("Last visit: 15/03/2022")
-                        .font(.caption)
-                }
+                Text(userSettings.nickname != "" ? "Welcome back, \(userSettings.nickname)!" : "Welcome back!")
+                    .font(.system(size: 28))
+                    .multilineTextAlignment(.leading)
+                    .frame(width: 200)
                 NavigationLink(destination: Profile().environment(\.managedObjectContext, dataController.container.viewContext)) {
                     ProfilePicture()
-                        .frame(width: 100, height: 100)
+                        .frame(width: 120, height: 120)
                 }
             }
             .fixedSize()
+            .padding(.horizontal)
+            .padding(.bottom)
             VStack(alignment: .leading){
                 Text(self.api.dailyQuote).font(.system(size: 16))
                     .italic()
@@ -44,10 +44,10 @@ struct HomeHeaderView: View {
             )
             
         }
+        .padding()
         .onAppear {
             api.callAPI()
         }
-        .padding()
     }
     
 }

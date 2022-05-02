@@ -19,14 +19,24 @@ struct ProfileView: View {
             ProfilePicture()
                 .frame(width: 200, height: 200)
                 .onTapGesture { isPickingImage.toggle() }
-            TextField("Nickname", text: $userSettings.nickname)
-                .font(.title)
-                .padding(.all, 20)
-                .frame(maxWidth: .infinity, alignment: .center)
-                .multilineTextAlignment(.center)
-            ProfileSettingToggle("Notifications", isOn: $userSettings.notifications)
-            ProfileSettingToggle("Dark mode", isOn: $userSettings.darkmode)
-            ProfileSettingToggle("Enable location", isOn: $userSettings.location)
+            VStack {
+                Text("Nickname")
+                    .font(.caption)
+                    .foregroundColor(Color.gray)
+                TextField("Nickname", text: $userSettings.nickname)
+                    .onChange(of: userSettings.nickname) { input in
+                        if input.count > 10 {
+                            userSettings.nickname.popLast()
+                        }
+                    }
+                    .font(.title)
+                    .padding(.all, 20)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .multilineTextAlignment(.center)
+                Divider()
+                    .padding(.horizontal, 30)
+            }
+            
         }
         .sheet(isPresented: $isPickingImage) {
             ImagePicker(sourceType: .photoLibrary) { userSettings.image = $0 }

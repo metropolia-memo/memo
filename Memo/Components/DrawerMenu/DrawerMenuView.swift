@@ -16,6 +16,8 @@ struct DrawerMenuView: View {
     @EnvironmentObject var drawerMenuState: DrawerMenuState
     @StateObject private var dataController = DataController()
     
+    @EnvironmentObject private var userSettings: UserSettings
+    
     var body: some View {
         ZStack {
             VStack(alignment: .leading) {
@@ -23,20 +25,18 @@ struct DrawerMenuView: View {
                 // Profile area
                 VStack(alignment: .leading) {
                     NavigationLink(destination: Profile().environment(\.managedObjectContext, dataController.container.viewContext)) {
-                            Image(systemName: "person.circle.fill")
-                            // TODO: Delete foregroundColor when image changed to profile photo
-                                .foregroundColor(Color.white)
-                                .frame(width: 50, height: 50)
+                            ProfilePicture()
+                                .frame(width: 60, height: 60)
                                 .scaleEffect(3)
                     }
                     .padding(.top, 60)
+                    .padding([.horizontal, .leading], 10)
                     
-                    Text("John Doe")
+                    Text(userSettings.nickname)
+                        .fontWeight(.bold)
                         .padding(.top, 25)
+                        .padding([.horizontal, .leading], 10)
                         .foregroundColor(Color.white)
-                    Text("john.doe@gmail.com")
-                        .font(.subheadline)
-                        .accentColor(Color.white)
                 }
                 .padding(.top, 30)
                 .padding(10)

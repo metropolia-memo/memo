@@ -32,7 +32,6 @@ struct UpcomingTaskRow: View {
         .background(Color.accentColor)
         .foregroundColor(Color.white)
         .cornerRadius(20)
-        .shadow(color: Color.gray, radius: 7)
         Spacer()
     }
 }
