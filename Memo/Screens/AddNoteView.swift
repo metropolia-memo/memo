@@ -4,12 +4,15 @@
 //
 //  Created by Sirja Kosonen on 15.4.2022.
 //
+//  Screen for creating a note
+//
 
 import SwiftUI
 import CoreData
 
 struct AddNoteView: View {
     
+    // Used for showing an alert if title is missing and toggling sensitive mode.
     @State private var note = ""
     @State private var noteTitle = ""
     @State private var showAlert = false
@@ -78,7 +81,8 @@ struct AddNoteView: View {
                         .padding(5)
                     
                     // Save button
-                    // TODO: Sending/saving the information when clicked.
+                    // Shows the alert of missing title if field is empty
+                    // Otherwise a new note is created
                     Button("Save", action: {
                         if noteTitle == "" {
                             return showAlert = true
@@ -117,11 +121,3 @@ struct AddNoteView: View {
         }
     }
 }
-
-//struct AddNoteView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NavigationView {
-//            AddNoteView()
-//        }
-//    }
-//}
