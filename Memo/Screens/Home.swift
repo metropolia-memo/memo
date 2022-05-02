@@ -4,11 +4,14 @@
 //
 //  Created by Markus Nivasalo on 7.4.2022.
 //
+//  Home screen of the application
+//
 
 import SwiftUI
 
 struct Home: View {
     
+    // Fetch tasks and notes from CoreData
     @FetchRequest var tasks: FetchedResults<Task>
     @FetchRequest var notes: FetchedResults<Note>
     
@@ -37,9 +40,3 @@ struct Home: View {
         }
     }
 }
-
-//struct Home_Previews: PreviewProvider {
-//    static var previews: some View {
-//        Home()
-//    }
-//}

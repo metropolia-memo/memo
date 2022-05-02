@@ -2,7 +2,9 @@
 //  ContentView.swift
 //  Memo
 //
-//  Created by iosdev on 4.4.2022.
+//  Created by Markus Nivasalo on 4.4.2022.
+//
+//  Main content view
 //
 
 import SwiftUI
@@ -11,7 +13,6 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             Home()
-            //DrawerMenuContainer()
         }
     }
 }

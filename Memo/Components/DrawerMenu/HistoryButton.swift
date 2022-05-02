@@ -2,7 +2,9 @@
 //  HistoryButton.swift
 //  Memo
 //
-//  Created by iosdev on 28.4.2022.
+//  Created by Sirja Kosonen on 28.4.2022.
+//
+//  History button in the drawer menu
 //
 
 import SwiftUI

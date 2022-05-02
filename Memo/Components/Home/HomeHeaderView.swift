@@ -2,7 +2,9 @@
 //  HomeHeaderView.swift
 //  Memo
 //
-//  Created by iosdev on 7.4.2022.
+//  Created by Markus Nivasalo on 7.4.2022.
+//
+//  Header portion of the Home screen
 //
 
 import SwiftUI
