@@ -4,6 +4,8 @@
 //
 //  Created by Markus Nivasalo on 4.4.2022.
 //
+//  Main application struct
+//
 
 import SwiftUI
 

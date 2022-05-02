@@ -2,7 +2,9 @@
 //  HomeButton.swift
 //  Memo
 //
-//  Created by iosdev on 28.4.2022.
+//  Created by Sirja Kosonen on 28.4.2022.
+//
+//  Home button in the drawer menu (currently not in use)
 //
 
 import SwiftUI

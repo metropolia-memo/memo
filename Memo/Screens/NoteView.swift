@@ -50,7 +50,8 @@ struct NoteView: View {
     
     func delete() {
         if (!note.isSensitive || isAuthenticated) {
-            // TODO: delete note
+            try moc.delete(note)
+            presentationMode.wrappedValue.dismiss()
         }
     }
     

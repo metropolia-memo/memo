@@ -2,7 +2,9 @@
 //  TaskRow.swift
 //  Memo
 //
-//  Created by iosdev on 17.4.2022.
+//  Created by Markus Nivasalo on 17.4.2022.
+//
+//  Singular Task item shown in the Home screen's Task portion
 //
 
 import SwiftUI

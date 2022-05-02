@@ -4,7 +4,8 @@
 //
 //  Created by Markus Nivasalo on 7.4.2022.
 //
-
+//  Footer portion of the Home screen
+//
 import SwiftUI
 import CoreData
 
@@ -171,8 +172,3 @@ struct HomeFooterView: View {
     }
 }
 
-//struct HomeFooterView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        HomeFooterView()
-//    }
-//}
