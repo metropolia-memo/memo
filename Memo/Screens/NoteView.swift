@@ -1,3 +1,12 @@
+//
+//  NoteView.swift
+//  Memo
+//
+//  Created by Sirja Kosonen on 12.4.2022.
+//
+//  Note screen displaying a certain note
+//
+
 import SwiftUI
 import CoreData
 import LocalAuthentication
@@ -104,14 +113,14 @@ struct NoteView: View {
                 Menu {
                     Button(action: { toggleSensitivity() }) {
                         note.isSensitive
-                         ? Label("Make unsecure", systemImage: "lock.open.fill")
-                         : Label("Make secure", systemImage: "lock.fill")
+                        ? Label("Make unsecure", systemImage: "lock.open.fill")
+                        : Label("Make secure", systemImage: "lock.fill")
                     }
-                        .disabled(note.isSensitive && !isAuthenticated)
+                    .disabled(note.isSensitive && !isAuthenticated)
                     Button(role: .destructive, action: { isConfirmingDelete = true }) {
                         Label("Delete", systemImage: "trash.fill")
                     }
-                        .disabled(note.isSensitive && !isAuthenticated)
+                    .disabled(note.isSensitive && !isAuthenticated)
                     Button(role: .cancel, action: {}) {
                         Label("Cancel", image: "xmark")
                     }

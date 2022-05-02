@@ -4,6 +4,7 @@
 //
 //  Created by Sirja Kosonen on 20.4.2022.
 //
+//  Drawer menu element of the application, only accessible from Home screen
 
 import Foundation
 import SwiftUI
@@ -23,11 +24,13 @@ struct DrawerMenuView: View {
             VStack(alignment: .leading) {
                 
                 // Profile area
+                // Fetches profile picture and username
+                // Navigates to profile screen if profile pic clicked
                 VStack(alignment: .leading) {
                     NavigationLink(destination: Profile().environment(\.managedObjectContext, dataController.container.viewContext)) {
-                            ProfilePicture()
-                                .frame(width: 60, height: 60)
-                                .scaleEffect(3)
+                        ProfilePicture()
+                            .frame(width: 60, height: 60)
+                            .scaleEffect(3)
                     }
                     .padding(.top, 60)
                     .padding([.horizontal, .leading], 10)
@@ -39,11 +42,12 @@ struct DrawerMenuView: View {
                         .foregroundColor(Color.white)
                 }
                 .padding(.top, 30)
+                .padding(.bottom, 10)
                 .padding(10)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .background(Color(red: 124/255, green: 153/255, blue: 255/255))
                 
-                // Profile button
+                // Profile button, nagivates to profile screen
                 HStack {
                     NavigationLink(destination: Profile()
                                     .environment(\.managedObjectContext, dataController.container.viewContext)
@@ -51,12 +55,13 @@ struct DrawerMenuView: View {
                         drawerMenuState.isOpen.toggle()
                         
                     }) {
-                            ProfileButton()
+                        ProfileButton()
                     }
                 }
                 .padding(10)
+                .padding(.top, 10)
                 
-                // History button
+                // History button, navigates to history screen
                 HStack {
                     NavigationLink(destination: History(tasks: tasks)
                                     .environment(\.managedObjectContext, dataController.container.viewContext)
@@ -79,9 +84,3 @@ struct DrawerMenuView: View {
         }
     }
 }
-
-//struct DrawerMenuView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        DrawerMenuView()
-//    }
-//}
